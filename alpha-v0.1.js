@@ -1,0 +1,1 @@
+document.addEventListener('DOMContentLoaded',function(){console.log('ENERGIM Alpha v0.1 loaded');});
