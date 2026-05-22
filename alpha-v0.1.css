@@ -1,2 +1,15 @@
 /* ENERGIM Alpha v0.1 additive upgrade layer */
-.alpha-ribbon{margin:0 0 1rem 0;padding:.85rem 1rem;border:1px solid var(--ya);background:var(--yf);color:var(--ya);border-radius:10px;font-size:12px;line-height:1.5}.alpha-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-bottom:1rem}.alpha-card{background:var(--s2);border:1px solid var(--br);border-radius:10px;padding:1rem}.alpha-card h3{font-family:var(--display);font-size:14px;margin-bottom:.35rem}.alpha-card p{font-size:12px;color:var(--t2);line-height:1.55}.alpha-card .big{font-family:var(--display);font-size:26px;font-weight:700;color:var(--bl)}
+.alpha-ribbon{margin:0 0 1rem 0;padding:.85rem 1rem;border:1px solid var(--ya);background:var(--yf);color:var(--ya);border-radius:10px;font-size:12px;line-height:1.5}
+.alpha-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-bottom:1rem}
+.alpha-card,.alpha-step,.alpha-manual-body,.alpha-manual-nav,.alpha-table-wrap{background:var(--s2);border:1px solid var(--br);border-radius:10px;padding:1rem}
+.alpha-card h3{font-family:var(--display);font-size:14px;margin-bottom:.35rem}
+.alpha-card p,.alpha-step span,.alpha-manual-body p,.alpha-manual-body li{font-size:12px;color:var(--t2);line-height:1.6}
+.alpha-card .big{font-family:var(--display);font-size:26px;font-weight:700;color:var(--bl)}
+.alpha-pill{display:inline-block;font-family:var(--mono);font-size:9px;padding:2px 6px;border-radius:4px;background:var(--s3);border:1px solid var(--br);margin:2px 3px 2px 0;color:var(--t2)}
+.alpha-pill.official{background:var(--gf);border-color:var(--gb);color:var(--ga)}.alpha-pill.warn{background:var(--yf);border-color:var(--ya);color:var(--ya)}.alpha-pill.gap{background:var(--rf);border-color:var(--rd);color:var(--ra)}
+.alpha-table-wrap{overflow:hidden;margin-bottom:1rem;padding:0}.alpha-table-scroll{overflow:auto;max-height:460px}
+.alpha-flow{display:grid;grid-template-columns:repeat(6,1fr);gap:.5rem;margin:1rem 0}.alpha-step strong{display:block;font-size:12px;font-family:var(--display);margin-bottom:.3rem}
+.alpha-manual{display:grid;grid-template-columns:260px 1fr;gap:1rem}.alpha-manual-nav{position:sticky;top:84px;align-self:start}.alpha-manual-nav a{display:block;color:var(--t2);font-size:12px;text-decoration:none;padding:.4rem .45rem;border-radius:6px}.alpha-manual-nav a:hover{background:var(--s3);color:var(--t)}
+.alpha-manual-body h2{font-family:var(--display);font-size:18px;margin:1.2rem 0 .5rem}.alpha-manual-body h2:first-child{margin-top:0}.alpha-manual-body ul{margin-left:1.2rem;margin-bottom:.75rem}
+.alpha-code{font-family:var(--mono);font-size:10px;background:var(--s3);border:1px solid var(--br);border-radius:8px;padding:.75rem;white-space:pre-wrap;overflow:auto;color:var(--t)}
+@media(max-width:1000px){.alpha-grid{grid-template-columns:1fr}.alpha-flow{grid-template-columns:1fr 1fr}.alpha-manual{grid-template-columns:1fr}.alpha-manual-nav{position:static}}
