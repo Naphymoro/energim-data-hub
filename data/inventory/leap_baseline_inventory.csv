@@ -1,0 +1,6 @@
+dataset_id,leap_branch,variable,baseline_year_start,baseline_year_end,scenario_horizon,source_priority,expected_sources,epd_gap_fill_strategy,status
+RW_BASELINE_ELECTRICITY,Transformation,electricity_generation,2015,2024,2050,high,"REG; EUCL; EDCL; MININFRA","Use EPD project disclosures to identify missing generation technologies, private projects and off-grid systems",required
+RW_BASELINE_COOKING,Households,cooking_fuels,2015,2024,2050,high,"NISR; MININFRA","Use EPD enterprise and clean-cooking project data to augment private-sector adoption trends",required
+RW_BASELINE_TRANSPORT,Transport,transport_fuels,2015,2024,2050,high,"MININFRA; RURA","Use EPD logistics and private fleet electrification evidence to augment transport transition assumptions",required
+RW_BASELINE_INDUSTRY,Industry,industrial_energy_use,2015,2024,2050,medium,"NISR; MINICOM","Use EPD industrial project and investment records to identify energy-intensive subsectors",candidate
+RW_BASELINE_MINIGRID,Transformation,mini_grid_deployment,2015,2024,2050,medium,"REG; MININFRA","EPD private project records can improve mini-grid and distributed generation coverage",candidate
