@@ -1,0 +1,58 @@
+name: ENERGIM Alpha Crawler Hunt
+
+on:
+  workflow_dispatch:
+    inputs:
+      max_sources:
+        description: Maximum number of source registry rows to crawl
+        required: false
+        default: "999"
+      max_links:
+        description: Maximum relevant same-domain links per source
+        required: false
+        default: "30"
+  schedule:
+    - cron: "0 2 * * 1"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: energim-alpha-crawler-hunt
+  cancel-in-progress: false
+
+jobs:
+  crawler-hunt:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run Crawler Hunt Mode
+        run: |
+          python scripts/energim_crawler_hunt.py \
+            --registry data/master/source_registry.csv \
+            --out data/master \
+            --max-sources "${{ github.event.inputs.max_sources || '999' }}" \
+            --max-links "${{ github.event.inputs.max_links || '30' }}" \
+            --max-depth 1 \
+            --timeout 25 \
+            --delay 0.5
+
+      - name: Commit crawler outputs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/master
+          if git diff --cached --quiet; then
+            echo "No crawler output changes to commit."
+          else
+            git commit -m "Update Alpha crawler evidence"
+            git push
+          fi
+

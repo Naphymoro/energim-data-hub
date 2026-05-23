@@ -64,6 +64,35 @@ Registered source -> document collection -> table/document extraction -> candida
 
 No collected or extracted data should enter the official baseline until reviewed.
 
+## Crawler Hunt Mode
+
+Crawler Hunt Mode searches broadly across registered Rwanda official sources, utilities, regulators, ENERGIM partners, EPD, WRI, international databases, APIs, reports, PDFs, spreadsheets, and policy pages. It stores every relevant discovery as candidate evidence in `data/master`.
+
+The crawler writes candidate records to `candidate_evidence.csv` and `evidence_records.jsonl`, updates the candidate evidence count in `data_catalog.csv`, and records run metadata in `crawler_runs.jsonl`. It does not validate, overwrite, or export modelling data.
+
+## Master data repository
+
+The master data repository is stored in `data/master` and is organized into:
+
+- raw evidence
+- extracted tables and OCR text
+- normalized LEAP, NEMO, NDC, and common datasets
+- source registry
+- data catalog
+- legacy-to-Alpha dataset crosswalk
+- validation log
+- crawler run log
+- evidence metadata
+
+## Validator quorum
+
+Every dataset must have at least three validators before it can be marked as validated for LEAP/NEMO use.
+
+- AIMS RIC is mandatory for every dataset.
+- At least two additional validators must come from approved groups such as ENERGIM partners, EPD, WRI, relevant Rwanda public institutions, or approved technical experts.
+- If validators disagree, the dataset moves to `needs_reconciliation`.
+- Without AIMS RIC approval, the dataset remains `candidate` or `under_review` regardless of other approvals.
+
 ## OCR and document extraction
 
 OCR should support scanned PDFs, annual reports, policy reports, and image-based tables. Every extraction should preserve source URL, document title, access date, page number where possible, extraction confidence, and reviewer status.

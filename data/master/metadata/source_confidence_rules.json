@@ -1,0 +1,28 @@
+{
+  "confidence_levels": {
+    "A": "Official validated data",
+    "B": "Official or utility data requiring review",
+    "C": "Reputable secondary or international proxy",
+    "D": "Private-sector, project-level, or literature estimate",
+    "E": "Expert assumption or temporary placeholder"
+  },
+  "tier_defaults": {
+    "1": "B",
+    "2": "B",
+    "3": "D",
+    "4": "C",
+    "5": "E"
+  },
+  "release_gate": {
+    "minimum_validators": 3,
+    "mandatory_validator": "AIMS RIC",
+    "additional_validator_pool": [
+      "ENERGIM partners",
+      "EPD",
+      "WRI",
+      "Relevant Rwanda public institutions",
+      "Approved technical experts"
+    ]
+  }
+}
+

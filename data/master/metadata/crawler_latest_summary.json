@@ -1,0 +1,102 @@
+{
+  "evidence_record_count": 60,
+  "finished_utc": "2026-05-23T01:02:29+00:00",
+  "new_or_updated_records_this_run": 61,
+  "run_id": "5d11c8333c0e",
+  "source_count": 12,
+  "started_utc": "2026-05-23T01:00:03+00:00",
+  "summaries": [
+    {
+      "errors": [],
+      "fetched": 4,
+      "records": 4,
+      "source_id": "MININFRA",
+      "url": "https://www.mininfra.gov.rw/"
+    },
+    {
+      "errors": [
+        "https://www.reg.rw/: The read operation timed out"
+      ],
+      "fetched": 1,
+      "records": 1,
+      "source_id": "REG",
+      "url": "https://www.reg.rw/"
+    },
+    {
+      "errors": [
+        "https://www.reg.rw/about-us/subsidiaries/edcl/: The read operation timed out"
+      ],
+      "fetched": 1,
+      "records": 1,
+      "source_id": "EDCL",
+      "url": "https://www.reg.rw/about-us/subsidiaries/edcl/"
+    },
+    {
+      "errors": [
+        "https://www.reg.rw/about-us/subsidiaries/eucl/: The read operation timed out"
+      ],
+      "fetched": 1,
+      "records": 1,
+      "source_id": "EUCL",
+      "url": "https://www.reg.rw/about-us/subsidiaries/eucl/"
+    },
+    {
+      "errors": [],
+      "fetched": 16,
+      "records": 16,
+      "source_id": "NISR",
+      "url": "https://statistics.gov.rw/"
+    },
+    {
+      "errors": [],
+      "fetched": 9,
+      "records": 9,
+      "source_id": "REMA",
+      "url": "https://www.rema.gov.rw/"
+    },
+    {
+      "errors": [
+        "https://www.rura.rw/publications/board-decisions: HTTP Error 404: Not Found"
+      ],
+      "fetched": 17,
+      "records": 17,
+      "source_id": "RURA",
+      "url": "https://www.rura.rw/"
+    },
+    {
+      "errors": [],
+      "fetched": 3,
+      "records": 3,
+      "source_id": "MINECOFIN",
+      "url": "https://www.minecofin.gov.rw/"
+    },
+    {
+      "errors": [],
+      "fetched": 1,
+      "records": 1,
+      "source_id": "RRA",
+      "url": "https://www.rra.gov.rw/"
+    },
+    {
+      "errors": [],
+      "fetched": 3,
+      "records": 3,
+      "source_id": "RTDA",
+      "url": "https://www.rtda.gov.rw/"
+    },
+    {
+      "errors": [],
+      "fetched": 2,
+      "records": 1,
+      "source_id": "RWB",
+      "url": "https://www.rwb.rw/"
+    },
+    {
+      "errors": [],
+      "fetched": 4,
+      "records": 4,
+      "source_id": "WASAC",
+      "url": "https://www.wasac.rw/"
+    }
+  ]
+}

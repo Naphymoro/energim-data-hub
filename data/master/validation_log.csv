@@ -1,0 +1,12 @@
+dataset_id,dataset_area,validator_1_required,validator_1_decision,validator_1_date,validator_2_pool,validator_2_decision,validator_2_date,validator_3_pool,validator_3_decision,validator_3_date,validation_status,reconciliation_notes
+RW_ENBAL_TOTAL_2015_2024,National energy balance,AIMS RIC,,,,ENERGIM partner / EPD / WRI / Rwanda public institution / approved expert,,,ENERGIM partner / EPD / WRI / Rwanda public institution / approved expert,,,candidate,
+RW_PWR_GEN_TECH_GWH,Electricity generation,AIMS RIC,,,,ENERGIM partner / EPD / WRI / Rwanda public institution / approved expert,,,ENERGIM partner / EPD / WRI / Rwanda public institution / approved expert,,,candidate,
+RW_PWR_CAP_TECH_MW,Installed capacity,AIMS RIC,,,,ENERGIM partner / EPD / WRI / Rwanda public institution / approved expert,,,ENERGIM partner / EPD / WRI / Rwanda public institution / approved expert,,,candidate,
+RW_RES_COOK_FUEL_SHARE,Residential cooking,AIMS RIC,,,,ENERGIM partner / EPD / WRI / Rwanda public institution / approved expert,,,ENERGIM partner / EPD / WRI / Rwanda public institution / approved expert,,,candidate,
+RW_BIOMASS_CHARCOAL_TJ,Biomass and charcoal,AIMS RIC,,,,ENERGIM partner / EPD / WRI / Rwanda public institution / approved expert,,,ENERGIM partner / EPD / WRI / Rwanda public institution / approved expert,,,candidate,
+RW_TRANSPORT_FUEL_TJ,Transport fuels,AIMS RIC,,,,ENERGIM partner / EPD / WRI / Rwanda public institution / approved expert,,,ENERGIM partner / EPD / WRI / Rwanda public institution / approved expert,,,candidate,
+RW_SOCIO_GDP_POP,Socioeconomic drivers,AIMS RIC,,,,ENERGIM partner / EPD / WRI / Rwanda public institution / approved expert,,,ENERGIM partner / EPD / WRI / Rwanda public institution / approved expert,,,candidate,
+RW_EF_FUEL_IPCC,Emission factors,AIMS RIC,,,,ENERGIM partner / EPD / WRI / Rwanda public institution / approved expert,,,ENERGIM partner / EPD / WRI / Rwanda public institution / approved expert,,,candidate,
+RW_TECH_COSTS,Technology costs,AIMS RIC,,,,ENERGIM partner / EPD / WRI / Rwanda public institution / approved expert,,,ENERGIM partner / EPD / WRI / Rwanda public institution / approved expert,,,candidate,
+RW_PROJECT_PIPELINE,Project pipeline,AIMS RIC,,,,ENERGIM partner / EPD / WRI / Rwanda public institution / approved expert,,,ENERGIM partner / EPD / WRI / Rwanda public institution / approved expert,,,candidate,
+
