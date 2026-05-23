@@ -11,3 +11,4 @@ Main zones:
 
 No candidate crawler record should be placed here directly.
 
+Use `../model_inputs/model_input_queue.csv` to see which crawler records are queued for extraction into this layer.

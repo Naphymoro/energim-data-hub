@@ -13,3 +13,4 @@ NEMO-ready files are organized by model component:
 
 Each dataset must pass the SDMX gate and validator quorum before export.
 
+`model_input_queue.csv` is the visible staging list showing crawler evidence mapped to NEMO components. It is not a final NEMO import file.

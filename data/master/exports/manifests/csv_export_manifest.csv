@@ -1,4 +1,7 @@
 export_id,dataset_scope,source_path,target_path,gate_required,status
 CSV_MASTER_CATALOG,all,data/master/catalog/data_catalog.csv,data/master/exports/csv/master_catalog_export.csv,yes,blocked_until_sdmx_gate
 CSV_CANDIDATE_EVIDENCE,all,data/master/evidence/candidate_evidence.csv,data/master/exports/csv/candidate_evidence_export.csv,no,candidate_export_available
-
+CSV_MODEL_INPUT_QUEUE,all,data/master/model_inputs/model_input_queue.csv,data/master/exports/csv/model_input_queue.csv,no,candidate_export_available
+CSV_LEAP_MODEL_INPUT_QUEUE,LEAP,data/master/model_inputs/leap_model_input_queue.csv,data/master/exports/csv/leap_model_input_queue.csv,no,candidate_export_available
+CSV_NEMO_MODEL_INPUT_QUEUE,NEMO,data/master/model_inputs/nemo_model_input_queue.csv,data/master/exports/csv/nemo_model_input_queue.csv,no,candidate_export_available
+CSV_EVIDENCE_MODEL_CROSSWALK,all,data/master/model_inputs/evidence_to_model_input_crosswalk.csv,data/master/exports/csv/evidence_to_model_input_crosswalk.csv,no,candidate_export_available

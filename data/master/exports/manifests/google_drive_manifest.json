@@ -9,10 +9,10 @@
   "folder_structure_source": "data/master",
   "sync_policy": {
     "candidate_evidence": "allowed",
+    "model_input_queues": "allowed_as_staging_metadata_not_final_model_data",
     "validated_model_exports": "only_after_sdmx_gate_and_validator_quorum",
     "raw_evidence": "allowed_when_license_permits"
   },
   "manifest_owner": "AIMS RIC / ENERGIM Alpha data steward",
   "last_sync_date": null
 }
-

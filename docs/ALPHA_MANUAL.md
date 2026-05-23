@@ -70,6 +70,8 @@ Crawler Hunt Mode searches broadly across registered Rwanda official sources, ut
 
 The crawler writes candidate records to `candidate_evidence.csv` and `evidence_records.jsonl`, updates the candidate evidence count in `data_catalog.csv`, and records run metadata in `crawler_runs.jsonl`. It does not validate, overwrite, or export modelling data.
 
+The model input queue is the visible bridge between crawler evidence and model ingestion. It is written to `data/master/model_inputs/` and mirrored into the LEAP and NEMO normalized folders. Reviewers should use it to see which crawled records are mapped to each LEAP branch, LEAP variable, NEMO component, normalized target file, SDMX gate status, blocker, and next action.
+
 ## Master data repository
 
 The master data repository is stored in `data/master` and is organized into:
@@ -77,6 +79,7 @@ The master data repository is stored in `data/master` and is organized into:
 - `registry/`: source registry, confidence rules, and crawler cadence.
 - `catalog/`: data catalog, dataset dictionary, and legacy-to-Alpha crosswalks.
 - `evidence/`: raw evidence, extracted tables/OCR/API responses, candidate evidence, and evidence records.
+- `model_inputs/`: visible LEAP/NEMO staging queues that map crawler evidence to model fields and normalized target paths.
 - `normalized/`: LEAP, NEMO, NDC, and common datasets organized by model module/component.
 - `sdmx/`: DSD, codelists, dataflows, SDMX-ready datasets, and gate reports.
 - `validation/`: validation log, validator registry, reconciliation log, and approval folders.

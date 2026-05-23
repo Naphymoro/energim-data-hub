@@ -20,6 +20,7 @@ Crawler Hunt Mode discovers and classifies evidence only. A crawler record is ne
 - `registry/`: source registry, source confidence rules, and crawler schedule.
 - `catalog/`: data catalog, dataset dictionary, and legacy-to-Alpha crosswalks.
 - `evidence/`: raw files, extracted tables/OCR/API responses, and candidate evidence records.
+- `model_inputs/`: visible LEAP/NEMO input staging queues that map crawler evidence to model fields.
 - `normalized/`: LEAP, NEMO, NDC, and common clean dataset zones.
 - `sdmx/`: DSD, codelists, dataflows, SDMX-ready datasets, and validation reports.
 - `validation/`: validation log, validator registry, reconciliation log, and approval folders.
@@ -40,5 +41,4 @@ Root-level CSV/JSONL files remain as compatibility shims for existing links, but
 
 The SDMX gate checks dataset catalog presence, SDMX dataflow mapping, required dimensions, source provenance, validation quorum, AIMS RIC approval, transformation logs, and export readiness. The gate can block a dataset even when candidate evidence exists.
 
-Current crawler evidence is catalogued as candidate evidence. It is not yet LEAP/NEMO-ingestable as numeric model data until normalized values and validator approvals exist.
-
+Current crawler evidence is catalogued as candidate evidence. The `model_inputs/` queue shows which evidence could feed each LEAP/NEMO input, but it is not yet LEAP/NEMO-ingestable as numeric model data until normalized values and validator approvals exist.
