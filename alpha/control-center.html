@@ -2,46 +2,33 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ENERGIM Alpha Control Center</title>
 <style>
-body{font-family:Arial,sans-serif;background:#08111d;color:#dde4f0;margin:0}
-.wrap{max-width:1000px;margin:auto;padding:24px}
-.card{background:#122035;border:1px solid #243558;border-radius:14px;padding:18px;margin-bottom:18px}
-button{padding:12px 18px;border:none;border-radius:8px;background:#2d68b2;color:white;margin:4px}
-.small{color:#8aa3c6}
-</style>
+body{font-family:Arial,sans-serif;background:#08111d;color:#dde4f0;margin:0}.wrap{max-width:1000px;margin:auto;padding:24px}.card{background:#122035;border:1px solid #243558;border-radius:14px;padding:18px;margin-bottom:18px}button{padding:12px 18px;border:none;border-radius:8px;background:#2d68b2;color:white;margin:4px;cursor:pointer}button.secondary{background:#344966}button.warn{background:#8a5a00}.small{color:#8aa3c6}.field{margin:10px 0}label{display:block;margin-bottom:5px;color:#8aa3c6;font-size:13px}input,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #243558;background:#08111d;color:#dde4f0}#log{white-space:pre-wrap;background:#08111d;border:1px solid #243558;border-radius:10px;padding:12px;min-height:150px}.status{display:inline-block;padding:5px 9px;border:1px solid #34a853;color:#34a853;border-radius:999px;font-size:12px}.danger{color:#ffb4a9}</style>
 </head>
 <body>
 <div class="wrap">
 <h1>ENERGIM Alpha Control Center</h1>
-<p class="small">Policy-maker browser interface. Manual actions only.</p>
-<div class="card">
-<h2>Workflow</h2>
-<ol>
-<li>Create evidence run</li>
-<li>Register Google Drive evidence folder</li>
-<li>Technical workstation executes OCR and crawler</li>
-<li>Review SDMX candidates</li>
-<li>Approve validated observations</li>
-<li>Generate LEAP and NEMO exports</li>
-</ol>
+<p class="small">Policy-maker browser interface. Manual actions only. This page prepares run requests; the Windows workstation performs heavy crawling, OCR and export processing.</p>
+<div class="card"><h2>1. Operator details</h2><div class="field"><label>Gmail address</label><input id="email" placeholder="name@gmail.com"></div><div class="field"><label>Google Drive evidence folder link</label><input id="drive" placeholder="https://drive.google.com/drive/folders/..."></div><div class="field"><label>Run description</label><textarea id="desc" rows="3" placeholder="Example: MININFRA, REG and NISR evidence for 2015-2024 baseline"></textarea></div><span class="status">Manual run mode</span></div>
+<div class="card"><h2>2. Operations</h2><button onclick="createRun()">Create Evidence Run</button><button onclick="registerDrive()">Register Drive Folder</button><button onclick="downloadRunRequest()">Download Run Request JSON</button><button class="warn" onclick="showCrawlerInstructions()">How to Start Crawler</button><button class="secondary" onclick="showValidationInfo()">Run SDMX Validation</button><button class="secondary" onclick="showExportInfo('LEAP')">Generate LEAP Package</button><button class="secondary" onclick="showExportInfo('NEMO')">Generate NEMO Package</button><button class="secondary" onclick="clearLog()">Clear Log</button></div>
+<div class="card"><h2>3. Workflow</h2><ol><li>Create evidence run.</li><li>Register Google Drive evidence folder.</li><li>Download run request JSON and send it to the technical operator.</li><li>Technical workstation executes crawler, OCR, SDMX and exports.</li><li>Reviewer checks validation reports.</li><li>Only validated data is exported to LEAP/NEMO packages.</li></ol><p class="danger">The browser cannot directly run Python/OCR. It creates auditable run requests.</p></div>
+<div class="card"><h2>Activity Log</h2><div id="log">System ready. Enter Gmail and Drive folder, then click Create Evidence Run.</div></div>
 </div>
-<div class="card">
-<h2>Operations</h2>
-<button>Create Evidence Run</button>
-<button>Register Drive Folder</button>
-<button>Run SDMX Validation</button>
-<button>Generate LEAP Package</button>
-<button>Generate NEMO Package</button>
-</div>
-<div class="card">
-<h2>Architecture</h2>
-<p>GitHub Pages provides the interface.</p>
-<p>Google Apps Script provides the lightweight backend.</p>
-<p>Google Sheets stores run and validation registries.</p>
-<p>Google Drive stores evidence and exports.</p>
-<p>Windows workstation performs heavy OCR and extraction.</p>
-</div>
-</div>
+<script>
+function now(){return new Date().toISOString().replace(/[:.]/g,'-')}
+function val(id){return document.getElementById(id).value.trim()}
+function log(msg){document.getElementById('log').textContent+='\n\n'+msg}
+function runObject(){return{run_id:'RUN_'+now(),operator_email:val('email'),drive_folder_url:val('drive'),description:val('desc'),created_at_utc:new Date().toISOString(),status:'created_in_browser',processing_mode:'manual_windows_workstation',note:'This is a browser-created run request. It must be processed by the ENERGIM Windows workstation.'}}
+function checkInputs(){if(!val('email')||!val('email').includes('@')){alert('Please enter a valid Gmail address.');return false}if(!val('drive')){alert('Please paste a Google Drive evidence folder link.');return false}return true}
+function createRun(){if(!checkInputs())return;const r=runObject();localStorage.setItem('energim_last_run',JSON.stringify(r));log('Evidence run created:\n'+JSON.stringify(r,null,2));alert('Evidence run created. Next: download the Run Request JSON and send it to the technical operator.')}
+function registerDrive(){if(!checkInputs())return;log('Drive folder registered for this browser session:\nOperator: '+val('email')+'\nFolder: '+val('drive')+'\nStatus: pending Apps Script or workstation processing');alert('Drive folder registered locally. Apps Script connection can be added later for shared registry storage.')}
+function downloadRunRequest(){if(!checkInputs())return;const r=runObject();const blob=new Blob([JSON.stringify(r,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=r.run_id+'_request.json';a.click();log('Downloaded run request JSON: '+a.download)}
+function showCrawlerInstructions(){log('To start the crawler on the Windows workstation:\n1. Save the downloaded run request JSON.\n2. Open the repository folder on the workstation.\n3. Double-click run_energim_alpha.bat OR run python tools\\ui\\energim_launcher.py.\n4. The workstation writes logs to data/master/provenance/crawler_runs/.\n5. Outputs appear only after validation gates pass.');alert('Crawler instructions added to Activity Log.')}
+function showValidationInfo(){log('SDMX validation is run on the Windows workstation, not inside this browser page. Command: python tools\\sdmx\\sdmx_gate.py. Reports should appear in data/master/sdmx/reports/.')}
+function showExportInfo(model){log(model+' package generation is run on the Windows workstation after validation. Candidate data must not be exported. Check data/master/model_inputs/'+model.toLowerCase()+'_ready/ after the technical run.')}
+function clearLog(){document.getElementById('log').textContent='Log cleared.'}
+</script>
 </body>
 </html>
