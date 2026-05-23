@@ -1,0 +1,7 @@
+crawl_target_id,dataset_id,target_source,target_type,crawl_method,expected_formats,expected_years,priority,target_model,notes
+CT_PWR_GEN_REG,RW_PWR_GEN_TECH_GWH,REG,website,crawler+pdf_extraction,"pdf;xlsx",2015-2024,high,NEMO,"Primary official electricity generation source"
+CT_PWR_GEN_EPD,RW_PWR_GEN_TECH_GWH,EPD,website,crawler+html+ocr,"html;pdf",2015-2024,medium,NEMO,"Use private project evidence to augment missing official records"
+CT_PIPELINE_EPD,RW_PROJECT_PIPELINE,EPD,website,crawler+html+ocr,"html;pdf;xlsx",2025-2035,high,NEMO,"Critical private-sector project pipeline augmentation source"
+CT_DEMAND_NISR,RW_DEMAND_ELECTRICITY_GWH,NISR,website,crawler+xlsx,"xlsx;csv",2015-2024,high,LEAP_NEMO,"Demand baseline source"
+CT_COSTS_IRENA,RW_TECH_COSTS_USD,IRENA,dataset,download+xlsx,"xlsx;csv",2020-2050,medium,NEMO,"Technology cost benchmarks"
+CT_MININFRA_BASELINE,RW_BASELINE_ELECTRICITY,MININFRA,website,crawler+pdf_extraction,"pdf;docx",2015-2024,high,LEAP,"Official policy and planning baseline evidence"
