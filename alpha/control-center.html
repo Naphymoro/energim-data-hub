@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ENERGIM Alpha Control Center</title>
+<style>
+body{font-family:Arial,sans-serif;background:#08111d;color:#dde4f0;margin:0}
+.wrap{max-width:1000px;margin:auto;padding:24px}
+.card{background:#122035;border:1px solid #243558;border-radius:14px;padding:18px;margin-bottom:18px}
+button{padding:12px 18px;border:none;border-radius:8px;background:#2d68b2;color:white;margin:4px}
+.small{color:#8aa3c6}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>ENERGIM Alpha Control Center</h1>
+<p class="small">Policy-maker browser interface. Manual actions only.</p>
+<div class="card">
+<h2>Workflow</h2>
+<ol>
+<li>Create evidence run</li>
+<li>Register Google Drive evidence folder</li>
+<li>Technical workstation executes OCR and crawler</li>
+<li>Review SDMX candidates</li>
+<li>Approve validated observations</li>
+<li>Generate LEAP and NEMO exports</li>
+</ol>
+</div>
+<div class="card">
+<h2>Operations</h2>
+<button>Create Evidence Run</button>
+<button>Register Drive Folder</button>
+<button>Run SDMX Validation</button>
+<button>Generate LEAP Package</button>
+<button>Generate NEMO Package</button>
+</div>
+<div class="card">
+<h2>Architecture</h2>
+<p>GitHub Pages provides the interface.</p>
+<p>Google Apps Script provides the lightweight backend.</p>
+<p>Google Sheets stores run and validation registries.</p>
+<p>Google Drive stores evidence and exports.</p>
+<p>Windows workstation performs heavy OCR and extraction.</p>
+</div>
+</div>
+</body>
+</html>
