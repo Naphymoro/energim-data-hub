@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ENERGIM Rwanda Evidence Intelligence</title>
+<style>
+body{margin:0;font-family:Inter,Arial,sans-serif;background:#07111f;color:#e7edf7}header{padding:24px 40px;border-bottom:1px solid #23395d;background:#0f1d31;position:sticky;top:0}h1{margin:0;font-size:36px}h1 span{color:#70d6ff}.wrap{max-width:1400px;margin:auto;padding:24px}.hero,.card{background:#0f1d31;border:1px solid #23395d;border-radius:20px;padding:24px;margin-bottom:20px}.hero p,.muted{color:#9db2d0;line-height:1.6}.grid{display:grid;grid-template-columns:2fr 1fr;gap:20px}.dataset{display:grid;grid-template-columns:50px 2fr 1fr 1fr 1fr 1fr;gap:12px;padding:14px;border-bottom:1px solid #1d2e4a;align-items:center}.dataset:hover{background:#12233b}.head{font-weight:800;color:#70d6ff}.pill{display:inline-block;padding:6px 10px;border-radius:999px;background:#193963;color:#cfe8ff;font-size:12px}.missing{background:#5b1d1d}.partial{background:#5b4c1d}.good{background:#1f5133}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}button{background:#2d68b2;color:white;border:none;padding:14px 18px;border-radius:12px;font-weight:700;cursor:pointer}button:hover{filter:brightness(1.08)}.log{white-space:pre-wrap;background:#08111d;border:1px solid #23395d;border-radius:16px;padding:16px;min-height:180px;font-family:Consolas,monospace;color:#cfe8ff}.flow{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:18px}.step{background:#13233a;border:1px solid #23395d;border-radius:14px;padding:12px}.step b{display:block;margin-bottom:8px}.step p{font-size:12px;color:#9db2d0;line-height:1.4}.epd{background:#13233a;border-left:4px solid #70d6ff;padding:16px;border-radius:14px;margin-top:12px}.small{font-size:13px;color:#9db2d0}.rightbox{background:#13233a;border:1px solid #23395d;border-radius:16px;padding:16px;margin-bottom:14px}@media(max-width:1000px){.grid,.flow,.dataset{grid-template-columns:1fr}.dataset{padding:18px 0}}
+</style>
+</head>
+<body>
+<header><h1>ENERGIM <span>Rwanda Evidence Intelligence</span></h1><div class="muted">Inventory-driven LEAP/NEMO evidence orchestration for Rwanda NDC 3.0 modelling.</div></header>
+<div class="wrap">
+<div class="hero">
+<h2>Select Rwanda datasets to complete</h2>
+<p>The platform already knows which datasets are needed for LEAP and NEMO. Select the datasets you want ENERGIM to complete. The system automatically identifies institutions, crawl targets, expected years, SDMX mappings and EPD augmentation opportunities.</p>
+<div class="flow">
+<div class="step"><b>1. Select</b><p>Select Rwanda datasets.</p></div>
+<div class="step"><b>2. Analyze</b><p>ENERGIM identifies missing evidence and sources.</p></div>
+<div class="step"><b>3. Acquire</b><p>Evidence acquisition plan is generated.</p></div>
+<div class="step"><b>4. Extract</b><p>OCR, tables and parser outputs are created.</p></div>
+<div class="step"><b>5. Validate</b><p>SDMX rules and reconciliation checks run.</p></div>
+<div class="step"><b>6. Export</b><p>Approved data becomes LEAP/NEMO-ready.</p></div>
+</div>
+</div>
+<div class="grid">
+<div class="card">
+<div class="dataset head"><div>Select</div><div>Dataset</div><div>Needed For</div><div>Years</div><div>Main Sources</div><div>Status</div></div>
+<div class="dataset"><div><input type="checkbox" checked></div><div><b>Electricity generation by technology</b><div class="small">Generation dispatch and baseline calibration</div></div><div>NEMO</div><div>2015-2024</div><div>REG, EDCL, EPD</div><div><span class="pill partial">Partial</span></div></div>
+<div class="dataset"><div><input type="checkbox" checked></div><div><b>Installed generation capacity</b><div class="small">Existing capacity and reserve margin</div></div><div>NEMO</div><div>2015-2024</div><div>REG, EDCL</div><div><span class="pill missing">Missing</span></div></div>
+<div class="dataset"><div><input type="checkbox" checked></div><div><b>Cooking fuels</b><div class="small">Household energy transition</div></div><div>LEAP</div><div>2015-2024</div><div>NISR, MININFRA</div><div><span class="pill partial">Partial</span></div></div>
+<div class="dataset"><div><input type="checkbox"></div><div><b>Transport fuels</b><div class="small">Transport electrification scenarios</div></div><div>LEAP/NEMO</div><div>2015-2024</div><div>RURA, MININFRA</div><div><span class="pill missing">Missing</span></div></div>
+<div class="dataset"><div><input type="checkbox" checked></div><div><b>Project pipeline</b><div class="small">Candidate technologies and future additions</div></div><div>NEMO</div><div>2025-2035</div><div>EPD, MININFRA</div><div><span class="pill good">High Value</span></div></div>
+<div class="actions">
+<button onclick="generateManifest()">Generate Evidence Acquisition Plan</button>
+<button onclick="showEPD()">Show EPD Augmentation Strategy</button>
+<button onclick="showCrawler()">Show Crawl Intelligence</button>
+</div>
+</div>
+<div>
+<div class="rightbox">
+<h3>Inventory Intelligence</h3>
+<div class="small">Driven by:</div>
+<ul>
+<li>nemo_module_inventory.csv</li>
+<li>leap_baseline_inventory.csv</li>
+<li>source_registry.csv</li>
+<li>crawl_targets.csv</li>
+</ul>
+</div>
+<div class="rightbox">
+<h3>EPD Augmentation</h3>
+<div class="small">EPD is used to augment:</div>
+<ul>
+<li>Private generation projects</li>
+<li>Mini-grid deployments</li>
+<li>Technology costs</li>
+<li>Project financing</li>
+<li>Pipeline intelligence</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="card">
+<h2>Activity Log</h2>
+<div id="log" class="log">System ready. Select Rwanda datasets and generate the evidence acquisition plan.</div>
+</div>
+</div>
+<script>
+function log(msg){document.getElementById('log').textContent+='\n\n'+msg}
+function generateManifest(){log('ENERGIM inventory intelligence generated a Rwanda evidence acquisition plan.\n\nIdentified datasets:\n- Electricity generation\n- Installed capacity\n- Cooking fuels\n- Project pipeline\n\nIdentified sources:\n- REG\n- MININFRA\n- NISR\n- EPD\n\nIdentified EPD augmentation opportunities:\n- Private solar projects\n- Mini-grid deployments\n- Candidate technology costs\n- Project financing metadata\n\nNext step: build crawl manifests and begin controlled evidence acquisition.')}
+function showEPD(){log('EPD augmentation strategy:\n\n1. Preserve official baseline statistics from REG/MININFRA/NISR.\n2. Use EPD to identify missing private-sector projects.\n3. Use EPD to triangulate project pipeline and financing.\n4. Flag conflicts between official and augmentation sources.\n5. Require reviewer reconciliation before export.')}
+function showCrawler(){log('Inventory-driven crawling:\n\nThe crawler does not crawl blindly.\n\nIt already knows:\n- required Rwanda datasets\n- expected years\n- target ministries\n- expected file formats\n- parser mappings\n- SDMX dimensions\n- LEAP/NEMO targets\n\nThe system builds crawl manifests automatically from the inventory CSVs.')}
+</script>
+</body>
+</html>
