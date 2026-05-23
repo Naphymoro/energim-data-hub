@@ -1,0 +1,10 @@
+source_id,institution,source_type,expected_formats,sectors,baseline_reliability,epd_role,crawl_priority,notes
+SRC_REG,REG,government,"pdf;xlsx;csv",power,authoritative,not_applicable,high,"Primary electricity system source"
+SRC_MININFRA,MININFRA,government,"pdf;xlsx;docx",cross_sector,authoritative,not_applicable,high,"Official energy planning source"
+SRC_NISR,NISR,government,"xlsx;csv;pdf",demand_households,authoritative,not_applicable,high,"National statistics"
+SRC_RURA,RURA,government,"pdf;xlsx",transport_fuels,high,not_applicable,medium,"Fuel and utility regulatory data"
+SRC_EDCL,EDCL,utility,"pdf;xlsx",power,high,not_applicable,high,"Infrastructure and generation assets"
+SRC_EUCL,EUCL,utility,"pdf;xlsx",power_demand,high,not_applicable,high,"Electricity demand and customers"
+SRC_EPD,EPD,private_sector_registry,"html;pdf;xlsx",cross_sector,medium,"High-value augmentation source for private projects, financing, technology deployment and pipeline intelligence",high,"Use for triangulation, project pipeline discovery and filling non-official gaps"
+SRC_IRENA,IRENA,international,"xlsx;csv",renewables,medium,not_applicable,medium,"Useful for benchmarking and filling historical gaps"
+SRC_WORLD_BANK,World Bank,international,"csv;xlsx;pdf",cross_sector,medium,not_applicable,medium,"Macroeconomic and infrastructure support data"
