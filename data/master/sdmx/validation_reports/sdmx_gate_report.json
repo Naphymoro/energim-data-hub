@@ -1,0 +1,9 @@
+{
+  "blocked_count": 10,
+  "dataset_count": 10,
+  "gate": "ENERGIM Alpha SDMX Gate",
+  "passed_count": 0,
+  "report_csv": "data/master/sdmx/validation_reports/sdmx_gate_report.csv",
+  "rule": "No LEAP/NEMO export until SDMX gate passes and validator quorum is complete.",
+  "run_utc": "2026-05-23T13:14:28+00:00"
+}

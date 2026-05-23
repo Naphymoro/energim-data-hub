@@ -1,0 +1,12 @@
+{
+  "candidate_evidence": "data/master/evidence/candidate_evidence.csv",
+  "candidate_evidence_count": 16,
+  "created_by": "scripts/sdmx_gate.py",
+  "dataset_id": "RW_PROJECT_PIPELINE",
+  "dataset_name": "Project pipeline",
+  "sdmx_gate_report": "data/master/sdmx/validation_reports/sdmx_gate_report.csv",
+  "source_evidence": "data/master/evidence/evidence_records.jsonl",
+  "state": "candidate",
+  "updated_utc": "2026-05-23T13:11:12+00:00",
+  "validation_log": "data/master/validation/validation_log.csv"
+}

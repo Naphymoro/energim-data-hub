@@ -1,0 +1,12 @@
+code,name
+fuel_balance,Fuel balance
+technology_activity,Technology activity
+capacity,Capacity
+demand_fuel_share,Demand fuel share
+fuel_constraint,Fuel constraint
+demand_proxy,Demand proxy
+demand_driver,Demand driver
+emission_factor,Emission factor
+cost,Cost
+candidate_technology,Candidate technology
+

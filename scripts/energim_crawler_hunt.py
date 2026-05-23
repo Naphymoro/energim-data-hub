@@ -18,6 +18,7 @@ import json
 import mimetypes
 from pathlib import Path
 import re
+import shutil
 import sys
 import time
 from typing import Any
@@ -224,6 +225,12 @@ def write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
     with path.open("w", encoding="utf-8") as fh:
         for row in rows:
             fh.write(json.dumps(row, ensure_ascii=True, sort_keys=True) + "\n")
+
+
+def copy_if_exists(source: Path, target: Path) -> None:
+    if source.exists():
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(source, target)
 
 
 def fetch(url: str, timeout: int) -> dict[str, Any]:
@@ -465,7 +472,7 @@ def write_candidate_csv(path: Path, records: list[dict[str, Any]]) -> None:
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run ENERGIM Alpha Crawler Hunt Mode")
-    parser.add_argument("--registry", default="data/master/source_registry.csv", help="Source registry CSV")
+    parser.add_argument("--registry", default="data/master/registry/source_registry.csv", help="Source registry CSV")
     parser.add_argument("--out", default="data/master", help="Master data output directory")
     parser.add_argument("--max-sources", type=int, default=999, help="Maximum sources to crawl")
     parser.add_argument("--max-links", type=int, default=30, help="Maximum discovered links per source")
@@ -480,11 +487,15 @@ def main(argv: list[str]) -> int:
     args = parse_args(argv)
     registry_path = Path(args.registry)
     out_dir = Path(args.out)
-    evidence_path = out_dir / "evidence_records.jsonl"
-    candidate_csv_path = out_dir / "candidate_evidence.csv"
-    run_log_path = out_dir / "crawler_runs.jsonl"
-    latest_summary_path = out_dir / "metadata" / "crawler_latest_summary.json"
-    catalog_path = out_dir / "data_catalog.csv"
+    if not registry_path.exists() and (out_dir / "source_registry.csv").exists():
+        registry_path = out_dir / "source_registry.csv"
+    evidence_path = out_dir / "evidence" / "evidence_records.jsonl"
+    candidate_csv_path = out_dir / "evidence" / "candidate_evidence.csv"
+    run_log_path = out_dir / "provenance" / "crawler_runs" / "crawler_runs.jsonl"
+    latest_summary_path = out_dir / "provenance" / "crawler_runs" / "crawler_latest_summary.json"
+    catalog_path = out_dir / "catalog" / "data_catalog.csv"
+    if not catalog_path.exists() and (out_dir / "data_catalog.csv").exists():
+        catalog_path = out_dir / "data_catalog.csv"
 
     sources = read_csv(registry_path)[: args.max_sources]
     existing = {} if args.reset_output else load_existing_records(evidence_path)
@@ -516,6 +527,11 @@ def main(argv: list[str]) -> int:
     append_jsonl(run_log_path, [run_record])
     latest_summary_path.parent.mkdir(parents=True, exist_ok=True)
     latest_summary_path.write_text(json.dumps(run_record, ensure_ascii=True, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    copy_if_exists(candidate_csv_path, out_dir / "candidate_evidence.csv")
+    copy_if_exists(evidence_path, out_dir / "evidence_records.jsonl")
+    copy_if_exists(run_log_path, out_dir / "crawler_runs.jsonl")
+    copy_if_exists(latest_summary_path, out_dir / "metadata" / "crawler_latest_summary.json")
+    copy_if_exists(catalog_path, out_dir / "data_catalog.csv")
     print(json.dumps(run_record, indent=2, sort_keys=True))
     return 0
 

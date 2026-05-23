@@ -36,13 +36,17 @@ jobs:
       - name: Run Crawler Hunt Mode
         run: |
           python scripts/energim_crawler_hunt.py \
-            --registry data/master/source_registry.csv \
+            --registry data/master/registry/source_registry.csv \
             --out data/master \
             --max-sources "${{ github.event.inputs.max_sources || '999' }}" \
             --max-links "${{ github.event.inputs.max_links || '30' }}" \
             --max-depth 1 \
             --timeout 25 \
             --delay 0.5
+
+      - name: Run SDMX gate
+        run: |
+          python scripts/sdmx_gate.py --root data/master
 
       - name: Commit crawler outputs
         run: |
@@ -55,4 +59,3 @@ jobs:
             git commit -m "Update Alpha crawler evidence"
             git push
           fi
-

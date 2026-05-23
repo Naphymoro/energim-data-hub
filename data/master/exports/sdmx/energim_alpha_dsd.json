@@ -1,0 +1,31 @@
+{
+  "dsd_id": "DSD_ENERGIM_ALPHA_RW",
+  "name": "ENERGIM Alpha Rwanda LEAP/NEMO Dataset Structure",
+  "dimensions": [
+    "country",
+    "dataset_id",
+    "sector",
+    "leap_module",
+    "leap_branch",
+    "nemo_component",
+    "technology",
+    "fuel",
+    "scenario",
+    "year",
+    "time_slice",
+    "unit"
+  ],
+  "attributes": [
+    "source_id",
+    "evidence_id",
+    "confidence_level",
+    "validation_status",
+    "mandatory_validator",
+    "validator_quorum_status",
+    "provenance_record",
+    "transformation_log"
+  ],
+  "measure": "value",
+  "status": "alpha_candidate_structure"
+}
+

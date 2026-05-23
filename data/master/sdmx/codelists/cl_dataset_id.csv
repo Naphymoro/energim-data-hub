@@ -1,0 +1,12 @@
+code,name
+RW_ENBAL_TOTAL_2015_2024,National energy balance
+RW_PWR_GEN_TECH_GWH,Electricity generation
+RW_PWR_CAP_TECH_MW,Installed capacity
+RW_RES_COOK_FUEL_SHARE,Residential cooking
+RW_BIOMASS_CHARCOAL_TJ,Biomass and charcoal
+RW_TRANSPORT_FUEL_TJ,Transport fuels
+RW_SOCIO_GDP_POP,Socioeconomic drivers
+RW_EF_FUEL_IPCC,Emission factors
+RW_TECH_COSTS,Technology costs
+RW_PROJECT_PIPELINE,Project pipeline
+

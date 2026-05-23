@@ -74,15 +74,75 @@ The crawler writes candidate records to `candidate_evidence.csv` and `evidence_r
 
 The master data repository is stored in `data/master` and is organized into:
 
-- raw evidence
-- extracted tables and OCR text
-- normalized LEAP, NEMO, NDC, and common datasets
-- source registry
-- data catalog
-- legacy-to-Alpha dataset crosswalk
-- validation log
-- crawler run log
-- evidence metadata
+- `registry/`: source registry, confidence rules, and crawler cadence.
+- `catalog/`: data catalog, dataset dictionary, and legacy-to-Alpha crosswalks.
+- `evidence/`: raw evidence, extracted tables/OCR/API responses, candidate evidence, and evidence records.
+- `normalized/`: LEAP, NEMO, NDC, and common datasets organized by model module/component.
+- `sdmx/`: DSD, codelists, dataflows, SDMX-ready datasets, and gate reports.
+- `validation/`: validation log, validator registry, reconciliation log, and approval folders.
+- `provenance/`: dataset provenance, source provenance, crawler runs, and transformation logs.
+- `exports/`: CSV, LEAP, NEMO, SDMX, Google Drive, Google Sheets, and export manifests.
+- `versions/`: legacy, alpha, beta, and release snapshots.
+
+Root-level CSV/JSONL files are retained as compatibility links, but new workflows should use the structured folders.
+
+## LEAP and NEMO organization
+
+Normalized LEAP datasets should be organized by LEAP module and branch:
+
+- `normalized/leap/demand/residential`
+- `normalized/leap/demand/commercial`
+- `normalized/leap/demand/industrial`
+- `normalized/leap/demand/public`
+- `normalized/leap/demand/transport`
+- `normalized/leap/transformation/generation`
+- `normalized/leap/transformation/grid`
+- `normalized/leap/transformation/imports_exports`
+- `normalized/leap/resources/hydro`
+- `normalized/leap/resources/solar`
+- `normalized/leap/resources/biomass_charcoal`
+- `normalized/leap/resources/methane`
+- `normalized/leap/socioeconomic`
+- `normalized/leap/emissions`
+
+Normalized NEMO datasets should be organized by model component:
+
+- `normalized/nemo/technologies`
+- `normalized/nemo/fuels`
+- `normalized/nemo/demands`
+- `normalized/nemo/constraints`
+- `normalized/nemo/costs`
+- `normalized/nemo/capacities`
+- `normalized/nemo/emissions`
+- `normalized/nemo/time_slices`
+
+Every normalized dataset must have a catalog record, dataset dictionary row, provenance record, transformation log, validation status, and SDMX gate result.
+
+## SDMX gate
+
+The SDMX gate is the formal checkpoint before LEAP/NEMO export. It checks:
+
+- dataset ID exists in the catalog
+- SDMX dataflow exists
+- required dimensions are present
+- candidate evidence exists
+- dataset provenance exists
+- transformation log exists and is complete
+- normalized dataset file exists
+- AIMS RIC approval exists
+- two additional validator approvals exist
+- no reconciliation issue remains open
+
+If any check fails, the dataset is blocked from LEAP/NEMO export.
+
+## Export pipes
+
+Export manifests are stored under `data/master/exports/manifests`.
+
+- CSV exports are allowed for catalog and candidate-evidence review.
+- LEAP and NEMO exports are blocked until SDMX and validation gates pass.
+- Google Drive and Google Sheets manifests define folder/workbook targets without storing credentials.
+- Credentials must come from GitHub secrets or local environment variables.
 
 ## Validator quorum
 

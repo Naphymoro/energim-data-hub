@@ -1,0 +1,18 @@
+{
+  "target": "google_drive",
+  "credential_policy": "Use GitHub secrets or local environment variables. Do not commit credentials.",
+  "required_environment": [
+    "GOOGLE_SERVICE_ACCOUNT_JSON",
+    "ENERGIM_GOOGLE_DRIVE_ROOT_FOLDER_ID"
+  ],
+  "root_folder_name": "ENERGIM Alpha Master Data Repository",
+  "folder_structure_source": "data/master",
+  "sync_policy": {
+    "candidate_evidence": "allowed",
+    "validated_model_exports": "only_after_sdmx_gate_and_validator_quorum",
+    "raw_evidence": "allowed_when_license_permits"
+  },
+  "manifest_owner": "AIMS RIC / ENERGIM Alpha data steward",
+  "last_sync_date": null
+}
+

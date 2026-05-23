@@ -1,0 +1,33 @@
+{
+  "target": "google_sheets",
+  "credential_policy": "Use GitHub secrets or local environment variables. Do not commit credentials.",
+  "required_environment": [
+    "GOOGLE_SERVICE_ACCOUNT_JSON",
+    "ENERGIM_GOOGLE_SHEETS_FOLDER_ID"
+  ],
+  "workbooks": [
+    {
+      "name": "ENERGIM Alpha Data Catalog",
+      "source": "data/master/catalog/data_catalog.csv",
+      "tabs": ["data_catalog"]
+    },
+    {
+      "name": "ENERGIM Alpha Candidate Evidence",
+      "source": "data/master/evidence/candidate_evidence.csv",
+      "tabs": ["candidate_evidence"]
+    },
+    {
+      "name": "ENERGIM Alpha Validation Log",
+      "source": "data/master/validation/validation_log.csv",
+      "tabs": ["validation_log", "validator_registry", "reconciliation_log"]
+    },
+    {
+      "name": "ENERGIM Alpha SDMX Gate",
+      "source": "data/master/sdmx/validation_reports/sdmx_gate_report.csv",
+      "tabs": ["sdmx_gate_report"]
+    }
+  ],
+  "sync_policy": "Candidate sheets may sync; validated export sheets require SDMX gate pass and validator quorum.",
+  "last_sync_date": null
+}
+

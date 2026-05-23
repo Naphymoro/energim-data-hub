@@ -1,0 +1,6 @@
+export_id,source_path,target_path,required_gate,status
+SDMX_DSD,data/master/sdmx/dsd/energim_alpha_dsd.json,data/master/exports/sdmx/energim_alpha_dsd.json,none,available
+SDMX_DATAFLOWS,data/master/sdmx/dataflows/dataflows.csv,data/master/exports/sdmx/dataflows.csv,none,available
+SDMX_DATASETS,data/master/sdmx/datasets/,data/master/exports/sdmx/datasets/,sdmx_and_validation,blocked_until_validated
+SDMX_GATE_REPORT,data/master/sdmx/validation_reports/sdmx_gate_report.csv,data/master/exports/sdmx/sdmx_gate_report.csv,none,available_after_gate_run
+

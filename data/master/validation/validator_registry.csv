@@ -1,0 +1,8 @@
+validator_group,validator_role,mandatory,approved_for,notes
+AIMS RIC,Research and innovation validation lead,yes,all_datasets,Mandatory validator for every dataset
+ENERGIM partners,Technical partner validator,no,all_datasets,Approved additional validator pool
+EPD,Private-sector energy evidence validator,no,scenario_and_private_sector_datasets,Useful for project pipeline clean cooking SHS mini-grid LPG biogas and e-mobility evidence
+WRI,Methods and climate data validator,no,methods_ndc_emissions_and_energy_systems,Approved additional validator pool
+Rwanda public institutions,Official source-owning institution,no,official_baseline_datasets,Relevant ministry regulator utility or statistics office
+Approved technical experts,Domain expert validator,no,specialized_datasets,Can validate specialized assumptions or technical mappings
+

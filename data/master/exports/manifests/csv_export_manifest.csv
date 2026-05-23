@@ -1,0 +1,4 @@
+export_id,dataset_scope,source_path,target_path,gate_required,status
+CSV_MASTER_CATALOG,all,data/master/catalog/data_catalog.csv,data/master/exports/csv/master_catalog_export.csv,yes,blocked_until_sdmx_gate
+CSV_CANDIDATE_EVIDENCE,all,data/master/evidence/candidate_evidence.csv,data/master/exports/csv/candidate_evidence_export.csv,no,candidate_export_available
+

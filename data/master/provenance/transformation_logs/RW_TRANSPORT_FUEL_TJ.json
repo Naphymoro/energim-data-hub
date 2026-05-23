@@ -1,0 +1,13 @@
+{
+  "dataset_id": "RW_TRANSPORT_FUEL_TJ",
+  "message": "No normalized model data has been transformed yet. Crawler records remain candidate evidence.",
+  "required_before_export": [
+    "source evidence selection",
+    "table or value extraction",
+    "unit normalization",
+    "LEAP/NEMO mapping confirmation",
+    "validator quorum"
+  ],
+  "state": "not_started",
+  "updated_utc": "2026-05-23T13:11:12+00:00"
+}

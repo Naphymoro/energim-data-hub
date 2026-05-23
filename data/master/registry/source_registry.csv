@@ -1,0 +1,22 @@
+source_id,tier,institution,title,url,source_type,allowed_use,crawl_depth,max_links,notes
+MININFRA,1,MININFRA,Ministry of Infrastructure,https://www.mininfra.gov.rw/,official,baseline_and_policy,1,40,Energy policy and infrastructure planning source
+REG,1,REG,Rwanda Energy Group,https://www.reg.rw/,official_utility,baseline_and_validation,1,40,Electricity utility reports and sector updates
+EDCL,1,EDCL,Energy Development Corporation Limited,https://www.reg.rw/about-us/subsidiaries/edcl/,official_utility,baseline_and_validation,1,25,Generation capacity and project development
+EUCL,1,EUCL,Energy Utility Corporation Limited,https://www.reg.rw/about-us/subsidiaries/eucl/,official_utility,baseline_and_validation,1,25,Electricity operations and consumption data
+NISR,1,NISR,National Institute of Statistics of Rwanda,https://statistics.gov.rw/,official_statistics,baseline_and_drivers,1,40,Population household survey and socioeconomic drivers
+REMA,1,REMA,Rwanda Environment Management Authority,https://www.rema.gov.rw/,official_environment,baseline_and_emissions,1,35,Emissions inventory and climate reporting
+RURA,2,RURA,Rwanda Utilities Regulatory Authority,https://www.rura.rw/,official_regulator,tariffs_and_performance,1,35,Tariffs losses regulation and performance reports
+MINECOFIN,2,MINECOFIN,Ministry of Finance and Economic Planning,https://www.minecofin.gov.rw/,official_policy,macro_and_policy,1,30,Macroeconomic assumptions and public finance
+RRA,2,RRA,Rwanda Revenue Authority,https://www.rra.gov.rw/,official_revenue,transport_fuels,1,25,Fuel imports and customs data
+RTDA,2,RTDA,Rwanda Transport Development Agency,https://www.rtda.gov.rw/,official_transport,transport_demand,1,25,Transport activity and traffic counts
+RWB,2,RWB,Rwanda Water Resources Board,https://www.rwb.rw/,official_resource,hydro_resource,1,25,Water resources and hydrology data
+WASAC,2,WASAC,Water and Sanitation Corporation,https://www.wasac.rw/,official_utility,public_loads,1,20,Water pumping and public infrastructure loads
+EPD,3,EPD Rwanda,Energy Private Developers Rwanda,https://www.epdrwanda.com/,partner_private,scenario_intelligence,1,40,Clean cooking SHS mini-grid LPG biogas and e-mobility intelligence
+WRI,3,WRI,World Resources Institute,https://www.wri.org/,partner_research,methods_and_supporting_evidence,1,20,Methods and partner research
+WORLD_BANK,4,World Bank,World Bank Data Rwanda Energy,https://data.worldbank.org/country/rwanda,international_proxy,benchmarking,1,30,International proxy and benchmark datasets
+IRENA,4,IRENA,International Renewable Energy Agency,https://www.irena.org/,international_proxy,technology_costs,1,20,Renewable energy costs and statistics
+IEA,4,IEA,International Energy Agency,https://www.iea.org/countries/rwanda,international_proxy,energy_balance_proxy,1,20,Energy balance proxy and country profile
+SEFORALL,4,SEforALL,Sustainable Energy for All,https://www.seforall.org/,international_proxy,access_and_cooking,1,20,Energy access and clean cooking indicators
+UNFCCC,4,UNFCCC,UNFCCC Rwanda Documents,https://unfccc.int/documents,international_proxy,climate_reporting,1,30,NDC national communications and climate reports
+NASA_POWER,4,NASA POWER,NASA POWER API,https://power.larc.nasa.gov/,international_api,solar_resource,1,15,Solar and climate resource data
+FAOSTAT,4,FAOSTAT,FAOSTAT Forestry and Energy,https://www.fao.org/faostat/,international_proxy,biomass_proxy,1,15,Biomass and forestry proxy data

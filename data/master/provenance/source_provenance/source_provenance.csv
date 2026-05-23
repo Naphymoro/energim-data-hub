@@ -1,0 +1,3 @@
+source_id,registry_path,evidence_records_path,crawler_runs_path,confidence_rules_path
+ALL,data/master/registry/source_registry.csv,data/master/evidence/evidence_records.jsonl,data/master/provenance/crawler_runs/crawler_runs.jsonl,data/master/registry/source_confidence_rules.json
+
