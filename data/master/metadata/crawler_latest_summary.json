@@ -1,15 +1,15 @@
 {
-  "evidence_record_count": 152,
-  "finished_utc": "2026-05-25T06:38:44+00:00",
-  "new_or_updated_records_this_run": 195,
-  "run_id": "1a182a335c27",
+  "evidence_record_count": 162,
+  "finished_utc": "2026-06-01T07:08:20+00:00",
+  "new_or_updated_records_this_run": 196,
+  "run_id": "84eb5247e0f6",
   "source_count": 21,
-  "started_utc": "2026-05-25T06:26:43+00:00",
+  "started_utc": "2026-06-01T06:54:56+00:00",
   "summaries": [
     {
       "errors": [],
-      "fetched": 4,
-      "records": 4,
+      "fetched": 5,
+      "records": 5,
       "source_id": "MININFRA",
       "url": "https://www.mininfra.gov.rw/"
     },
@@ -36,8 +36,8 @@
     },
     {
       "errors": [],
-      "fetched": 16,
-      "records": 16,
+      "fetched": 17,
+      "records": 17,
       "source_id": "NISR",
       "url": "https://statistics.gov.rw/"
     },
@@ -59,8 +59,8 @@
     },
     {
       "errors": [],
-      "fetched": 3,
-      "records": 3,
+      "fetched": 2,
+      "records": 2,
       "source_id": "MINECOFIN",
       "url": "https://www.minecofin.gov.rw/"
     },
@@ -73,8 +73,8 @@
     },
     {
       "errors": [],
-      "fetched": 3,
-      "records": 3,
+      "fetched": 2,
+      "records": 2,
       "source_id": "RTDA",
       "url": "https://www.rtda.gov.rw/"
     },
@@ -108,9 +108,9 @@
     },
     {
       "errors": [
-        "https://data.worldbank.org/indicator/EN.GHG.CO2.PC.CE.AR5?locations=RW: HTTP Error 504: Gateway Timeout",
-        "https://data.worldbank.org/indicator/ER.H2O.FWTL.ZS?locations=RW: HTTP Error 504: Gateway Timeout",
-        "https://data.worldbank.org/indicator/EG.ELC.RNWX.ZS?locations=RW: HTTP Error 504: Gateway Timeout"
+        "https://data.worldbank.org/indicator/SP.POP.GROW?locations=RW: HTTP Error 500: Internal Server Error",
+        "https://data.worldbank.org/indicator/EN.GHG.CO2.PC.CE.AR5?locations=RW: HTTP Error 500: Internal Server Error",
+        "https://data.worldbank.org/indicator/ER.H2O.FWTL.ZS?locations=RW: HTTP Error 504: Gateway Timeout"
       ],
       "fetched": 12,
       "records": 12,
@@ -143,9 +143,11 @@
       "url": "https://www.seforall.org/"
     },
     {
-      "errors": [],
+      "errors": [
+        "https://unfccc.int/documents?f%5B0%5D=topic%3A3984: HTTP Error 403: Forbidden"
+      ],
       "fetched": 30,
-      "records": 16,
+      "records": 17,
       "source_id": "UNFCCC",
       "url": "https://unfccc.int/documents"
     },
