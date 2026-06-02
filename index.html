@@ -224,7 +224,7 @@ pre{padding:10px;font-family:var(--mono);font-size:10px;color:var(--t);line-heig
 /* ── MODAL ── */
 .modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
 .modal-ov.open{display:flex}
-.modal{background:var(--s2);border:1px solid var(--br);border-radius:12px;padding:1.5rem;width:560px;max-width:94vw;max-height:90vh;overflow-y:auto}
+.modal{background:var(--s2);border:1px solid var(--br);border-radius:12px;padding:1.5rem;width:720px;max-width:94vw;max-height:90vh;overflow-y:auto}
 .modal-title{font-family:var(--display);font-size:16px;font-weight:700;margin-bottom:.25rem}
 .modal-sub{font-size:11px;color:var(--t2);margin-bottom:1.25rem;line-height:1.6}
 .msec{margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--br)}
@@ -268,6 +268,21 @@ pre{padding:10px;font-family:var(--mono);font-size:10px;color:var(--t);line-heig
 .ss-body .ss-title{font-weight:600;margin-bottom:3px;font-family:var(--display)}
 .ss-body .ss-sub{color:var(--t2);line-height:1.5}
 code{font-family:var(--mono);font-size:10px;background:var(--s3);padding:1px 5px;border-radius:3px;color:var(--t)}
+
+/* setup audit */
+.audit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin:.75rem 0}
+.audit-card{border:1px solid var(--br);background:var(--s2);border-radius:8px;padding:.75rem;min-height:86px}
+.audit-card b{display:block;font-family:var(--display);font-size:12px;margin-bottom:4px}
+.audit-card span{display:block;font-size:10px;color:var(--t2);line-height:1.45}
+.audit-card.ok{border-color:var(--gb);background:var(--gf)}
+.audit-card.warn{border-color:rgba(245,200,66,.55);background:var(--yf)}
+.audit-card.fail{border-color:var(--rd);background:var(--rf)}
+.audit-summary{border:1px solid var(--br);background:var(--s2);border-radius:10px;padding:1rem;margin-bottom:1rem}
+.audit-summary-title{font-family:var(--display);font-size:15px;font-weight:700;margin-bottom:4px}
+.audit-summary-sub{font-size:11px;color:var(--t2);line-height:1.55}
+.field-hint{font-size:10px;color:var(--t3);line-height:1.5;margin-top:4px}
+.status-text{font-family:var(--mono);font-size:11px;color:var(--t2);line-height:1.5;min-height:16px}
+.mini-actions{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center}
 
 /* ── CONFIDENCE BAR ── */
 .cb{width:50px;height:3px;background:var(--s4);border-radius:2px;overflow:hidden}
@@ -399,6 +414,8 @@ select.item-sel:focus{border-color:var(--b)}
 [data-theme="light"] .modal,
 [data-theme="light"] .conn-zone,
 [data-theme="light"] .mr-card,
+[data-theme="light"] .audit-card,
+[data-theme="light"] .audit-summary,
 [data-theme="light"] .setup-step,
 [data-theme="light"] .vc,
 [data-theme="light"] .pb,
@@ -419,6 +436,9 @@ select.item-sel:focus{border-color:var(--b)}
 [data-theme="light"] .flabel,
 [data-theme="light"] .cnt-lbl,
 [data-theme="light"] .modal-sub,
+[data-theme="light"] .audit-summary-sub,
+[data-theme="light"] .audit-card span,
+[data-theme="light"] .field-hint,
 [data-theme="light"] .msec-title,
 [data-theme="light"] .tw-lbl,
 [data-theme="light"] .vc-title,
@@ -514,6 +534,8 @@ select.item-sel:focus{border-color:var(--b)}
 [data-theme="light"] .kpi,
 [data-theme="light"] .conn-zone,
 [data-theme="light"] .mr-card,
+[data-theme="light"] .audit-card,
+[data-theme="light"] .audit-summary,
 [data-theme="light"] .setup-step,
 [data-theme="light"] .tbl-wrap,
 [data-theme="light"] .pb,
@@ -566,6 +588,10 @@ select.item-sel:focus{border-color:var(--b)}
     <div class="cbadge" id="llm-badge" onclick="openModal('settings')">
       <div class="cdot"></div>
       <div><div class="cl" id="llm-label">LLM: Not configured</div><div class="cs" id="llm-sub">Click to configure</div></div>
+    </div>
+    <div class="cbadge" id="ocr-badge" onclick="openModal('settings')">
+      <div class="cdot"></div>
+      <div><div class="cl" id="ocr-label">OCR: Not configured</div><div class="cs" id="ocr-sub">Scanned docs need OCR</div></div>
     </div>
     <button class="btn btn-s" style="padding:5px 10px;font-size:11px" onclick="openModal('settings')">⚙ Settings</button>
   </div>
@@ -699,9 +725,9 @@ select.item-sel:focus{border-color:var(--b)}
         <div class="dz" id="poly-dz" onclick="document.getElementById('poly-file').click()" ondragover="event.preventDefault();this.classList.add('over')" ondragleave="this.classList.remove('over')" ondrop="handlePolyDrop(event)">
           <div class="dz-icon">⬆</div>
           <div class="dz-lbl">Drop or click to upload</div>
-          <div class="dz-sub">CSV · XLSX · JSON · XML · TXT</div>
+          <div class="dz-sub">CSV · XLSX · JSON · XML · TXT · PDF · image</div>
         </div>
-        <input type="file" id="poly-file" accept=".csv,.xlsx,.xls,.json,.xml,.txt" onchange="handlePolyFile(event)">
+        <input type="file" id="poly-file" accept=".csv,.xlsx,.xls,.json,.xml,.txt,.pdf,.png,.jpg,.jpeg,.webp" onchange="handlePolyFile(event)">
         <div id="poly-file-st" style="font-size:10px;color:var(--t3);margin-top:4px"></div>
       </div>
       <div class="pb">
@@ -785,7 +811,25 @@ select.item-sel:focus{border-color:var(--b)}
 <div class="tabpanel" id="tab-setup">
   <div class="ph">
     <div class="ph-title">Setup <span>Guide</span></div>
-    <div class="ph-sub">Get the Data Hub fully connected in under 10 minutes</div>
+    <div class="ph-sub">Get the Data Hub connected, test every setting, then process text, tables, scanned PDFs, or images with confidence.</div>
+  </div>
+  <div class="audit-summary">
+    <div style="display:flex;justify-content:space-between;gap:.75rem;align-items:flex-start;flex-wrap:wrap">
+      <div>
+        <div class="audit-summary-title" id="setup-audit-title">First-time readiness audit</div>
+        <div class="audit-summary-sub" id="setup-audit-sub">Use this before live work. Green is ready, yellow needs attention, red blocks live sync or AI/OCR processing.</div>
+      </div>
+      <div class="mini-actions">
+        <button class="btn btn-p" onclick="runFullAudit()">Run audit</button>
+        <button class="btn btn-s" onclick="openModal('settings')">Open Settings</button>
+      </div>
+    </div>
+    <div class="audit-grid" id="setup-audit-grid"></div>
+  </div>
+  <div class="audit-grid">
+    <div class="audit-card ok"><b>Live tracker</b><span>Tracker edits are saved in this browser immediately. With Google connected, Pull and Push sync the same tracker to Google Sheets.</span></div>
+    <div class="audit-card warn"><b>LLM engine</b><span>The Polyglot step uses the selected model to identify energy parameters, map LEAP/NEMO fields, and generate governed outputs.</span></div>
+    <div class="audit-card warn"><b>OCR path</b><span>Scanned PDFs and image evidence need OCR first. Use LLM vision for images, a custom OCR endpoint, or paste externally extracted text.</span></div>
   </div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">
     <div>
@@ -801,11 +845,12 @@ select.item-sel:focus{border-color:var(--b)}
       <div class="setup-step"><div class="ss-num">6</div><div class="ss-body"><div class="ss-title">Create the tracker Google Sheet</div><div class="ss-sub">New Google Sheet → name it <code>ENERGIM Tracker</code> → copy the Sheet ID from the URL (the long string between /d/ and /edit)</div></div></div>
       <div class="setup-step"><div class="ss-num">7</div><div class="ss-body"><div class="ss-title">Initialize the sheet</div><div class="ss-sub">Paste the Sheet ID in Settings → Google → Sheet ID, then click <code>Initialize Sheet</code> — the app creates all headers and populates all 71 items</div></div></div>
       <div class="setup-step"><div class="ss-num">8</div><div class="ss-body"><div class="ss-title">Create an output folder in Drive</div><div class="ss-sub">Create a folder in Google Drive for polyglot outputs → right-click → Get link → copy the folder ID (last segment of URL)</div></div></div>
-      <div class="setup-step"><div class="ss-num">9</div><div class="ss-body"><div class="ss-title">Configure LLM</div><div class="ss-sub">Settings → LLM tab → select provider (Anthropic/OpenAI/Gemini) → paste API key → choose model</div></div></div>
-      <div class="setup-step"><div class="ss-num">10</div><div class="ss-body"><div class="ss-title">You're ready</div><div class="ss-sub">Click Google badge → Sign in → the tracker syncs live. Polyglot outputs push to your Drive folder automatically.</div></div></div>
+      <div class="setup-step"><div class="ss-num">9</div><div class="ss-body"><div class="ss-title">Configure the LLM provider</div><div class="ss-sub">Settings → LLM API → choose Anthropic, OpenAI, Gemini, Qwen, Kimi, OpenRouter, or a custom OpenAI-compatible endpoint. Then click <code>Test Connection</code>.</div></div></div>
+      <div class="setup-step"><div class="ss-num">10</div><div class="ss-body"><div class="ss-title">Configure OCR</div><div class="ss-sub">Settings → OCR → choose manual paste, LLM vision for images, or a custom OCR endpoint for scanned PDFs/images. Then run the readiness audit.</div></div></div>
+      <div class="setup-step"><div class="ss-num">11</div><div class="ss-body"><div class="ss-title">Start live work</div><div class="ss-sub">When the audit is green or understood, connect Google, initialize the sheet, process one small sample, publish, then confirm the tracker row and Drive output.</div></div></div>
     </div>
   </div>
-  <div class="notice ni"><span>ℹ</span><span>All API keys and tokens are stored in your browser's localStorage only. Nothing is sent to any server other than Google and your chosen LLM provider. The Google OAuth token expires after ~1 hour and will prompt you to re-authenticate.</span></div>
+  <div class="notice ni"><span>ℹ</span><span>API keys and settings are stored in this browser's localStorage only. Data is sent only when you connect Google, call the selected LLM provider, or use a configured OCR endpoint. Google OAuth tokens expire after about 1 hour and may require re-authentication.</span></div>
 </div>
 
 </div><!-- /main -->
@@ -828,19 +873,33 @@ select.item-sel:focus{border-color:var(--b)}
 <div class="modal-ov" id="modal-settings">
   <div class="modal">
     <div class="modal-title">⚙ Settings</div>
-    <div class="modal-sub">Configure Google integration and LLM API. Settings saved to localStorage.</div>
+    <div class="modal-sub">Configure Google live sync, model provider, and OCR. Settings are saved in this browser only.</div>
+
+    <div class="audit-summary">
+      <div style="display:flex;justify-content:space-between;gap:.75rem;align-items:flex-start;flex-wrap:wrap">
+        <div>
+          <div class="audit-summary-title">Readiness audit</div>
+          <div class="audit-summary-sub">Use this when setting up for the first time or when something feels unsure.</div>
+        </div>
+        <div class="mini-actions">
+          <button class="btn btn-p" onclick="runFullAudit()">Run audit</button>
+          <button class="btn btn-s" onclick="testGoogleAccess()">Test Google</button>
+        </div>
+      </div>
+      <div class="audit-grid" id="settings-audit-grid"></div>
+    </div>
 
     <div class="msec">
       <div class="msec-title">Google Integration</div>
-      <div class="fgroup"><div class="flabel">OAuth Client ID</div><input class="finput" id="s-clientid" placeholder="xxxx.apps.googleusercontent.com"></div>
-      <div class="fgroup"><div class="flabel">Google Sheet ID (tracker repository)</div><input class="finput" id="s-sheetid" placeholder="1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms"></div>
-      <div class="fgroup"><div class="flabel">Google Drive Folder ID (polyglot outputs)</div><input class="finput" id="s-folderid" placeholder="1A2B3C4D5E6F7G8H (last segment of folder URL)"></div>
+      <div class="fgroup"><div class="flabel">OAuth Client ID</div><input class="finput" id="s-clientid" placeholder="xxxx.apps.googleusercontent.com"><div class="field-hint">From Google Cloud OAuth credentials. It lets this browser request a temporary Google access token.</div></div>
+      <div class="fgroup"><div class="flabel">Google Sheet ID (tracker repository)</div><input class="finput" id="s-sheetid" placeholder="1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms"><div class="field-hint">Use the long value between <code>/d/</code> and <code>/edit</code> in the Google Sheet URL.</div></div>
+      <div class="fgroup"><div class="flabel">Google Drive Folder ID (polyglot outputs)</div><input class="finput" id="s-folderid" placeholder="1A2B3C4D5E6F7G8H"><div class="field-hint">Use the last segment of the Drive folder URL. Polyglot output files are uploaded here when Drive is connected.</div></div>
       <div class="flex-row">
         <button class="btn btn-p" onclick="initGoogleAuth()">Connect Google</button>
         <button class="btn btn-s" onclick="initSheet()">Initialize Sheet</button>
         <button class="btn btn-m" onclick="disconnectGoogle()">Disconnect</button>
       </div>
-      <div id="s-google-status" style="font-size:11px;color:var(--t2);margin-top:.5rem;font-family:var(--mono);min-height:16px"></div>
+      <div id="s-google-status" class="status-text" style="margin-top:.5rem"></div>
     </div>
 
     <div class="msec">
@@ -851,10 +910,15 @@ select.item-sel:focus{border-color:var(--b)}
             <option value="anthropic">Anthropic Claude</option>
             <option value="openai">OpenAI GPT</option>
             <option value="google">Google Gemini</option>
+            <option value="qwen">Qwen / DashScope</option>
+            <option value="kimi">Kimi / Moonshot</option>
+            <option value="openrouter">OpenRouter</option>
+            <option value="custom">Custom OpenAI-compatible</option>
           </select>
         </div>
         <div class="fgroup"><div class="flabel">Model</div><input class="finput" id="s-model" value="claude-sonnet-4-20250514"></div>
       </div>
+      <div class="fgroup"><div class="flabel">Base URL (for Qwen, Kimi, OpenRouter, or custom)</div><input class="finput" id="s-baseurl" placeholder="https://api.example.com/v1"><div class="field-hint" id="s-provider-note">Direct browser calls depend on the provider allowing CORS. If a provider blocks browser calls, use OpenRouter or a secure backend proxy.</div></div>
       <div class="fgroup"><div class="flabel">API Key</div><input class="finput" id="s-apikey" type="password" placeholder="Paste your API key…"></div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem">
         <div class="fgroup"><div class="flabel">Max Tokens</div><input class="finput" id="s-tokens" value="1500" type="number"></div>
@@ -862,7 +926,27 @@ select.item-sel:focus{border-color:var(--b)}
       </div>
       <div class="flex-row">
         <button class="btn btn-p" onclick="testLLM()">Test Connection</button>
-        <span id="s-llm-status" style="font-size:11px;color:var(--t2);font-family:var(--mono)"></span>
+        <span id="s-llm-status" class="status-text"></span>
+      </div>
+    </div>
+
+    <div class="msec">
+      <div class="msec-title">OCR</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem">
+        <div class="fgroup"><div class="flabel">OCR mode</div>
+          <select class="finput" id="s-ocr-provider" onchange="updateOcrHint()">
+            <option value="manual">Manual / paste extracted text</option>
+            <option value="llm_vision">LLM vision OCR for images</option>
+            <option value="custom">Custom OCR endpoint</option>
+          </select>
+        </div>
+        <div class="fgroup"><div class="flabel">OCR language hint</div><input class="finput" id="s-ocr-lang" value="eng+fra+kin"></div>
+      </div>
+      <div class="fgroup"><div class="flabel">OCR endpoint</div><input class="finput" id="s-ocr-endpoint" placeholder="https://your-ocr-service.example/extract"><div class="field-hint" id="s-ocr-note">Manual mode is safe for first use: run OCR outside the app, then paste the extracted text. For images, LLM vision can extract text if the selected model supports images.</div></div>
+      <div class="fgroup"><div class="flabel">OCR API key (optional)</div><input class="finput" id="s-ocr-key" type="password" placeholder="Only needed for your custom OCR endpoint"></div>
+      <div class="flex-row">
+        <button class="btn btn-s" onclick="testOCRSetup()">Test OCR setup</button>
+        <span id="s-ocr-status" class="status-text"></span>
       </div>
     </div>
 
@@ -967,11 +1051,22 @@ const NL={DR:"Direct",AU:"Augment",NA:"Not used",NP:"NEMO+"};
 const STATUS_OPTS=["Not Started","Requested","Partially Received","Received","Validated","Issue / Gap"];
 const RESP_OPTS=["Dr. Ghafi KONDI AKARA","Prof. Cecil Ouma","RA — Mr. Peacson","Both PIs"];
 
-let CFG={clientId:'',sheetId:'',folderId:'',provider:'anthropic',apiKey:'',model:'claude-sonnet-4-20250514',tokens:1500,temp:0.1,project:'ENERGIM',contract:'WRI #6277-SERV',country:'Rwanda',pi:'Dr. V. Ghafi KONDI AKARA'};
+let CFG={clientId:'',sheetId:'',folderId:'',provider:'anthropic',apiKey:'',model:'claude-sonnet-4-20250514',baseUrl:'',tokens:1500,temp:0.1,ocrProvider:'manual',ocrEndpoint:'',ocrApiKey:'',ocrLang:'eng+fra+kin',project:'ENERGIM',contract:'WRI #6277-SERV',country:'Rwanda',pi:'Dr. V. Ghafi KONDI AKARA'};
 let gToken=null;
 let trackerState=[]; // {idx, status, responsible, dateReq, dateRec, filePath, quality, pct, remarks}
 let polyData='', detectedParam=null, outputFiles={}, selectedTrackerIdx=null;
+let pendingOcrFile=null;
 let currentPolyStep=0;
+
+const LLM_PROVIDERS={
+  anthropic:{label:'Anthropic Claude',mode:'anthropic',model:'claude-sonnet-4-20250514',baseUrl:'https://api.anthropic.com/v1',note:'Best for reasoning. Direct browser calls may require a secure proxy if the provider blocks CORS.'},
+  openai:{label:'OpenAI GPT',mode:'openai_compatible',model:'gpt-4o',baseUrl:'https://api.openai.com/v1',note:'Use a GPT model for text mapping; use a vision-capable model for image OCR.'},
+  google:{label:'Google Gemini',mode:'google',model:'gemini-1.5-pro',baseUrl:'https://generativelanguage.googleapis.com/v1beta',note:'Gemini can handle text mapping and selected multimodal OCR workflows.'},
+  qwen:{label:'Qwen / DashScope',mode:'openai_compatible',model:'qwen-plus',baseUrl:'https://dashscope-intl.aliyuncs.com/compatible-mode/v1',note:'OpenAI-compatible DashScope endpoint. Use a Qwen-VL model when image OCR is needed.'},
+  kimi:{label:'Kimi / Moonshot',mode:'openai_compatible',model:'moonshot-v1-8k',baseUrl:'https://api.moonshot.ai/v1',note:'OpenAI-compatible Moonshot endpoint for Kimi models.'},
+  openrouter:{label:'OpenRouter',mode:'openai_compatible',model:'qwen/qwen3-235b-a22b',baseUrl:'https://openrouter.ai/api/v1',note:'One key can route to many models, including Qwen, Kimi, and vision-capable options.'},
+  custom:{label:'Custom OpenAI-compatible',mode:'openai_compatible',model:'',baseUrl:'',note:'Use this for any provider that exposes /chat/completions with OpenAI-compatible payloads.'}
+};
 
 // ═══════════════════════════════════════════════════════
 // INIT
@@ -1007,6 +1102,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   renderTracker();
   populatePolySelector();
   updateBadges();
+  runFullAudit();
 });
 
 function loadSettings(){
@@ -1017,15 +1113,22 @@ function loadSettings(){
   document.getElementById('s-folderid').value=CFG.folderId||'';
   document.getElementById('s-provider').value=CFG.provider||'anthropic';
   document.getElementById('s-model').value=CFG.model||'claude-sonnet-4-20250514';
+  document.getElementById('s-baseurl').value=CFG.baseUrl||providerDefaults(CFG.provider).baseUrl||'';
   document.getElementById('s-apikey').value=CFG.apiKey||'';
   document.getElementById('s-tokens').value=CFG.tokens||1500;
   document.getElementById('s-temp').value=CFG.temp||0.1;
+  document.getElementById('s-ocr-provider').value=CFG.ocrProvider||'manual';
+  document.getElementById('s-ocr-endpoint').value=CFG.ocrEndpoint||'';
+  document.getElementById('s-ocr-key').value=CFG.ocrApiKey||'';
+  document.getElementById('s-ocr-lang').value=CFG.ocrLang||'eng+fra+kin';
   document.getElementById('s-project').value=CFG.project||'ENERGIM';
   document.getElementById('s-contract').value=CFG.contract||'WRI #6277-SERV';
   document.getElementById('s-country').value=CFG.country||'Rwanda';
   document.getElementById('s-pi').value=CFG.pi||'Dr. V. Ghafi KONDI AKARA';
   const savedToken=sessionStorage.getItem('goog_token');
   if(savedToken){ gToken=savedToken; updateBadges(); }
+  updateProviderNote();
+  updateOcrHint();
 }
 
 function saveSettings(){
@@ -1034,15 +1137,23 @@ function saveSettings(){
   CFG.folderId=document.getElementById('s-folderid').value.trim();
   CFG.provider=document.getElementById('s-provider').value;
   CFG.model=document.getElementById('s-model').value.trim();
+  CFG.baseUrl=document.getElementById('s-baseurl').value.trim();
   CFG.apiKey=document.getElementById('s-apikey').value.trim();
   CFG.tokens=parseInt(document.getElementById('s-tokens').value)||1500;
   CFG.temp=parseFloat(document.getElementById('s-temp').value)||0.1;
+  CFG.ocrProvider=document.getElementById('s-ocr-provider').value;
+  CFG.ocrEndpoint=document.getElementById('s-ocr-endpoint').value.trim();
+  CFG.ocrApiKey=document.getElementById('s-ocr-key').value.trim();
+  CFG.ocrLang=document.getElementById('s-ocr-lang').value.trim()||'eng+fra+kin';
   CFG.project=document.getElementById('s-project').value.trim();
   CFG.contract=document.getElementById('s-contract').value.trim();
   CFG.country=document.getElementById('s-country').value.trim();
   CFG.pi=document.getElementById('s-pi').value.trim();
   localStorage.setItem('energim_cfg',JSON.stringify(CFG));
+  updateProviderNote();
+  updateOcrHint();
   updateBadges();
+  runFullAudit();
   closeModal('settings');
 }
 
@@ -1067,9 +1178,13 @@ function switchTab(name){
   document.querySelectorAll('.nt').forEach(n=>{if(n.textContent.toLowerCase().includes(name.slice(0,4))) n.classList.add('active');});
   if(name==='tracker'){renderTracker();renderReadiness();}
   if(name==='inventory') renderInventory();
+  if(name==='setup') runFullAudit();
 }
 
-function openModal(id){document.getElementById('modal-'+id).classList.add('open');}
+function openModal(id){
+  document.getElementById('modal-'+id).classList.add('open');
+  if(id==='settings') runFullAudit();
+}
 function closeModal(id){document.getElementById('modal-'+id).classList.remove('open');}
 
 // ═══════════════════════════════════════════════════════
@@ -1078,6 +1193,7 @@ function closeModal(id){document.getElementById('modal-'+id).classList.remove('o
 function updateBadges(){
   const hasGoogle=!!gToken;
   const hasLLM=CFG.apiKey&&CFG.apiKey.length>10;
+  const hasOCR=CFG.ocrProvider==='llm_vision'?hasLLM:CFG.ocrProvider==='custom'?!!CFG.ocrEndpoint:true;
   const gb=document.getElementById('goog-badge');
   gb.className='cbadge'+(hasGoogle?' on':'');
   document.getElementById('goog-label').textContent=hasGoogle?'Google: Connected':'Google: Not connected';
@@ -1086,16 +1202,155 @@ function updateBadges(){
   lb.className='cbadge'+(hasLLM?' on':'');
   document.getElementById('llm-label').textContent=hasLLM?`LLM: ${providerLabel()}`:'LLM: Not configured';
   document.getElementById('llm-sub').textContent=hasLLM?CFG.model:'Click to configure';
+  const ob=document.getElementById('ocr-badge');
+  ob.className='cbadge'+(hasOCR?' on':' err');
+  document.getElementById('ocr-label').textContent=hasOCR?`OCR: ${ocrLabel()}`:'OCR: Needs setup';
+  document.getElementById('ocr-sub').textContent=CFG.ocrProvider==='manual'?'Paste extracted text':CFG.ocrProvider==='llm_vision'?'Images via selected LLM':'Custom endpoint';
   const sc=document.getElementById('sheet-conn-zone');
   sc.className='conn-zone'+(hasGoogle?' loaded':'');
   document.getElementById('sheet-conn-main').textContent=hasGoogle?`Google Sheet: ${CFG.sheetId?CFG.sheetId.slice(0,16)+'…':'Set Sheet ID in Settings'}`:'Google Sheet: Not connected';
   document.getElementById('pub-drive-status').textContent=hasGoogle&&CFG.folderId?`Folder: ${CFG.folderId.slice(0,20)}…`:'Not connected — files will be downloaded locally';
 }
 
-function providerLabel(){return CFG.provider==='openai'?'OpenAI':CFG.provider==='google'?'Google Gemini':'Anthropic Claude';}
+function providerDefaults(provider){return LLM_PROVIDERS[provider]||LLM_PROVIDERS.anthropic;}
+function providerLabel(){return providerDefaults(CFG.provider).label;}
+function ocrLabel(){return CFG.ocrProvider==='llm_vision'?'LLM vision':CFG.ocrProvider==='custom'?'Custom':'Manual paste';}
 function updateModelHint(){
-  const hints={anthropic:'claude-sonnet-4-20250514',openai:'gpt-4o',google:'gemini-1.5-pro'};
-  document.getElementById('s-model').value=hints[document.getElementById('s-provider').value]||'';
+  const provider=document.getElementById('s-provider').value;
+  const defaults=providerDefaults(provider);
+  document.getElementById('s-model').value=defaults.model||'';
+  document.getElementById('s-baseurl').value=defaults.baseUrl||'';
+  updateProviderNote();
+  runFullAudit();
+}
+function updateProviderNote(){
+  const provider=document.getElementById('s-provider')?.value||CFG.provider;
+  const defaults=providerDefaults(provider);
+  const note=document.getElementById('s-provider-note');
+  if(note) note.textContent=defaults.note||'';
+}
+function updateOcrHint(){
+  const mode=document.getElementById('s-ocr-provider')?.value||CFG.ocrProvider;
+  const note=document.getElementById('s-ocr-note');
+  if(!note) return;
+  if(mode==='llm_vision') note.textContent='Use this for image files when your selected model supports vision. For scanned PDFs, use a custom OCR endpoint or paste extracted text.';
+  else if(mode==='custom') note.textContent='The app will POST the file to this endpoint. It should return plain text or JSON with a text field.';
+  else note.textContent='Manual mode is safest for first use: run OCR outside the app, then paste the extracted text here.';
+  runFullAudit();
+}
+
+function readSettingsForm(){
+  const get=id=>document.getElementById(id)?.value?.trim()||'';
+  return {
+    clientId:get('s-clientid')||CFG.clientId,
+    sheetId:get('s-sheetid')||CFG.sheetId,
+    folderId:get('s-folderid')||CFG.folderId,
+    provider:get('s-provider')||CFG.provider,
+    model:get('s-model')||CFG.model,
+    baseUrl:get('s-baseurl')||CFG.baseUrl,
+    apiKey:get('s-apikey')||CFG.apiKey,
+    ocrProvider:get('s-ocr-provider')||CFG.ocrProvider,
+    ocrEndpoint:get('s-ocr-endpoint')||CFG.ocrEndpoint,
+    ocrApiKey:get('s-ocr-key')||CFG.ocrApiKey,
+    ocrLang:get('s-ocr-lang')||CFG.ocrLang
+  };
+}
+
+function looksLikeGoogleClientId(v){return /^[\w.-]+\.apps\.googleusercontent\.com$/.test(v||'');}
+function looksLikeId(v){return /^[A-Za-z0-9_-]{12,}$/.test(v||'');}
+function looksLikeUrl(v){try{const u=new URL(v);return u.protocol==='https:'||u.hostname==='localhost'||u.hostname==='127.0.0.1';}catch(e){return false;}}
+
+function collectReadinessChecks(){
+  const c=readSettingsForm();
+  const provider=providerDefaults(c.provider);
+  const needsBaseUrl=provider.mode==='openai_compatible';
+  const hasLLM=!!c.apiKey&&c.apiKey.length>10&&!!c.model&&(!needsBaseUrl||looksLikeUrl(c.baseUrl||provider.baseUrl));
+  const llmTest=getLastLLMTest(c);
+  const llmAudit=!hasLLM?{status:'fail',detail:'Choose a provider, model, key, and base URL if needed.'}:llmTest?.ok?{status:'ok',detail:`${provider.label} was tested with ${c.model}.`}:llmTest&&!llmTest.ok?{status:'fail',detail:`Last ${provider.label} test failed. Re-test after changing settings.`}:{status:'warn',detail:`${provider.label} is configured with ${c.model}. Click Test Connection before live work.`};
+  const checks=[
+    {key:'local',label:'Local browser state',status:storageAvailable()?'ok':'fail',detail:storageAvailable()?'Settings and tracker can be stored locally.':'Browser storage is unavailable; settings will not persist.'},
+    {key:'oauth',label:'Google OAuth',status:looksLikeGoogleClientId(c.clientId)?'ok':'warn',detail:looksLikeGoogleClientId(c.clientId)?'OAuth Client ID format looks valid.':'Add an OAuth Client ID to connect Google Sheets and Drive.'},
+    {key:'token',label:'Google sign-in',status:gToken?'ok':'warn',detail:gToken?'Google token is active for this browser session.':'Click Connect Google when ready for live sync.'},
+    {key:'sheet',label:'Tracker Sheet',status:looksLikeId(c.sheetId)?'ok':'warn',detail:looksLikeId(c.sheetId)?'Sheet ID format looks valid.':'Paste the tracker Sheet ID, then initialize the sheet.'},
+    {key:'drive',label:'Drive folder',status:looksLikeId(c.folderId)?'ok':'warn',detail:looksLikeId(c.folderId)?'Drive folder ID format looks valid.':'Add a Drive folder ID or use local downloads.'},
+    {key:'llm',label:'LLM provider',status:llmAudit.status,detail:llmAudit.detail},
+    {key:'ocr',label:'OCR path',status:ocrStatus(c,hasLLM).status,detail:ocrStatus(c,hasLLM).detail},
+    {key:'tracker',label:'Tracker rows',status:trackerState.length===INV_DATA.length?'ok':'warn',detail:trackerState.length===INV_DATA.length?`${trackerState.length} tracker rows are loaded.`:'Tracker rows need initialization or refresh.'}
+  ];
+  return checks;
+}
+
+function getLastLLMTest(c){
+  try{
+    const t=JSON.parse(localStorage.getItem('energim_llm_last_test')||'null');
+    if(!t||t.provider!==c.provider||t.model!==c.model) return null;
+    return t;
+  }catch(e){return null;}
+}
+
+function ocrStatus(c,hasLLM){
+  if(c.ocrProvider==='llm_vision'){
+    return hasLLM?{status:'ok',detail:'Images can be OCR processed through the selected vision-capable model.'}:{status:'fail',detail:'LLM vision OCR needs a working LLM provider and key.'};
+  }
+  if(c.ocrProvider==='custom'){
+    return looksLikeUrl(c.ocrEndpoint)?{status:'ok',detail:'Custom OCR endpoint is configured.'}:{status:'fail',detail:'Add a custom OCR endpoint for scanned PDFs/images.'};
+  }
+  return {status:'warn',detail:'Manual OCR mode is selected. Paste extracted text before Identify and Map.'};
+}
+
+function storageAvailable(){
+  try{localStorage.setItem('_energim_test','1');localStorage.removeItem('_energim_test');return true;}catch(e){return false;}
+}
+
+function renderAuditGrid(id,checks){
+  const el=document.getElementById(id);
+  if(!el) return;
+  el.innerHTML=checks.map(x=>`<div class="audit-card ${x.status}"><b>${x.status.toUpperCase()} - ${x.label}</b><span>${x.detail}</span></div>`).join('');
+}
+
+function runFullAudit(){
+  const checks=collectReadinessChecks();
+  renderAuditGrid('setup-audit-grid',checks);
+  renderAuditGrid('settings-audit-grid',checks);
+  const fail=checks.filter(x=>x.status==='fail').length;
+  const warn=checks.filter(x=>x.status==='warn').length;
+  const title=document.getElementById('setup-audit-title');
+  const sub=document.getElementById('setup-audit-sub');
+  if(title) title.textContent=fail?'Setup has blockers':warn?'Setup needs review':'Setup ready for live work';
+  if(sub) sub.textContent=fail?`${fail} blocker(s) must be fixed before AI/OCR or live sync can be trusted.`:warn?`${warn} item(s) need attention, but local tracker work can continue.`:'All core checks passed. Test one small dataset before full production use.';
+  updateBadges();
+}
+
+async function testGoogleAccess(){
+  const el=document.getElementById('s-google-status');
+  const c=readSettingsForm();
+  if(!gToken){el.textContent='Connect Google first.';return;}
+  if(!looksLikeId(c.sheetId)){el.textContent='Add a valid Sheet ID first.';return;}
+  el.textContent='Testing Google Sheet access...';
+  try{
+    const sheet=await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${c.sheetId}?fields=properties.title,sheets.properties.title`,{headers:{'Authorization':'Bearer '+gToken}});
+    if(!sheet.ok) throw new Error(await sheet.text());
+    const sheetJson=await sheet.json();
+    const names=(sheetJson.sheets||[]).map(s=>s.properties.title);
+    let driveNote='';
+    if(c.folderId){
+      const drive=await fetch(`https://www.googleapis.com/drive/v3/files/${c.folderId}?fields=id,name,mimeType`,{headers:{'Authorization':'Bearer '+gToken}});
+      driveNote=drive.ok?' Drive folder reachable.':' Drive folder could not be verified.';
+    }
+    el.textContent=`OK: ${sheetJson.properties.title}. Sheets: ${names.join(', ')||'none'}.${driveNote}`;
+  }catch(e){
+    el.textContent='Google test failed: '+String(e.message||e).slice(0,160);
+  }
+}
+
+function testOCRSetup(){
+  const el=document.getElementById('s-ocr-status');
+  const c=readSettingsForm();
+  const hasLLM=!!c.apiKey&&c.apiKey.length>10&&!!c.model;
+  const state=ocrStatus(c,hasLLM);
+  el.textContent=state.status.toUpperCase()+': '+state.detail;
+  el.style.color=state.status==='ok'?'var(--ga)':state.status==='fail'?'var(--ra)':'var(--ya)';
+  runFullAudit();
 }
 
 // ═══════════════════════════════════════════════════════
@@ -1412,29 +1667,61 @@ async function sheetsAppend(sheetId,range,values){
 // LLM API
 // ═══════════════════════════════════════════════════════
 async function callLLM(prompt){
-  if(CFG.provider==='openai'){
-    const r=await fetch('https://api.openai.com/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+CFG.apiKey},body:JSON.stringify({model:CFG.model||'gpt-4o',max_tokens:CFG.tokens,temperature:CFG.temp,messages:[{role:'user',content:prompt}]})});
-    const j=await r.json();if(j.error)throw new Error(j.error.message);return j.choices[0].message.content;
-  }else if(CFG.provider==='google'){
-    const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${CFG.model||'gemini-1.5-pro'}:generateContent?key=${CFG.apiKey}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{maxOutputTokens:CFG.tokens,temperature:CFG.temp}})});
-    const j=await r.json();if(j.error)throw new Error(j.error.message);return j.candidates[0].content.parts[0].text;
-  }else{
-    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:CFG.model||'claude-sonnet-4-20250514',max_tokens:CFG.tokens,messages:[{role:'user',content:prompt}]})});
-    const j=await r.json();if(j.error)throw new Error(JSON.stringify(j.error));return j.content.filter(c=>c.type==='text').map(c=>c.text).join('');
+  const provider=providerDefaults(CFG.provider);
+  if(provider.mode==='google'){
+    const model=CFG.model||provider.model;
+    const base=(CFG.baseUrl||provider.baseUrl).replace(/\/$/,'');
+    const r=await fetch(`${base}/models/${model}:generateContent?key=${CFG.apiKey}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{maxOutputTokens:CFG.tokens,temperature:CFG.temp}})});
+    const j=await safeJson(r);if(!r.ok||j.error)throw new Error(j.error?.message||j.error||r.statusText);return j.candidates?.[0]?.content?.parts?.map(p=>p.text||'').join('')||'';
   }
+  if(provider.mode==='anthropic'){
+    const base=(CFG.baseUrl||provider.baseUrl).replace(/\/$/,'');
+    const r=await fetch(`${base}/messages`,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+CFG.apiKey,'x-api-key':CFG.apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:CFG.model||provider.model,max_tokens:CFG.tokens,temperature:CFG.temp,messages:[{role:'user',content:prompt}]})});
+    const j=await safeJson(r);if(!r.ok||j.error)throw new Error(j.error?.message||JSON.stringify(j.error||j)||r.statusText);return (j.content||[]).filter(c=>c.type==='text').map(c=>c.text).join('');
+  }
+  return openAICompatibleChat([{role:'user',content:prompt}]);
+}
+
+async function openAICompatibleChat(messages){
+  const provider=providerDefaults(CFG.provider);
+  const base=(CFG.baseUrl||provider.baseUrl||'').replace(/\/$/,'');
+  if(!base) throw new Error('Base URL is required for this provider.');
+  const headers={'Content-Type':'application/json','Authorization':'Bearer '+CFG.apiKey};
+  if(CFG.provider==='openrouter'){
+    headers['HTTP-Referer']=location.origin||'https://naphymoro.github.io';
+    headers['X-Title']='ENERGIM Data Hub';
+  }
+  const r=await fetch(`${base}/chat/completions`,{method:'POST',headers,body:JSON.stringify({model:CFG.model||provider.model,max_tokens:CFG.tokens,temperature:CFG.temp,messages})});
+  const j=await safeJson(r);if(!r.ok||j.error)throw new Error(j.error?.message||JSON.stringify(j.error||j)||r.statusText);return j.choices?.[0]?.message?.content||'';
+}
+
+async function safeJson(response){
+  const text=await response.text();
+  try{return JSON.parse(text);}catch(e){return response.ok?{text}:{error:text};}
 }
 
 async function testLLM(){
   const el=document.getElementById('s-llm-status');
-  const saveProv=CFG.provider,saveKey=CFG.apiKey,saveModel=CFG.model,saveTokens=CFG.tokens;
+  const saveProv=CFG.provider,saveKey=CFG.apiKey,saveModel=CFG.model,saveBase=CFG.baseUrl,saveTokens=CFG.tokens;
   CFG.provider=document.getElementById('s-provider').value;
   CFG.apiKey=document.getElementById('s-apikey').value;
   CFG.model=document.getElementById('s-model').value;
+  CFG.baseUrl=document.getElementById('s-baseurl').value;
   CFG.tokens=200;
   el.textContent='Testing…';el.style.color='var(--t2)';
-  try{const r=await callLLM('Say: Connection OK');el.textContent='✅ '+r.slice(0,50);el.style.color='var(--ga)';}
-  catch(e){el.textContent='❌ '+String(e).slice(0,70);el.style.color='var(--ra)';}
-  CFG.provider=saveProv;CFG.apiKey=saveKey;CFG.model=saveModel;CFG.tokens=saveTokens;
+  try{
+    const r=await callLLM('Reply with exactly: Connection OK');
+    el.textContent='OK '+r.slice(0,80);
+    el.style.color='var(--ga)';
+    localStorage.setItem('energim_llm_last_test',JSON.stringify({ok:true,provider:CFG.provider,model:CFG.model,at:new Date().toISOString()}));
+  }
+  catch(e){
+    el.textContent='Failed: '+String(e.message||e).slice(0,120);
+    el.style.color='var(--ra)';
+    localStorage.setItem('energim_llm_last_test',JSON.stringify({ok:false,provider:CFG.provider,model:CFG.model,at:new Date().toISOString(),error:String(e.message||e).slice(0,200)}));
+  }
+  CFG.provider=saveProv;CFG.apiKey=saveKey;CFG.model=saveModel;CFG.baseUrl=saveBase;CFG.tokens=saveTokens;
+  runFullAudit();
 }
 
 // ═══════════════════════════════════════════════════════
@@ -1482,9 +1769,87 @@ function handlePolyDrop(e){
 function handlePolyFile(e){const f=e.target.files[0];if(f)readPolyFile(f);}
 function readPolyFile(f){
   const reader=new FileReader();
-  reader.onload=ev=>{polyData=ev.target.result;document.getElementById('poly-file-st').textContent=`✓ ${f.name} (${(f.size/1024).toFixed(1)} KB)`;document.getElementById('poly-paste').value='';};
-  if(f.name.match(/\.xlsx?$/i)){polyData=`[Excel: ${f.name}]`;document.getElementById('poly-file-st').textContent=`✓ ${f.name}`;}
+  pendingOcrFile=null;
+  const isOcr=f.name.match(/\.(pdf|png|jpe?g|webp)$/i);
+  const isImage=f.name.match(/\.(png|jpe?g|webp)$/i);
+  if(isOcr){
+    reader.onload=ev=>{
+      pendingOcrFile={name:f.name,type:f.type||mimeFromName(f.name),dataUrl:ev.target.result,kind:isImage?'image':'pdf'};
+      polyData='';
+      document.getElementById('poly-file-st').textContent=`OCR queued: ${f.name}. Click Identify and Map to extract text using the configured OCR path.`;
+      document.getElementById('poly-paste').value='';
+      runFullAudit();
+    };
+    reader.readAsDataURL(f);
+    return;
+  }
+  reader.onload=ev=>{polyData=ev.target.result;document.getElementById('poly-file-st').textContent=`OK ${f.name} (${(f.size/1024).toFixed(1)} KB)`;document.getElementById('poly-paste').value='';};
+  if(f.name.match(/\.xlsx?$/i)){polyData=`[Excel workbook uploaded: ${f.name}. If the workbook has multiple sheets, export the target sheet as CSV for best mapping.]`;document.getElementById('poly-file-st').textContent=`OK ${f.name}`;}
   else reader.readAsText(f);
+}
+
+function mimeFromName(name){
+  if(name.match(/\.pdf$/i))return'application/pdf';
+  if(name.match(/\.png$/i))return'image/png';
+  if(name.match(/\.webp$/i))return'image/webp';
+  return'image/jpeg';
+}
+
+async function extractPendingOCR(){
+  if(!pendingOcrFile) throw new Error('No OCR file is queued.');
+  if(CFG.ocrProvider==='manual'){
+    throw new Error('OCR is set to Manual. Extract the scanned text outside the app, paste it into the text box, then click Identify and Map.');
+  }
+  document.getElementById('poly-file-st').textContent=`Running OCR for ${pendingOcrFile.name}...`;
+  let text='';
+  if(CFG.ocrProvider==='custom'){
+    text=await runCustomOCR(pendingOcrFile);
+  }else if(CFG.ocrProvider==='llm_vision'){
+    if(pendingOcrFile.kind!=='image') throw new Error('LLM vision OCR currently accepts image files. For scanned PDFs, use a custom OCR endpoint or paste extracted text.');
+    text=await runVisionOCR(pendingOcrFile);
+  }
+  if(!text||text.trim().length<20) throw new Error('OCR returned too little text. Check the OCR provider, file type, or paste extracted text manually.');
+  document.getElementById('poly-file-st').textContent=`OCR complete: ${pendingOcrFile.name} (${text.length} characters)`;
+  pendingOcrFile=null;
+  return text;
+}
+
+async function runCustomOCR(file){
+  if(!CFG.ocrEndpoint) throw new Error('Custom OCR endpoint is missing in Settings.');
+  const blob=await (await fetch(file.dataUrl)).blob();
+  const form=new FormData();
+  form.append('file',blob,file.name);
+  form.append('language',CFG.ocrLang||'eng+fra+kin');
+  const headers={};
+  if(CFG.ocrApiKey) headers['Authorization']='Bearer '+CFG.ocrApiKey;
+  const r=await fetch(CFG.ocrEndpoint,{method:'POST',headers,body:form});
+  const body=await r.text();
+  if(!r.ok) throw new Error('Custom OCR failed: '+body.slice(0,160));
+  try{
+    const json=JSON.parse(body);
+    return json.text||json.ocr_text||json.content||JSON.stringify(json);
+  }catch(e){
+    return body;
+  }
+}
+
+async function runVisionOCR(file){
+  if(!CFG.apiKey||!CFG.model) throw new Error('LLM vision OCR needs a configured and tested LLM provider.');
+  const prompt=`Extract all readable text from this Rwanda energy evidence image. Preserve tables as CSV-like text when possible. Return only extracted text, no commentary. OCR language hint: ${CFG.ocrLang||'eng+fra+kin'}.`;
+  const provider=providerDefaults(CFG.provider);
+  if(provider.mode==='google'){
+    const base=(CFG.baseUrl||provider.baseUrl).replace(/\/$/,'');
+    const data=file.dataUrl.split(',')[1];
+    const r=await fetch(`${base}/models/${CFG.model||provider.model}:generateContent?key=${CFG.apiKey}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:prompt},{inlineData:{mimeType:file.type,data}}]}],generationConfig:{maxOutputTokens:CFG.tokens,temperature:0}})});
+    const j=await safeJson(r);if(!r.ok||j.error)throw new Error(j.error?.message||j.error||r.statusText);return j.candidates?.[0]?.content?.parts?.map(p=>p.text||'').join('')||'';
+  }
+  if(provider.mode==='anthropic'){
+    const base=(CFG.baseUrl||provider.baseUrl).replace(/\/$/,'');
+    const data=file.dataUrl.split(',')[1];
+    const r=await fetch(`${base}/messages`,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+CFG.apiKey,'x-api-key':CFG.apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:CFG.model||provider.model,max_tokens:CFG.tokens,temperature:0,messages:[{role:'user',content:[{type:'text',text:prompt},{type:'image',source:{type:'base64',media_type:file.type,data}}]}]})});
+    const j=await safeJson(r);if(!r.ok||j.error)throw new Error(j.error?.message||JSON.stringify(j.error||j)||r.statusText);return (j.content||[]).filter(c=>c.type==='text').map(c=>c.text).join('');
+  }
+  return openAICompatibleChat([{role:'user',content:[{type:'text',text:prompt},{type:'image_url',image_url:{url:file.dataUrl}}]}]);
 }
 
 function gPS(n){
@@ -1499,8 +1864,12 @@ function gPS(n){
 
 async function runPolyIdentify(){
   const paste=document.getElementById('poly-paste').value.trim();
-  if(!paste&&!polyData){alert('Provide data first — upload or paste.');return;}
-  polyData=paste||polyData;
+  if(paste){polyData=paste;pendingOcrFile=null;}
+  if(!polyData&&pendingOcrFile){
+    try{polyData=await extractPendingOCR();}
+    catch(e){alert(String(e.message||e));return;}
+  }
+  if(!polyData){alert('Provide data first - upload a text/table file, paste text, or configure OCR for scanned files.');return;}
   gPS(1);
   
   const steps=['Parsing input format','Identifying energy parameter','Matching to Rwanda schema','Mapping LEAP/NEMO columns','Detecting units'];
