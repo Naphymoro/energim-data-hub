@@ -4,20 +4,24 @@ Production-ready static HTML deployment for the ENERGIM Research & Innovation da
 
 ## First-time live app setup
 
-Open `index.html`, go to `Setup`, and run the readiness audit before production use. The audit checks local browser storage, Google OAuth, Google Sheet ID, Drive folder ID, LLM provider, OCR path, and tracker rows.
+Open `index.html`, go to `Setup`, and start with `Free local mode`. This mode uses browser storage, XLSX export, local downloads, and manual OCR paste. It does not require Google Cloud setup, LLM API keys, or paid credits.
 
 Recommended first run:
-- Configure Google OAuth, tracker Sheet ID, and Drive folder ID in `Settings`.
-- Click `Connect Google`, then `Initialize Sheet`.
-- Choose an LLM provider and click `Test Connection`.
-- Choose an OCR mode. Manual paste is safest for first use; LLM vision can OCR images; a custom OCR endpoint can handle scanned PDFs/images.
-- Process one small sample in `SDMX Polyglot`, publish it, then confirm the tracker row and output file.
+- Click `Use Free Local Mode`.
+- Update a few tracker rows and export XLSX.
+- Paste a small CSV/table into `SDMX Polyglot`.
+- Transform and download outputs locally.
+- Add Google sync, LLM mapping, or OCR automation later only if needed.
 
 ## LLM and OCR interoperability
 
-The app supports Anthropic, OpenAI, Gemini, Qwen/DashScope, Kimi/Moonshot, OpenRouter, and custom OpenAI-compatible `/chat/completions` endpoints. Browser-based calls depend on each provider allowing CORS; if a provider blocks direct browser calls, use OpenRouter or a secure backend proxy.
+The app supports Anthropic, OpenAI, Gemini, Qwen/DashScope, Kimi/Moonshot, OpenRouter, and custom OpenAI-compatible `/chat/completions` endpoints. These are optional. API credits are used only when the app calls the selected provider. Browser-based calls depend on each provider allowing CORS; if a provider blocks direct browser calls, use OpenRouter or a secure backend proxy.
 
 OCR is treated as a first-class readiness item because many evidence sources are scanned PDFs or images. The app can queue image/PDF evidence for OCR and will block mapping until extracted text is available.
+
+## No-credit deployment
+
+The app is a static site and can be deployed on GitHub Pages without hosting credits. In free local mode, users can work without Google OAuth, Google Sheets, Google Drive, LLM APIs, or OCR APIs. Google sync and AI/OCR automation are optional advanced modes.
 
 ## Release
 - Current Version: v1.0.0
