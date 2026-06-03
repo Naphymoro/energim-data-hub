@@ -3699,6 +3699,8 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
       metricCards()+
       modelOutputPanel(readOutputs())+
       scenarioLensPanel()+
+      inputCoveragePanel()+
+      producerPanel()+
       '<section class="edh-work-grid">'+
         workCard('02','Inventory','Review the 71 Rwanda energy data requirements and identify the high-priority gaps.','Open inventory','inventory')+
         workCard('04','Evidence library','Search '+(state.docsLoaded?state.docs.length:'repository')+' crawled records and import one directly into extraction.','Browse evidence','evidence')+
@@ -3737,11 +3739,46 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
     '</div></section>';
   }
   function scenarioLensPanel(){
-    return '<section class="edh-panel"><span class="edh-kicker">Scenario basis</span><h3>Baseline first, policy lens visible.</h3><p>The tool prepares data for a current-evidence baseline and tags policy evidence such as Rwanda NDC, NST2, IRP, electrification targets, emission targets, and project pipeline records when those appear in the inventory or evidence repository. It does not decide the scenario on its own; it keeps the evidence traceable so LEAP/NEMO scenario runs can be built from reviewed inputs.</p><div class="edh-model-grid">'+
+    return '<section class="edh-panel"><span class="edh-kicker">Scenario basis</span><h3>Baseline first, policy lens visible.</h3><p>The tool prepares data for a current-evidence baseline and tags policy evidence such as Rwanda NDC, NST2, IRP, electrification targets, emission targets, and project pipeline records when those appear in the inventory or evidence repository. EPD Rwanda is treated as a core private-sector evidence producer for clean cooking, SHS, mini-grid, LPG, biogas, e-mobility, project pipeline, and private investment intelligence. The app does not decide the scenario on its own; it keeps the evidence traceable so LEAP/NEMO scenario runs can be built from reviewed inputs.</p><div class="edh-model-grid">'+
       '<article class="edh-model-card"><h3>Baseline</h3><p>Current validated inventory, tracker status, source years, units, and institutional provenance.</p></article>'+
       '<article class="edh-model-card leap"><h3>LEAP scenario inputs</h3><p>Demand, transformation, resources, socioeconomic drivers, and policy assumptions for scenario accounting.</p></article>'+
       '<article class="edh-model-card nemo"><h3>NEMO constraints</h3><p>Capacity, activity, timeslice, discount-rate, residual-capacity, and policy-bound inputs for optimization.</p></article>'+
       '<article class="edh-model-card prov"><h3>NDC/NST/IRP evidence</h3><p>Policy targets are tracked as evidence and provenance, then exported for modellers to apply in baseline or policy scenarios.</p></article>'+
+    '</div></section>';
+  }
+  function epdInventoryItems(){
+    return rows().filter(r=>String(r.slice(3).join(' ')).toLowerCase().includes('epd'));
+  }
+  function sourceNames(){
+    const seen=new Map();
+    rows().forEach(r=>{
+      String(r[3]||'').split(/\/|;|,|\+|\u2014|-/).map(x=>x.trim()).filter(Boolean).forEach(name=>{
+        const clean=name.replace(/\s+/g,' ');
+        if(clean.length>1) seen.set(clean,(seen.get(clean)||0)+1);
+      });
+    });
+    return [...seen.entries()].sort((a,b)=>b[1]-a[1]);
+  }
+  function inputCoveragePanel(){
+    const total=rows().length;
+    const leapRows=rows().filter(r=>r[1]!=='N').length;
+    const nemoRows=rows().filter(r=>r[8]&&r[8]!=='NA').length;
+    const nemoSpecific=rows().filter(r=>r[1]==='N').length;
+    const epdRows=epdInventoryItems().length;
+    return '<section class="edh-panel"><span class="edh-kicker">Input coverage</span><h3>Priority inventory, not a frozen universe of every future variable.</h3><p>The 71 rows cover the current ENERGIM priority schema for Rwanda LEAP and NEMO input preparation. They include baseline data, scenario drivers, resource constraints, transformation supply, demand, and NEMO-specific optimization variables. New variables can still be added as the modelling design evolves.</p><div class="edh-model-grid">'+
+      '<article class="edh-model-card leap"><h3>'+leapRows+' LEAP-facing rows</h3><p>Demand, transformation, resources, and socioeconomic inputs for LEAP scenario accounting.</p></article>'+
+      '<article class="edh-model-card nemo"><h3>'+nemoRows+' NEMO-relevant rows</h3><p>Direct, augmented, and NEMO-specific inputs for optimization-ready datasets.</p></article>'+
+      '<article class="edh-model-card"><h3>'+nemoSpecific+' NEMO-specific rows</h3><p>Variables such as time-slices, discount rate, residual capacity, storage, and constraints.</p></article>'+
+      '<article class="edh-model-card prov"><h3>'+epdRows+' EPD-linked rows</h3><p>EPD Rwanda appears as core source or augmentation evidence in the priority inventory.</p><div class="edh-hero-actions"><button class="edh-btn" type="button" data-edh-action="filter-epd">Show EPD items</button></div></article>'+
+    '</div></section>';
+  }
+  function producerPanel(){
+    const top=sourceNames().slice(0,8);
+    return '<section class="edh-panel"><span class="edh-kicker">Data producers</span><h3>Sources are part of the inventory, not an afterthought.</h3><p>Each inventory item carries a source or producer field. EPD Rwanda should be core to ENERGIM because it brings private-sector evidence that official public datasets often miss.</p><div class="edh-model-grid">'+
+      '<article class="edh-model-card prov"><h3>EPD Rwanda - core</h3><p>Private-sector registry and evidence producer for clean cooking, SHS, mini-grid, LPG, biogas, e-mobility, technology deployment, finance, and project pipeline intelligence.</p><div class="edh-hero-actions"><button class="edh-btn primary" type="button" data-edh-action="filter-epd">Review EPD rows</button><button class="edh-btn" type="button" data-edh-action="filter-epd-evidence">EPD evidence</button></div></article>'+
+      '<article class="edh-model-card leap"><h3>Official baseline producers</h3><p>REG, EDCL, EUCL, NISR, RURA, RRA, MININFRA, MINECOFIN, REMA, RWB, WASAC and other public sources anchor baseline validation.</p></article>'+
+      '<article class="edh-model-card nemo"><h3>Scenario and constraints</h3><p>EPD, developer disclosures, IRENA, World Bank, IEA, NASA POWER, FAOSTAT, SEforALL and UNFCCC evidence support scenario assumptions and NEMO constraints.</p></article>'+
+      '<article class="edh-model-card"><h3>Top source labels</h3><p>'+esc(top.map(([name,count])=>name+' ('+count+')').join('; '))+'</p></article>'+
     '</div></section>';
   }
   function filteredInventory(){
@@ -3756,18 +3793,21 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
     const items=filteredInventory();
     const available=items.filter(({r})=>r[5]==='A').length;
     const gaps=items.filter(({r})=>r[5]==='G').length;
-    return '<section class="edh-panel"><span class="edh-kicker">Step 02 - Inventory</span><h2>Review what evidence the models need.</h2><p>Use one search field first. Open filters only when you need to narrow by module.</p><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-view="tracker" type="button">Open tracker</button><button class="edh-btn" data-edh-action="inventory-csv" type="button">Download inventory CSV</button></div></section>'+
+    return '<section class="edh-panel"><span class="edh-kicker">Step 02 - Inventory</span><h2>Review LEAP and NEMO input requirements.</h2><p>This inventory is the current ENERGIM priority schema. It shows the variable, model role, source or data producer, availability, priority, and NEMO treatment. EPD Rwanda is a core producer for private-sector and scenario evidence.</p><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-view="tracker" type="button">Open tracker</button><button class="edh-btn" data-edh-action="inventory-csv" type="button">Download inventory CSV</button><button class="edh-btn" data-edh-action="filter-epd" type="button">Show EPD core rows</button></div></section>'+
+      inputCoveragePanel()+
+      producerPanel()+
       '<section class="edh-status-grid">'+
         '<article class="edh-card"><h3>Shown</h3><span class="metric">'+items.length+'</span><span class="label">of '+rows().length+'</span></article>'+
         '<article class="edh-card good"><h3>Available</h3><span class="metric">'+available+'</span><span class="label">source-ready</span></article>'+
         '<article class="edh-card gold"><h3>Gaps</h3><span class="metric">'+gaps+'</span><span class="label">need evidence</span></article>'+
         '<article class="edh-card"><h3>High priority</h3><span class="metric">'+highPriorityTodo()+'</span><span class="label">not started</span></article>'+
       '</section>'+
-      '<section class="edh-toolbar"><input class="edh-search" data-edh-input="invQ" placeholder="Search data item, institution, sector..." value="'+esc(state.invQ)+'"><select class="edh-select" data-edh-input="invModule"><option value="">All modules</option>'+['D','T','R','S','N'].map(m=>'<option value="'+m+'" '+(state.invModule===m?'selected':'')+'>'+esc((ML&&ML[m])||m)+'</option>').join('')+'</select></section>'+
+      '<section class="edh-toolbar"><input class="edh-search" data-edh-input="invQ" placeholder="Search variable, model role, source producer, sector..." value="'+esc(state.invQ)+'"><select class="edh-select" data-edh-input="invModule"><option value="">All modules</option>'+['D','T','R','S','N'].map(m=>'<option value="'+m+'" '+(state.invModule===m?'selected':'')+'>'+esc((ML&&ML[m])||m)+'</option>').join('')+'</select></section>'+
       '<section class="edh-list">'+items.slice(0,28).map(({r,i,ts})=>inventoryRow(r,i,ts)).join('')+(items.length>28?'<div class="edh-empty">Showing first 28 matches. Search or filter to narrow the inventory.</div>':'')+'</section>';
   }
   function inventoryRow(r,i,ts){
-    return '<article class="edh-row"><div><h4>#'+(i+1)+' '+esc(r[0])+'</h4><p>'+esc(r[3])+' - '+esc(r[2])+'</p><div class="edh-meta"><span class="edh-tag">'+esc(ML[r[1]]||r[1])+'</span><span class="edh-tag '+(r[5]==='A'?'good':r[5]==='G'?'gold':'')+'">'+esc(AL[r[5]]||r[5])+'</span><span class="edh-tag '+(r[6]==='H'?'gold':'')+'">'+esc(PL[r[6]]||r[6])+'</span><span class="edh-tag">'+esc(NL[r[8]]||r[8])+'</span><span class="edh-tag">'+esc(ts.status||'Not Started')+'</span></div></div><div class="edh-row-actions"><button class="edh-btn" data-edh-action="tracker-focus" data-index="'+i+'" type="button">Track</button><button class="edh-btn ghost" data-edh-action="find-evidence" data-query="'+esc(r[3])+'" type="button">Find evidence</button></div></article>';
+    const isEpd=String(r.slice(3).join(' ')).toLowerCase().includes('epd');
+    return '<article class="edh-row"><div><h4>#'+(i+1)+' '+esc(r[0])+'</h4><p><b>Source / data producer:</b> '+esc(r[3])+' | <b>Sector:</b> '+esc(r[2])+'</p><p><b>Model note:</b> '+esc(r[9]||'Review mapping note')+'</p><div class="edh-meta"><span class="edh-tag">'+esc(ML[r[1]]||r[1])+'</span><span class="edh-tag '+(r[5]==='A'?'good':r[5]==='G'?'gold':'')+'">'+esc(AL[r[5]]||r[5])+'</span><span class="edh-tag '+(r[6]==='H'?'gold':'')+'">'+esc(PL[r[6]]||r[6])+'</span><span class="edh-tag">'+esc(NL[r[8]]||r[8])+'</span><span class="edh-tag">'+esc(ts.status||'Not Started')+'</span>'+(isEpd?'<span class="edh-tag good">EPD core</span>':'')+'</div></div><div class="edh-row-actions"><button class="edh-btn" data-edh-action="tracker-focus" data-index="'+i+'" type="button">Track</button><button class="edh-btn ghost" data-edh-action="find-evidence" data-query="'+esc(r[3])+'" type="button">Find evidence</button></div></article>';
   }
   function filteredTracker(){
     const q=state.trackerQ.toLowerCase();
@@ -3986,6 +4026,8 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
     if(action==='inventory-csv'){try{exportInvCSV();}catch(e){} return;}
     if(action==='tracker-export'){try{exportTrackerExcel();}catch(e){} return;}
     if(action==='evidence-export'){downloadEvidenceCsv();return;}
+    if(action==='filter-epd'){state.invQ='EPD';state.invModule='';state.view='inventory';render();return;}
+    if(action==='filter-epd-evidence'){state.evidenceQ='EPD';state.evidenceInstitution='EPD Rwanda';state.evidenceType='';state.view='evidence';render();return;}
     if(action==='download-all'){try{dlAllFiles();}catch(e){} return;}
     if(action==='download-leap'){try{dlOut('leap');}catch(e){} return;}
     if(action==='download-nemo'){try{dlOut('nemo');}catch(e){} return;}
