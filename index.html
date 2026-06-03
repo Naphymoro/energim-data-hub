@@ -570,6 +570,329 @@ select.item-sel:focus{border-color:var(--b)}
 [data-theme="light"] .notice.ne{color:#8a1111 !important;background:#ffe3e3 !important;border-color:#c62828 !important}
 
 </style>
+<style id="energim-htk-inspired-refresh">
+/* HTK-inspired ENERGIM polish: calm, guided, first-run friendly */
+:root{
+  --ux-bg:#f6f7f5;
+  --ux-surface:#ffffff;
+  --ux-panel:#ffffff;
+  --ux-ink:#1e2421;
+  --ux-muted:#68736f;
+  --ux-line:rgba(30,36,33,.12);
+  --ux-line-strong:rgba(30,36,33,.2);
+  --ux-maroon:#8f1f2f;
+  --ux-blue:#2768b2;
+  --ux-green:#087f68;
+  --ux-gold:#a96a00;
+  --ux-shadow:0 18px 46px rgba(25,31,28,.09);
+}
+[data-theme="light"]{
+  --s0:#f6f7f5;--s1:#ecefec;--s2:#ffffff;--s3:#f1f3f1;--s4:#e3e7e5;
+  --br:rgba(30,36,33,.12);--br2:rgba(30,36,33,.08);--br3:rgba(30,36,33,.05);
+  --t:#1e2421;--t2:#68736f;--t3:#9aa39f;--t4:#bac2be;
+  --m:#8f1f2f;--ml:#a82b3b;--b:#2768b2;--bl:#3679c7;--o:#a96a00;
+  --gf:#dff1ea;--gb:#087f68;--ga:#06644f;
+  --yf:#fff3d9;--ya:#7d5400;--rf:#ffe6e6;--rd:#b42332;--ra:#8d1b28;
+  --nav-bg:rgba(255,255,255,.92);
+}
+[data-theme="dark"]{
+  --s0:#111210;--s1:#171816;--s2:#20211f;--s3:#272926;--s4:#31332f;
+  --br:rgba(247,245,241,.1);--br2:rgba(247,245,241,.07);--br3:rgba(247,245,241,.05);
+  --t:#f2efea;--t2:#aaa69d;--t3:#77736b;--t4:#57534d;
+  --m:#d06072;--ml:#ef7a8c;--b:#6fa4e5;--bl:#8db9ed;--o:#e2a447;
+  --gf:#13322b;--gb:#38b894;--ga:#9de0cb;
+  --yf:#362a12;--ya:#f1c96b;--rf:#3b181d;--rd:#f06f7b;--ra:#ffadb4;
+  --nav-bg:rgba(23,24,22,.92);
+}
+html,body{letter-spacing:0}
+body::before{
+  background:
+    linear-gradient(180deg,rgba(39,104,178,.05),transparent 260px),
+    radial-gradient(80% 50% at 10% 0%,rgba(143,31,47,.08),transparent 55%);
+}
+.shell{min-height:100vh}
+.topnav{
+  gap:14px;
+  min-height:72px;
+  padding:10px 18px;
+  background:var(--nav-bg)!important;
+  border-bottom:1px solid var(--br);
+  box-shadow:0 10px 30px rgba(0,0,0,.04);
+}
+.brand{min-width:205px}
+.brand-top{letter-spacing:.08em;color:var(--t2);font-size:10px}
+.brand-name{font-family:var(--sans);font-size:18px;letter-spacing:0;font-weight:800}
+.brand-name em{color:var(--m)}
+.nav-tabs{
+  gap:6px;
+  min-width:0;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.nav-tabs::-webkit-scrollbar{display:none}
+.nt{
+  min-height:44px;
+  padding:8px 13px;
+  border-radius:8px;
+  font-family:var(--sans);
+  font-size:13px;
+  font-weight:750;
+  white-space:nowrap;
+  background:transparent;
+}
+.nt::before{
+  content:attr(data-step);
+  font:700 10px/1 var(--mono);
+  color:var(--t3);
+}
+.nt.active{
+  background:rgba(39,104,178,.1);
+  border-color:rgba(39,104,178,.24);
+  color:var(--t);
+}
+.nt.active .nt-dot{background:var(--b)}
+.nav-right{gap:7px}
+.cbadge{
+  min-height:44px;
+  border-radius:8px;
+  background:var(--s2);
+  font-family:var(--sans);
+  box-shadow:none;
+}
+.cbadge .cl{font-size:12px;color:var(--t);font-weight:750}
+.cbadge .cs{font-size:10px;color:var(--t2)}
+.cdot{width:8px;height:8px}
+.theme-toggle{
+  min-height:44px;
+  border-radius:8px!important;
+  background:var(--s2)!important;
+  border:1px solid var(--br)!important;
+  color:var(--t)!important;
+}
+.main{
+  width:min(100%,1500px);
+  margin:0 auto;
+  padding:clamp(18px,3vw,34px);
+}
+.tabpanel.active{animation:none}
+.ph{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:18px;
+  margin:0 0 16px;
+}
+.ph-title{
+  font-family:var(--sans);
+  font-size:clamp(22px,3vw,32px);
+  letter-spacing:0;
+  line-height:1.05;
+}
+.ph-title span{color:var(--m)}
+.ph-sub{max-width:760px;font-size:13px;color:var(--t2)}
+.energim-start{
+  display:grid;
+  grid-template-columns:minmax(0,1.04fr) minmax(360px,.96fr);
+  gap:16px;
+  margin-bottom:18px;
+}
+.start-hero,.start-flow,.ux-status-card{
+  background:var(--s2);
+  border:1px solid var(--br);
+  border-radius:8px;
+  box-shadow:var(--ux-shadow);
+}
+.start-hero{
+  min-height:286px;
+  padding:clamp(20px,3vw,34px);
+  border-left:4px solid var(--m);
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+.start-kicker,.ux-label{
+  font:700 11px/1.2 var(--mono);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--t2);
+}
+.start-title{
+  margin-top:12px;
+  max-width:720px;
+  color:var(--t);
+  font-family:var(--sans);
+  font-size:clamp(34px,5vw,62px);
+  font-weight:850;
+  line-height:.96;
+  letter-spacing:0;
+}
+.start-copy{
+  max-width:700px;
+  margin-top:16px;
+  color:var(--t2);
+  font-size:15px;
+  line-height:1.55;
+}
+.start-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.ux-action{
+  min-height:42px;
+  padding:0 14px;
+  border-radius:8px;
+  border:1px solid var(--br);
+  background:var(--s2);
+  color:var(--t);
+  font-family:var(--sans);
+  font-weight:800;
+  cursor:pointer;
+}
+.ux-action.primary{
+  background:var(--m);
+  border-color:var(--m);
+  color:#fff;
+}
+.start-flow{padding:16px}
+.flow-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:12px}
+.flow-title{font-size:18px;font-weight:850;color:var(--t);margin-top:4px}
+.flow-steps{display:grid;gap:8px}
+.flow-step{
+  display:grid;
+  grid-template-columns:32px 1fr;
+  gap:10px;
+  align-items:center;
+  padding:11px;
+  border-radius:8px;
+  border:1px solid var(--br);
+  background:var(--s3);
+  color:var(--t);
+  text-align:left;
+  cursor:pointer;
+  transition:border-color .15s,background .15s,transform .15s;
+}
+.flow-step:hover{border-color:rgba(39,104,178,.34);background:var(--s2);transform:translateY(-1px)}
+.flow-step span{
+  width:32px;height:32px;
+  display:grid;place-items:center;
+  border-radius:8px;
+  color:var(--m);
+  background:rgba(143,31,47,.1);
+  font:800 13px var(--mono);
+}
+.flow-step strong{display:block;font-size:13px;color:var(--t);margin-bottom:2px}
+.flow-step small{display:block;font-size:12px;line-height:1.35;color:var(--t2)}
+.ux-status-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+  margin-bottom:18px;
+}
+.ux-status-card{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  padding:14px;
+  box-shadow:none;
+}
+.ux-status-dot{
+  width:9px;
+  height:9px;
+  margin-top:4px;
+  border-radius:999px;
+  background:var(--t3);
+  flex:0 0 auto;
+}
+.ux-status-card strong{display:block;color:var(--t);font-size:13px;line-height:1.2}
+.ux-status-card small{display:block;margin-top:5px;color:var(--t2);font-size:11px;line-height:1.35}
+.ux-status-card.ok{border-color:rgba(8,127,104,.35);background:linear-gradient(180deg,var(--s2),rgba(8,127,104,.06))}
+.ux-status-card.ok .ux-status-dot{background:var(--gb)}
+.ux-status-card.warn{border-color:rgba(169,106,0,.34);background:linear-gradient(180deg,var(--s2),rgba(169,106,0,.08))}
+.ux-status-card.warn .ux-status-dot{background:var(--ya)}
+.kpi-strip,.mr-grid,.audit-grid,.mode-grid{gap:10px}
+.kpi,.card,.mr-card,.tbl-wrap,.conn-zone,.audit-summary,.audit-card,.mode-card,.setup-step,.pip,.pb,.dz,.modal{
+  border-radius:8px!important;
+  box-shadow:none;
+}
+.kpi,.card,.mr-card,.audit-summary,.audit-card,.mode-card,.setup-step,.modal{background:var(--s2)}
+.kpi{padding:15px}
+.kpi::before{height:3px}
+.kpi-val{font-size:30px;letter-spacing:0}
+.card-title,.msec-title{
+  font-family:var(--sans);
+  letter-spacing:.02em;
+}
+.filter-row{
+  background:var(--s2);
+  border:1px solid var(--br);
+  border-radius:8px;
+  padding:10px;
+}
+.fi,.finput,.status-sel,.item-sel,.pb-ta{
+  min-height:36px;
+  border-radius:8px!important;
+  background:var(--s2);
+  border-color:var(--br);
+}
+.tbl-wrap{background:var(--s2)}
+thead tr{background:var(--s3)}
+th{font-size:11px;color:var(--t2);letter-spacing:.02em}
+td{padding:10px;border-bottom:1px solid var(--br2)}
+tr:hover td{background:rgba(39,104,178,.05)}
+.btn{
+  min-height:36px;
+  border-radius:8px;
+  font-family:var(--sans);
+  font-weight:800;
+}
+.btn-p{background:var(--b);border-color:var(--b)}
+.btn-m{background:var(--m);border-color:var(--m);color:#fff}
+.btn-s{background:var(--s2);border-color:var(--br);color:var(--t)}
+.btn-g{background:var(--gf);border-color:var(--gb);color:var(--ga)}
+.setup-hero{
+  border-radius:8px;
+  box-shadow:var(--ux-shadow);
+  background:var(--s2);
+  border-left:4px solid var(--gb);
+}
+.setup-hero h2{font-family:var(--sans);font-size:30px;letter-spacing:0}
+.setup-hero p{font-size:14px;color:var(--t2)}
+.setup-step{gap:12px;align-items:flex-start}
+.ss-num{
+  width:30px;height:30px;
+  border-radius:8px;
+  background:rgba(39,104,178,.1);
+  color:var(--b);
+  display:grid;place-items:center;
+  flex:0 0 auto;
+  font:800 12px var(--mono);
+}
+.ss-title{font-weight:850;color:var(--t);font-size:13px}
+.ss-sub{font-size:12px;color:var(--t2);line-height:1.45}
+.notice{border-radius:8px;font-size:12px}
+.modal-ov{backdrop-filter:blur(8px)}
+.modal{box-shadow:0 28px 80px rgba(0,0,0,.32)}
+.toast,#toast{border-radius:8px!important}
+.footer-logo{opacity:.82}
+@media(max-width:1180px){
+  .topnav{align-items:flex-start;flex-wrap:wrap}
+  .brand{min-width:100%}
+  .nav-tabs{flex:1 1 55%}
+  .nav-right{flex:1 1 100%;overflow-x:auto;padding-bottom:2px}
+  .energim-start{grid-template-columns:1fr}
+  .ux-status-grid,.kpi-strip,.mr-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:760px){
+  .main{padding:14px 12px 90px}
+  .ph{display:block}
+  .ph-title{font-size:26px;margin-bottom:6px}
+  .nav-tabs,.nav-right{width:100%}
+  .cbadge{min-width:170px}
+  .start-hero{min-height:auto}
+  .start-title{font-size:36px}
+  .flow-step{grid-template-columns:30px 1fr}
+  .ux-status-grid,.kpi-strip,.mr-grid,.audit-grid,.mode-grid{grid-template-columns:1fr}
+  .filter-row{display:grid;grid-template-columns:1fr}
+  .fi-search{width:100%}
+}
+</style>
 </head>
 
 <body>
@@ -1120,7 +1443,7 @@ function toggleTheme(){
   setThemeToggleLabel(next);
 }
 function initTheme(){
-  const saved=localStorage.getItem('energim_theme')||'dark';
+  const saved=localStorage.getItem('energim_theme')||'light';
   document.documentElement.setAttribute('data-theme',saved);
   const btn=document.getElementById('theme-toggle');
   if(btn) setThemeToggleLabel(saved);
@@ -2174,6 +2497,223 @@ function d(ms){return new Promise(r=>setTimeout(r,ms));}
 const _gPS=gPS;
 window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
 
+</script>
+<script id="energim-htk-inspired-script">
+(function(){
+  const navSteps=[
+    ['inventory','01'],
+    ['tracker','02'],
+    ['polyglot','03'],
+    ['setup','04']
+  ];
+  const friendlyCopy={
+    inventory:'Review the 71 required data items, filter gaps, and decide what to collect next.',
+    tracker:'Update source status, quality, completeness, and model readiness.',
+    polyglot:'Paste, upload, OCR, map, validate, transform, and publish one dataset at a time.',
+    setup:'Start local for free. Add Google sync, AI mapping, or OCR automation only when needed.'
+  };
+  const cleanups=[
+    [/\u00c2\u00b7/g,' - '],
+    [/\u00e2\u20ac\u201d/g,' - '],
+    [/\u00e2\u20ac\u201c/g,'"'],
+    [/\u00e2\u20ac\u009d/g,'"'],
+    [/\u00e2\u20ac\u2122/g,"'"],
+    [/\u00e2\u2020\u2019/g,'->'],
+    [/\u00e2\u20ac\u00a6/g,'...'],
+    [/\u00e2\u02dc\u20ac/g,'Light'],
+    [/\u00f0\u0178\u0152\u2122/g,'Dark']
+  ];
+
+  function safeRows(){
+    try{return typeof INV_DATA!=='undefined' && Array.isArray(INV_DATA) ? INV_DATA : [];}catch(e){return [];}
+  }
+  function safeTracker(){
+    try{return typeof trackerState!=='undefined' && trackerState ? trackerState : {};}catch(e){return {};}
+  }
+  function safeCfg(){
+    try{return typeof CFG!=='undefined' && CFG ? CFG : {};}catch(e){return {};}
+  }
+  function safeToken(){
+    try{return typeof gToken!=='undefined' && !!gToken;}catch(e){return false;}
+  }
+  function labelNav(){
+    document.querySelectorAll('.nav-tabs .nt').forEach((button,index)=>{
+      const pair=navSteps[index];
+      if(!pair) return;
+      button.dataset.tab=pair[0];
+      button.dataset.step=pair[1];
+    });
+  }
+  function tuneCopy(){
+    Object.entries(friendlyCopy).forEach(([name,text])=>{
+      const sub=document.querySelector('#tab-'+name+' .ph-sub');
+      if(sub) sub.textContent=text;
+    });
+    document.title='ENERGIM Data Hub';
+  }
+  function countStatus(target){
+    const tracker=safeTracker();
+    return Object.values(tracker).filter(item=>item && item.status===target).length;
+  }
+  function highPriorityTodo(){
+    const rows=safeRows();
+    const tracker=safeTracker();
+    return rows.filter((row,index)=>{
+      const priority=String(row[6]||'').trim().toLowerCase();
+      const status=(tracker[index]&&tracker[index].status)||'Not Started';
+      return (priority==='h'||priority==='high') && status==='Not Started';
+    }).length;
+  }
+  function workflowLabel(){
+    const mode=safeCfg().workflowMode||'local';
+    if(mode==='full') return 'Live sync';
+    if(mode==='offline') return 'Offline';
+    return 'Local free';
+  }
+  function ocrLabel(){
+    const provider=(safeCfg().ocrProvider||'manual').toLowerCase();
+    if(provider==='llm') return 'Vision LLM';
+    if(provider==='custom') return 'Custom OCR';
+    return 'Manual paste';
+  }
+  function llmLabel(){
+    const cfg=safeCfg();
+    if(!cfg.provider || !cfg.apiKey) return 'Optional';
+    return String(cfg.provider).replace(/[-_]/g,' ');
+  }
+  function ensureHome(){
+    const page=document.getElementById('tab-inventory');
+    if(!page || document.getElementById('energim-start')) return;
+    page.insertAdjacentHTML('afterbegin',
+      '<section class="energim-start" id="energim-start">'+
+        '<div class="start-hero">'+
+          '<div>'+
+            '<div class="start-kicker">Free local first</div>'+
+            '<h1 class="start-title">ENERGIM data work, from inventory to outputs.</h1>'+
+            '<p class="start-copy">Start without credits: review the inventory, update tracker rows, paste or upload one dataset, and download LEAP/NEMO outputs locally. Add Google sync, LLMs, or OCR automation only when the workflow needs them.</p>'+
+          '</div>'+
+          '<div class="start-actions">'+
+            '<button class="ux-action primary" type="button" data-ux-action="local">Use free local mode</button>'+
+            '<button class="ux-action" type="button" data-ux-tab="tracker">Open tracker</button>'+
+            '<button class="ux-action" type="button" data-ux-tab="polyglot">Process data</button>'+
+            '<button class="ux-action" type="button" data-ux-tab="setup">Check setup</button>'+
+          '</div>'+
+        '</div>'+
+        '<aside class="start-flow">'+
+          '<div class="flow-head">'+
+            '<div><div class="ux-label">Novice flow</div><div class="flow-title">Use the app in this order</div></div>'+
+            '<button class="ux-action" type="button" data-ux-refresh="1">Refresh</button>'+
+          '</div>'+
+          '<div class="flow-steps">'+
+            '<button class="flow-step" type="button" data-ux-tab="inventory"><span>01</span><strong>Review inventory</strong><small>See every required power-sector data item before collecting evidence.</small></button>'+
+            '<button class="flow-step" type="button" data-ux-tab="tracker"><span>02</span><strong>Update tracker</strong><small>Mark source status, quality, completeness, and next actions.</small></button>'+
+            '<button class="flow-step" type="button" data-ux-tab="polyglot"><span>03</span><strong>OCR or paste</strong><small>Use manual paste for free, or connect an OCR/vision path for scans.</small></button>'+
+            '<button class="flow-step" type="button" data-ux-tab="polyglot"><span>04</span><strong>Map and validate</strong><small>Identify parameters, map LEAP/NEMO fields, then review confidence.</small></button>'+
+            '<button class="flow-step" type="button" data-ux-tab="setup"><span>05</span><strong>Add live sync later</strong><small>Google, LLMs, Kimi, Qwen, or custom endpoints are optional upgrades.</small></button>'+
+          '</div>'+
+        '</aside>'+
+      '</section>'+
+      '<section class="ux-status-grid" id="energim-status-grid">'+
+        '<article class="ux-status-card ok"><span class="ux-status-dot"></span><div><strong id="ux-mode">Local free</strong><small>Browser storage and local downloads work without cloud credits.</small></div></article>'+
+        '<article class="ux-status-card"><span class="ux-status-dot"></span><div><strong id="ux-inventory">0 inventory rows</strong><small>Use this as the source checklist before processing data.</small></div></article>'+
+        '<article class="ux-status-card"><span class="ux-status-dot"></span><div><strong id="ux-tracker">0 validated</strong><small>Tracker progress updates model readiness.</small></div></article>'+
+        '<article class="ux-status-card warn"><span class="ux-status-dot"></span><div><strong id="ux-ocr">OCR manual paste</strong><small>Scanned evidence needs OCR before mapping.</small></div></article>'+
+        '<article class="ux-status-card warn"><span class="ux-status-dot"></span><div><strong id="ux-llm">AI optional</strong><small>Bring OpenAI, Anthropic, Qwen, Kimi, or an OpenAI-compatible endpoint.</small></div></article>'+
+        '<article class="ux-status-card"><span class="ux-status-dot"></span><div><strong id="ux-google">Google optional</strong><small>Connect Sheets and Drive only when live sync is required.</small></div></article>'+
+      '</section>');
+  }
+  function updateStatus(){
+    const rows=safeRows();
+    const cfg=safeCfg();
+    const set=(id,text)=>{const node=document.getElementById(id);if(node) node.textContent=text;};
+    set('ux-mode',workflowLabel());
+    set('ux-inventory',rows.length+' inventory rows');
+    set('ux-tracker',countStatus('Validated')+' validated');
+    set('ux-ocr','OCR: '+ocrLabel());
+    set('ux-llm','AI: '+llmLabel());
+    set('ux-google',safeToken()?'Google connected':'Google optional');
+
+    const modeCard=document.getElementById('ux-mode')?.closest('.ux-status-card');
+    const ocrCard=document.getElementById('ux-ocr')?.closest('.ux-status-card');
+    const llmCard=document.getElementById('ux-llm')?.closest('.ux-status-card');
+    const googleCard=document.getElementById('ux-google')?.closest('.ux-status-card');
+    const trackerCard=document.getElementById('ux-tracker')?.closest('.ux-status-card');
+    if(modeCard) modeCard.className='ux-status-card ok';
+    if(ocrCard) ocrCard.className='ux-status-card '+((cfg.ocrProvider||'manual')==='manual'?'warn':'ok');
+    if(llmCard) llmCard.className='ux-status-card '+(cfg.apiKey?'ok':'warn');
+    if(googleCard) googleCard.className='ux-status-card '+(safeToken()?'ok':'warn');
+    if(trackerCard) trackerCard.className='ux-status-card '+(highPriorityTodo()>0?'warn':'ok');
+  }
+  function wireUx(){
+    document.querySelectorAll('[data-ux-tab]').forEach(button=>{
+      if(button.dataset.uxWired) return;
+      button.dataset.uxWired='1';
+      button.addEventListener('click',()=>{ if(typeof switchTab==='function') switchTab(button.dataset.uxTab); });
+    });
+    document.querySelectorAll('[data-ux-action="local"]').forEach(button=>{
+      if(button.dataset.uxWired) return;
+      button.dataset.uxWired='1';
+      button.addEventListener('click',()=>{
+        try{
+          if(typeof selectWorkflowMode==='function') selectWorkflowMode('local');
+          if(typeof toast==='function') toast('Local mode selected. No cloud or AI credits required.');
+        }catch(e){}
+        updateStatus();
+      });
+    });
+    document.querySelectorAll('[data-ux-refresh]').forEach(button=>{
+      if(button.dataset.uxWired) return;
+      button.dataset.uxWired='1';
+      button.addEventListener('click',()=>{
+        if(typeof runFullAudit==='function') runFullAudit();
+        refreshUi();
+      });
+    });
+  }
+  function cleanVisibleText(){
+    const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{
+      acceptNode(node){
+        const parent=node.parentElement;
+        if(!parent || ['SCRIPT','STYLE','TEXTAREA','INPUT'].includes(parent.tagName)) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    const nodes=[];
+    while(walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(node=>{
+      let text=node.nodeValue;
+      cleanups.forEach(([pattern,replacement])=>{ text=text.replace(pattern,replacement); });
+      if(text!==node.nodeValue) node.nodeValue=text;
+    });
+  }
+  function wrapSwitch(){
+    if(typeof switchTab!=='function' || switchTab.__energimUxWrapped) return;
+    const original=switchTab;
+    const wrapped=function(name){
+      const result=original.apply(this,arguments);
+      setTimeout(refreshUi,40);
+      return result;
+    };
+    wrapped.__energimUxWrapped=true;
+    window.switchTab=wrapped;
+    try{ switchTab=wrapped; }catch(e){}
+  }
+  function refreshUi(){
+    labelNav();
+    tuneCopy();
+    ensureHome();
+    wireUx();
+    updateStatus();
+    cleanVisibleText();
+  }
+  document.addEventListener('DOMContentLoaded',()=>{
+    refreshUi();
+    wrapSwitch();
+    setTimeout(refreshUi,120);
+  });
+  window.addEventListener('load',()=>setTimeout(refreshUi,80));
+  setInterval(updateStatus,2500);
+})();
 </script>
 </body>
 </html>
