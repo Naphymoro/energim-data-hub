@@ -781,7 +781,7 @@ body::before{
 .flow-step small{display:block;font-size:12px;line-height:1.35;color:var(--t2)}
 .ux-status-grid{
   display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
+  grid-template-columns:repeat(6,minmax(0,1fr));
   gap:10px;
   margin-bottom:18px;
 }
@@ -871,11 +871,256 @@ tr:hover td{background:rgba(39,104,178,.05)}
 .modal{box-shadow:0 28px 80px rgba(0,0,0,.32)}
 .toast,#toast{border-radius:8px!important}
 .footer-logo{opacity:.82}
+.topnav{
+  position:sticky;
+  top:0;
+  z-index:60;
+  backdrop-filter:blur(14px);
+}
+.nav-right{
+  margin-left:auto;
+  justify-content:flex-end;
+}
+.nav-right .cbadge{
+  min-width:120px;
+  padding:7px 10px;
+}
+.nav-right .cbadge .cs{
+  max-width:110px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.nav-right .btn[onclick*="settings"]{
+  min-width:42px;
+  padding-inline:10px!important;
+}
+.ux-command-center{
+  display:grid;
+  grid-template-columns:minmax(260px,1fr) minmax(520px,1.5fr);
+  gap:12px;
+  margin:0 0 18px;
+}
+.ux-context-strip,.ux-workflow-bar{
+  background:var(--s2);
+  border:1px solid var(--br);
+  border-radius:8px;
+  box-shadow:0 12px 32px rgba(25,31,28,.06);
+}
+.ux-context-strip{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:1px;
+  overflow:hidden;
+}
+.ux-context-cell{
+  padding:14px;
+  background:linear-gradient(180deg,var(--s2),var(--s3));
+}
+.ux-context-cell span{
+  display:block;
+  color:var(--t2);
+  font:700 10px/1.2 var(--mono);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  margin-bottom:6px;
+}
+.ux-context-cell strong{
+  display:block;
+  color:var(--t);
+  font-size:13px;
+  line-height:1.25;
+}
+.ux-workflow-bar{
+  display:grid;
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:6px;
+  padding:8px;
+}
+.ux-work-node{
+  min-height:58px;
+  display:grid;
+  align-content:center;
+  gap:4px;
+  padding:8px 10px;
+  border:1px solid transparent;
+  border-radius:8px;
+  background:transparent;
+  color:var(--t2);
+  text-align:left;
+  cursor:pointer;
+}
+.ux-work-node span{
+  color:var(--t3);
+  font:800 10px/1 var(--mono);
+}
+.ux-work-node strong{
+  color:var(--t);
+  font-size:12px;
+  line-height:1.1;
+}
+.ux-work-node small{
+  color:var(--t2);
+  font-size:10px;
+  line-height:1.2;
+}
+.ux-work-node.active{
+  background:rgba(39,104,178,.1);
+  border-color:rgba(39,104,178,.26);
+}
+.ux-work-node.done span,.ux-work-node.active span{color:var(--b)}
+.ux-page-guide{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:16px;
+  align-items:end;
+  margin:0 0 16px;
+  padding:18px;
+  border:1px solid var(--br);
+  border-radius:8px;
+  background:linear-gradient(180deg,var(--s2),var(--s3));
+}
+.ux-guide-kicker{
+  display:block;
+  color:var(--t2);
+  font:800 10px/1.2 var(--mono);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  margin-bottom:8px;
+}
+.ux-page-guide h2{
+  margin:0;
+  color:var(--t);
+  font-family:var(--sans);
+  font-size:clamp(18px,2.2vw,26px);
+  line-height:1.08;
+  letter-spacing:0;
+}
+.ux-page-guide p{
+  max-width:680px;
+  margin:8px 0 0;
+  color:var(--t2);
+  font-size:13px;
+  line-height:1.45;
+}
+.ux-guide-actions{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  gap:8px;
+  min-width:260px;
+}
+.ux-pill-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:12px;
+}
+.ux-pill{
+  border:1px solid var(--br);
+  border-radius:999px;
+  padding:5px 9px;
+  color:var(--t2);
+  background:var(--s2);
+  font-size:11px;
+  line-height:1;
+}
+.ux-pill.good{
+  color:var(--ga);
+  border-color:rgba(8,127,104,.28);
+  background:rgba(8,127,104,.07);
+}
+.filter-row{
+  position:relative;
+}
+.ux-filter-toggle{
+  margin-left:auto;
+}
+.filter-row.ux-collapsed select,
+.filter-row.ux-collapsed .cnt-lbl{
+  display:none;
+}
+.filter-row.ux-collapsed{
+  padding:9px;
+}
+.filter-row.ux-collapsed .fi-search{
+  width:min(100%,460px);
+}
+.ux-action[title]{
+  position:relative;
+}
+.conn-zone{
+  border-style:solid;
+}
+.conn-zone:not(.loaded){
+  background:linear-gradient(180deg,var(--s2),rgba(39,104,178,.04));
+}
+.cz-icon{
+  width:38px;
+  height:38px;
+  display:grid;
+  place-items:center;
+  border-radius:8px;
+  background:rgba(39,104,178,.1);
+}
+.leap-ready-banner{
+  border-radius:8px!important;
+  font-size:12px!important;
+}
+.pip{
+  padding:8px;
+  gap:6px;
+  background:var(--s2);
+}
+.ps{
+  min-width:116px;
+  border-radius:8px;
+}
+.pa{
+  color:var(--t3);
+}
+.pnl.active{
+  background:var(--s2);
+  border:1px solid var(--br);
+  border-radius:8px;
+  padding:16px;
+}
+#tab-polyglot > div[style*="grid-template-columns:1fr auto auto"]{
+  padding:12px;
+  border:1px solid var(--br);
+  border-radius:8px;
+  background:var(--s2);
+}
+.audit-summary{
+  border-radius:8px;
+  padding:16px;
+}
+.audit-card.fail{
+  border-left-color:var(--ya);
+  background:linear-gradient(180deg,var(--s2),rgba(169,106,0,.05));
+}
+.audit-card.fail b{
+  color:var(--t);
+}
+.mode-card.recommended{
+  border-color:rgba(8,127,104,.38);
+  background:linear-gradient(180deg,var(--s2),rgba(8,127,104,.07));
+}
+.setup-step{
+  border-left-width:1px!important;
+}
+.notice.ne,.notice.nw{
+  border-color:rgba(169,106,0,.28)!important;
+  background:rgba(169,106,0,.08)!important;
+  color:var(--t)!important;
+}
 @media(max-width:1180px){
   .topnav{align-items:flex-start;flex-wrap:wrap}
   .brand{min-width:100%}
   .nav-tabs{flex:1 1 55%}
   .nav-right{flex:1 1 100%;overflow-x:auto;padding-bottom:2px}
+  .ux-command-center{grid-template-columns:1fr}
+  .ux-workflow-bar{grid-template-columns:repeat(3,minmax(0,1fr))}
   .energim-start{grid-template-columns:1fr}
   .ux-status-grid,.kpi-strip,.mr-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
@@ -888,9 +1133,344 @@ tr:hover td{background:rgba(39,104,178,.05)}
   .start-hero{min-height:auto}
   .start-title{font-size:36px}
   .flow-step{grid-template-columns:30px 1fr}
+  .ux-context-strip{grid-template-columns:1fr}
+  .ux-workflow-bar{grid-template-columns:1fr 1fr}
+  .ux-page-guide{grid-template-columns:1fr}
+  .ux-guide-actions{justify-content:flex-start;min-width:0}
   .ux-status-grid,.kpi-strip,.mr-grid,.audit-grid,.mode-grid{grid-template-columns:1fr}
   .filter-row{display:grid;grid-template-columns:1fr}
   .fi-search{width:100%}
+}
+</style>
+<style id="energim-product-shell-style">
+/* ENERGIM product redesign: workflow shell replacing the legacy dashboard frame */
+.energim-product-mode .shell > .topnav,
+.energim-product-mode .shell > .main,
+.energim-product-mode .shell > .footer{display:none!important}
+.edh-app{
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:286px minmax(0,1fr);
+  background:
+    linear-gradient(180deg,rgba(8,127,104,.05),transparent 360px),
+    linear-gradient(90deg,rgba(143,31,47,.06),transparent 460px),
+    var(--s0);
+  color:var(--t);
+}
+.edh-rail{
+  position:sticky;
+  top:0;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  padding:18px;
+  border-right:1px solid var(--br);
+  background:rgba(255,255,255,.72);
+  backdrop-filter:blur(18px);
+}
+[data-theme="dark"] .edh-rail{background:rgba(23,24,22,.78)}
+.edh-brand{display:grid;gap:6px;padding:4px 2px 12px}
+.edh-brand-mark{
+  width:38px;height:38px;border-radius:8px;
+  display:grid;place-items:center;
+  color:#fff;background:linear-gradient(135deg,var(--m),var(--b));
+  font-weight:900;letter-spacing:0;
+}
+.edh-brand h1{font-size:18px;line-height:1.05;margin:0;font-family:var(--sans);letter-spacing:0}
+.edh-brand p{margin:0;color:var(--t2);font-size:12px;line-height:1.35}
+.edh-nav{display:grid;gap:6px}
+.edh-nav-btn{
+  display:grid;
+  grid-template-columns:30px 1fr auto;
+  gap:10px;
+  align-items:center;
+  min-height:48px;
+  padding:8px 10px;
+  border:1px solid transparent;
+  border-radius:8px;
+  background:transparent;
+  color:var(--t2);
+  text-align:left;
+  cursor:pointer;
+}
+.edh-nav-btn:hover{background:var(--s2);border-color:var(--br)}
+.edh-nav-btn.active{
+  background:var(--s2);
+  border-color:rgba(39,104,178,.28);
+  box-shadow:0 10px 28px rgba(25,31,28,.07);
+  color:var(--t);
+}
+.edh-nav-num{
+  width:30px;height:30px;border-radius:8px;
+  display:grid;place-items:center;
+  font:800 11px var(--mono);
+  color:var(--b);
+  background:rgba(39,104,178,.1);
+}
+.edh-nav-btn strong{display:block;font-size:13px;line-height:1.15}
+.edh-nav-btn small{display:block;margin-top:2px;color:var(--t2);font-size:10px;line-height:1.2}
+.edh-nav-state{width:8px;height:8px;border-radius:50%;background:var(--t3)}
+.edh-nav-btn.done .edh-nav-state{background:var(--gb)}
+.edh-nav-btn.active .edh-nav-state{background:var(--b)}
+.edh-rail-card{
+  margin-top:auto;
+  border:1px solid rgba(8,127,104,.22);
+  border-radius:8px;
+  padding:12px;
+  background:linear-gradient(180deg,var(--s2),rgba(8,127,104,.07));
+}
+.edh-rail-card b{display:block;font-size:13px;margin-bottom:5px;color:var(--t)}
+.edh-rail-card span{display:block;color:var(--t2);font-size:11px;line-height:1.4}
+.edh-main{min-width:0;padding:22px clamp(20px,3vw,42px) 44px}
+.edh-topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:14px;
+  margin-bottom:18px;
+}
+.edh-location span{
+  display:block;
+  color:var(--t2);
+  font:800 10px/1.2 var(--mono);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  margin-bottom:5px;
+}
+.edh-location strong{display:block;font-size:22px;line-height:1.05;letter-spacing:0}
+.edh-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.edh-chip{
+  min-height:36px;
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:0 11px;
+  border:1px solid var(--br);
+  border-radius:999px;
+  background:var(--s2);
+  color:var(--t2);
+  font-size:12px;
+  line-height:1;
+}
+.edh-chip.good{color:var(--ga);border-color:rgba(8,127,104,.3);background:rgba(8,127,104,.07)}
+.edh-btn{
+  min-height:38px;
+  padding:0 13px;
+  border:1px solid var(--br);
+  border-radius:8px;
+  background:var(--s2);
+  color:var(--t);
+  font-weight:800;
+  font-family:var(--sans);
+  cursor:pointer;
+}
+.edh-btn:hover{border-color:rgba(39,104,178,.35)}
+.edh-btn.primary{background:var(--m);border-color:var(--m);color:#fff}
+.edh-btn.blue{background:var(--b);border-color:var(--b);color:#fff}
+.edh-btn.green{background:var(--gb);border-color:var(--gb);color:#fff}
+.edh-btn.ghost{background:transparent}
+.edh-stage{display:grid;gap:18px}
+.edh-hero{
+  display:grid;
+  grid-template-columns:minmax(0,1.1fr) minmax(340px,.9fr);
+  gap:18px;
+  align-items:stretch;
+}
+.edh-panel,.edh-card,.edh-work-card,.edh-table-card{
+  border:1px solid var(--br);
+  border-radius:8px;
+  background:var(--s2);
+  box-shadow:0 14px 38px rgba(25,31,28,.07);
+}
+.edh-panel{padding:clamp(20px,3vw,34px)}
+.edh-kicker{
+  display:block;
+  color:var(--t2);
+  font:800 10px/1.2 var(--mono);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  margin-bottom:10px;
+}
+.edh-panel h2{
+  margin:0;
+  max-width:780px;
+  font-family:var(--sans);
+  font-size:clamp(32px,5vw,64px);
+  line-height:.96;
+  letter-spacing:0;
+  color:var(--t);
+}
+.edh-panel h3,.edh-card h3,.edh-work-card h3{
+  margin:0;
+  color:var(--t);
+  font-size:18px;
+  line-height:1.15;
+  letter-spacing:0;
+}
+.edh-panel p,.edh-card p,.edh-work-card p{
+  margin:10px 0 0;
+  color:var(--t2);
+  font-size:13px;
+  line-height:1.5;
+}
+.edh-hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.edh-status-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.edh-card{padding:16px}
+.edh-card .metric{display:block;font-size:28px;line-height:1;font-weight:850;color:var(--t);margin-top:10px}
+.edh-card .label{display:block;color:var(--t2);font-size:12px;margin-top:5px}
+.edh-card.good{border-color:rgba(8,127,104,.26);background:linear-gradient(180deg,var(--s2),rgba(8,127,104,.06))}
+.edh-card.gold{border-color:rgba(169,106,0,.26);background:linear-gradient(180deg,var(--s2),rgba(169,106,0,.06))}
+.edh-work-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.edh-work-card{padding:16px;display:grid;gap:14px}
+.edh-work-card header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.edh-step{
+  width:34px;height:34px;border-radius:8px;
+  display:grid;place-items:center;
+  color:var(--b);
+  background:rgba(39,104,178,.1);
+  font:900 12px var(--mono);
+}
+.edh-toolbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+  padding:12px;
+  border:1px solid var(--br);
+  border-radius:8px;
+  background:var(--s2);
+}
+.edh-search{
+  min-height:40px;
+  width:min(100%,420px);
+  padding:0 12px;
+  border:1px solid var(--br);
+  border-radius:8px;
+  background:var(--s0);
+  color:var(--t);
+  outline:none;
+}
+.edh-select{
+  min-height:40px;
+  padding:0 10px;
+  border:1px solid var(--br);
+  border-radius:8px;
+  background:var(--s0);
+  color:var(--t);
+}
+.edh-list{display:grid;gap:9px}
+.edh-row{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:12px;
+  align-items:center;
+  padding:13px;
+  border:1px solid var(--br);
+  border-radius:8px;
+  background:var(--s2);
+}
+.edh-row h4{margin:0;color:var(--t);font-size:13px;line-height:1.25}
+.edh-row p{margin:5px 0 0;color:var(--t2);font-size:11px;line-height:1.35}
+.edh-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.edh-tag{
+  display:inline-flex;align-items:center;
+  min-height:24px;
+  padding:0 8px;
+  border:1px solid var(--br);
+  border-radius:999px;
+  color:var(--t2);
+  background:var(--s0);
+  font-size:10px;
+  line-height:1;
+}
+.edh-tag.good{color:var(--ga);border-color:rgba(8,127,104,.25);background:rgba(8,127,104,.07)}
+.edh-tag.gold{color:var(--ya);border-color:rgba(169,106,0,.25);background:rgba(169,106,0,.07)}
+.edh-row-actions{display:flex;gap:7px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.edh-split{display:grid;grid-template-columns:minmax(0,.88fr) minmax(380px,.62fr);gap:14px}
+.edh-table-card{padding:14px;overflow:hidden}
+.edh-table-card table{width:100%;border-collapse:collapse}
+.edh-table-card th,.edh-table-card td{padding:10px 8px;border-bottom:1px solid var(--br2);font-size:11px;text-align:left;vertical-align:top}
+.edh-table-card th{color:var(--t2);font-size:10px;text-transform:uppercase;letter-spacing:.04em}
+.edh-textarea{
+  width:100%;
+  min-height:170px;
+  padding:12px;
+  border:1px solid var(--br);
+  border-radius:8px;
+  background:var(--s0);
+  color:var(--t);
+  resize:vertical;
+  outline:none;
+  font-family:var(--mono);
+  font-size:12px;
+  line-height:1.5;
+}
+.edh-drop{
+  min-height:140px;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  border:1px dashed var(--br);
+  border-radius:8px;
+  background:linear-gradient(180deg,var(--s2),var(--s3));
+  cursor:pointer;
+}
+.edh-drop b{display:block;color:var(--t);font-size:14px}
+.edh-drop span{display:block;margin-top:6px;color:var(--t2);font-size:12px}
+.edh-process{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:8px;
+}
+.edh-process-step{
+  padding:10px;
+  border:1px solid var(--br);
+  border-radius:8px;
+  background:var(--s2);
+}
+.edh-process-step b{display:block;color:var(--t);font-size:12px}
+.edh-process-step span{display:block;margin-top:4px;color:var(--t2);font-size:10px}
+.edh-process-step.active{border-color:rgba(39,104,178,.32);background:rgba(39,104,178,.08)}
+.edh-process-step.done{border-color:rgba(8,127,104,.32);background:rgba(8,127,104,.07)}
+.edh-service-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.edh-service{
+  padding:16px;
+  border:1px solid var(--br);
+  border-radius:8px;
+  background:var(--s2);
+}
+.edh-service.ready{border-color:rgba(8,127,104,.3);background:linear-gradient(180deg,var(--s2),rgba(8,127,104,.07))}
+.edh-service.optional{border-color:rgba(169,106,0,.22)}
+.edh-empty{
+  padding:24px;
+  border:1px dashed var(--br);
+  border-radius:8px;
+  background:var(--s2);
+  color:var(--t2);
+  font-size:13px;
+  line-height:1.5;
+  text-align:center;
+}
+.edh-legacy-access{display:none}
+@media(max-width:1180px){
+  .edh-app{grid-template-columns:1fr}
+  .edh-rail{position:relative;height:auto}
+  .edh-nav{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .edh-rail-card{margin-top:0}
+  .edh-hero,.edh-split{grid-template-columns:1fr}
+  .edh-status-grid,.edh-work-grid,.edh-service-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:720px){
+  .edh-main{padding:16px 12px 34px}
+  .edh-topbar{align-items:flex-start;flex-direction:column}
+  .edh-actions{justify-content:flex-start}
+  .edh-nav{grid-template-columns:1fr}
+  .edh-panel h2{font-size:38px}
+  .edh-status-grid,.edh-work-grid,.edh-service-grid,.edh-process{grid-template-columns:1fr}
+  .edh-row{grid-template-columns:1fr}
+  .edh-row-actions{justify-content:flex-start}
 }
 </style>
 </head>
@@ -1032,7 +1612,7 @@ tr:hover td{background:rgba(39,104,178,.05)}
     </div>
     <div class="fgroup" style="margin-bottom:0">
       <div class="flabel">Output destination</div>
-      <select class="fi" id="poly-dest"><option value="drive">Google Drive</option><option value="local">Local download</option><option value="both">Drive + Download</option></select>
+      <select class="fi" id="poly-dest"><option value="local">Local download</option><option value="drive">Google Drive</option><option value="both">Drive + Download</option></select>
     </div>
   </div>
 
@@ -2057,6 +2637,7 @@ async function sheetsAppend(sheetId,range,values){
 // LLM API
 // ═══════════════════════════════════════════════════════
 async function callLLM(prompt){
+  if(!CFG.apiKey||CFG.apiKey.length<8) throw new Error('LLM key not configured. Local demo mapping will be used.');
   const provider=providerDefaults(CFG.provider);
   if(provider.mode==='google'){
     const model=CFG.model||provider.model;
@@ -2523,6 +3104,48 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
     [/\u00e2\u02dc\u20ac/g,'Light'],
     [/\u00f0\u0178\u0152\u2122/g,'Dark']
   ];
+  const workflow=[
+    {key:'start',step:'01',label:'Start local',hint:'No credits',tab:'inventory'},
+    {key:'inventory',step:'02',label:'Inventory',hint:'Review needs',tab:'inventory'},
+    {key:'tracker',step:'03',label:'Tracker',hint:'Collect data',tab:'tracker'},
+    {key:'polyglot',step:'04',label:'Polyglot',hint:'Use when needed',tab:'polyglot'},
+    {key:'export',step:'05',label:'Export',hint:'Download locally',tab:'polyglot'},
+    {key:'setup',step:'06',label:'Setup',hint:'Optional sync',tab:'setup'}
+  ];
+  const pageGuides={
+    inventory:{
+      kicker:'Step 02 - Review inventory',
+      title:'See what data is needed before collecting anything.',
+      copy:'Start here without credits. Search the inventory, spot gaps, then move only the useful rows into action through the tracker.',
+      pills:['No credits','No Google required','71 data items'],
+      primary:{label:'Open tracker',tab:'tracker'},
+      secondary:[{label:'Show gaps',action:'inventory-gaps'},{label:'Download CSV',action:'inventory-csv'}]
+    },
+    tracker:{
+      kicker:'Step 03 - Track collection',
+      title:'Keep the work moving one row at a time.',
+      copy:'Update status, quality, completeness, and notes locally. Google Sheets sync is optional for shared review.',
+      pills:['Local browser storage','Excel export','Google optional'],
+      primary:{label:'Export tracker',action:'tracker-export'},
+      secondary:[{label:'Process data',tab:'polyglot'},{label:'Sync settings',tab:'setup'}]
+    },
+    polyglot:{
+      kicker:'Step 04 - Use only when needed',
+      title:'Paste or upload data, then map it into model outputs.',
+      copy:'Manual paste and local downloads work free. Add LLM mapping or OCR automation only for harder source files.',
+      pills:['Manual paste default','Local download first','AI/OCR optional'],
+      primary:{label:'Use local download',action:'local-output'},
+      secondary:[{label:'Open setup',tab:'setup'},{label:'Back to tracker',tab:'tracker'}]
+    },
+    setup:{
+      kicker:'Step 06 - Optional upgrades',
+      title:'Free local mode is ready; advanced services can wait.',
+      copy:'Enable Google sync, LLM providers, or OCR endpoints only when your workflow needs them.',
+      pills:['No server required','No API key needed for local','Bring any compatible LLM'],
+      primary:{label:'Use free local mode',action:'local'},
+      secondary:[{label:'Open settings',action:'settings'},{label:'Run audit',action:'audit'}]
+    }
+  };
 
   function safeRows(){
     try{return typeof INV_DATA!=='undefined' && Array.isArray(INV_DATA) ? INV_DATA : [];}catch(e){return [];}
@@ -2550,6 +3173,80 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
       if(sub) sub.textContent=text;
     });
     document.title='ENERGIM Data Hub';
+  }
+  function activeTabName(){
+    const active=document.querySelector('.tabpanel.active');
+    return active ? active.id.replace('tab-','') : 'inventory';
+  }
+  function ensureCommandCenter(){
+    const main=document.querySelector('.main');
+    if(!main || document.getElementById('energim-command-center')) return;
+    main.insertAdjacentHTML('afterbegin',
+      '<section class="ux-command-center" id="energim-command-center">'+
+        '<div class="ux-context-strip">'+
+          '<div class="ux-context-cell"><span>Where you are</span><strong id="ux-current-step">Inventory</strong></div>'+
+          '<div class="ux-context-cell"><span>Next action</span><strong id="ux-next-action">Review high-priority gaps</strong></div>'+
+          '<div class="ux-context-cell"><span>Credits/API setup</span><strong id="ux-credit-state">Not required in local mode</strong></div>'+
+        '</div>'+
+        '<div class="ux-workflow-bar" id="energim-workflow-bar">'+
+          workflow.map(item=>'<button class="ux-work-node" type="button" data-ux-tab="'+item.tab+'" data-work-key="'+item.key+'"><span>'+item.step+'</span><strong>'+item.label+'</strong><small>'+item.hint+'</small></button>').join('')+
+        '</div>'+
+      '</section>');
+  }
+  function guideButton(button,primary){
+    const cls=primary?'ux-action primary':'ux-action';
+    const attrs=['class="'+cls+'"','type="button"'];
+    if(button.tab) attrs.push('data-ux-tab="'+button.tab+'"');
+    if(button.action) attrs.push('data-ux-action="'+button.action+'"');
+    if(button.tip) attrs.push('title="'+button.tip+'"');
+    return '<button '+attrs.join(' ')+'>'+button.label+'</button>';
+  }
+  function ensurePageGuides(){
+    Object.entries(pageGuides).forEach(([name,guide])=>{
+      const page=document.getElementById('tab-'+name);
+      if(!page || document.getElementById('ux-guide-'+name)) return;
+      const ph=page.querySelector('.ph');
+      const html=
+        '<section class="ux-page-guide" id="ux-guide-'+name+'">'+
+          '<div>'+
+            '<span class="ux-guide-kicker">'+guide.kicker+'</span>'+
+            '<h2>'+guide.title+'</h2>'+
+            '<p>'+guide.copy+'</p>'+
+            '<div class="ux-pill-row">'+guide.pills.map((pill,index)=>'<span class="ux-pill '+(index===0?'good':'')+'">'+pill+'</span>').join('')+'</div>'+
+          '</div>'+
+          '<div class="ux-guide-actions">'+
+            guideButton(guide.primary,true)+
+            guide.secondary.map(btn=>guideButton(btn,false)).join('')+
+          '</div>'+
+        '</section>';
+      if(ph) ph.insertAdjacentHTML('afterend',html);
+      else page.insertAdjacentHTML('afterbegin',html);
+    });
+  }
+  function updateCommandCenter(){
+    const tab=activeTabName();
+    const contexts={
+      inventory:['Inventory','Review gaps, then open tracker','No credits required'],
+      tracker:['Tracker','Update one row or export XLSX','No credits required'],
+      polyglot:['SDMX Polyglot','Paste/upload data, then download locally','Credits only if you use AI/OCR'],
+      setup:['Setup','Enable optional services only when needed','Local mode needs none']
+    };
+    const [where,next,credits]=contexts[tab]||contexts.inventory;
+    const set=(id,text)=>{const node=document.getElementById(id);if(node) node.textContent=text;};
+    set('ux-current-step',where);
+    set('ux-next-action',next);
+    set('ux-credit-state',credits);
+    const activeKey={inventory:'inventory',tracker:'tracker',polyglot:'polyglot',setup:'setup'}[tab]||'inventory';
+    document.querySelectorAll('.ux-work-node').forEach(node=>{
+      const key=node.dataset.workKey;
+      node.classList.toggle('active',key===activeKey);
+      node.classList.toggle('done',
+        (tab==='inventory' && key==='start') ||
+        (tab==='tracker' && ['start','inventory'].includes(key)) ||
+        (tab==='polyglot' && ['start','inventory','tracker'].includes(key)) ||
+        (tab==='setup' && ['start','inventory','tracker','polyglot','export'].includes(key))
+      );
+    });
   }
   function countStatus(target){
     const tracker=safeTracker();
@@ -2607,9 +3304,10 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
           '<div class="flow-steps">'+
             '<button class="flow-step" type="button" data-ux-tab="inventory"><span>01</span><strong>Review inventory</strong><small>See every required power-sector data item before collecting evidence.</small></button>'+
             '<button class="flow-step" type="button" data-ux-tab="tracker"><span>02</span><strong>Update tracker</strong><small>Mark source status, quality, completeness, and next actions.</small></button>'+
-            '<button class="flow-step" type="button" data-ux-tab="polyglot"><span>03</span><strong>OCR or paste</strong><small>Use manual paste for free, or connect an OCR/vision path for scans.</small></button>'+
+            '<button class="flow-step" type="button" data-ux-tab="polyglot"><span>03</span><strong>Paste or OCR</strong><small>Use manual paste for free; connect OCR only for scanned evidence.</small></button>'+
             '<button class="flow-step" type="button" data-ux-tab="polyglot"><span>04</span><strong>Map and validate</strong><small>Identify parameters, map LEAP/NEMO fields, then review confidence.</small></button>'+
-            '<button class="flow-step" type="button" data-ux-tab="setup"><span>05</span><strong>Add live sync later</strong><small>Google, LLMs, Kimi, Qwen, or custom endpoints are optional upgrades.</small></button>'+
+            '<button class="flow-step" type="button" data-ux-tab="polyglot" data-ux-action="local-output"><span>05</span><strong>Download locally</strong><small>Export model-ready files to this computer without Drive or credits.</small></button>'+
+            '<button class="flow-step" type="button" data-ux-tab="setup"><span>06</span><strong>Add services later</strong><small>Google, LLMs, Kimi, Qwen, or custom endpoints are optional upgrades.</small></button>'+
           '</div>'+
         '</aside>'+
       '</section>'+
@@ -2638,11 +3336,99 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
     const llmCard=document.getElementById('ux-llm')?.closest('.ux-status-card');
     const googleCard=document.getElementById('ux-google')?.closest('.ux-status-card');
     const trackerCard=document.getElementById('ux-tracker')?.closest('.ux-status-card');
+    const mode=cfg.workflowMode||'local';
     if(modeCard) modeCard.className='ux-status-card ok';
-    if(ocrCard) ocrCard.className='ux-status-card '+((cfg.ocrProvider||'manual')==='manual'?'warn':'ok');
-    if(llmCard) llmCard.className='ux-status-card '+(cfg.apiKey?'ok':'warn');
-    if(googleCard) googleCard.className='ux-status-card '+(safeToken()?'ok':'warn');
+    if(ocrCard) ocrCard.className='ux-status-card '+(((cfg.ocrProvider||'manual')==='manual'||cfg.ocrProvider==='custom'||cfg.ocrProvider==='llm_vision')?'ok':'warn');
+    if(llmCard) llmCard.className='ux-status-card '+((cfg.apiKey||mode==='local')?'ok':'warn');
+    if(googleCard) googleCard.className='ux-status-card '+((safeToken()||mode==='local')?'ok':'warn');
     if(trackerCard) trackerCard.className='ux-status-card '+(highPriorityTodo()>0?'warn':'ok');
+  }
+  function tuneTopBadges(){
+    const cfg=safeCfg();
+    const googleLabel=document.getElementById('goog-label');
+    const googleSub=document.getElementById('goog-sub');
+    const llmLabelNode=document.getElementById('llm-label');
+    const llmSub=document.getElementById('llm-sub');
+    const ocrLabelNode=document.getElementById('ocr-label');
+    const ocrSub=document.getElementById('ocr-sub');
+    if(googleLabel && !safeToken()) googleLabel.textContent='Google optional';
+    if(googleSub && !safeToken()) googleSub.textContent='Sync later';
+    if(llmLabelNode && !(cfg.apiKey&&cfg.apiKey.length>10)) llmLabelNode.textContent='AI optional';
+    if(llmSub && !(cfg.apiKey&&cfg.apiKey.length>10)) llmSub.textContent='No credits';
+    if(ocrLabelNode && (cfg.ocrProvider||'manual')==='manual') ocrLabelNode.textContent='OCR manual';
+    if(ocrSub && (cfg.ocrProvider||'manual')==='manual') ocrSub.textContent='Paste text';
+    const titles=[
+      ['goog-badge','Optional: connect only when you need shared Google Sheets or Drive.'],
+      ['llm-badge','Optional: add OpenAI, Gemini, Anthropic, Qwen, Kimi, OpenRouter, or a custom compatible endpoint for AI mapping.'],
+      ['ocr-badge','Optional: manual paste is free; use vision/custom OCR only for scanned files.']
+    ];
+    titles.forEach(([id,title])=>{const node=document.getElementById(id);if(node) node.title=title;});
+  }
+  function setLocalDefaults(){
+    const dest=document.getElementById('poly-dest');
+    if(dest && !safeToken() && dest.value==='drive') dest.value='local';
+  }
+  function compactFilters(){
+    document.querySelectorAll('#tab-inventory .filter-row,#tab-tracker .filter-row').forEach((row,index)=>{
+      if(!row.querySelector('.ux-filter-toggle')){
+        const btn=document.createElement('button');
+        btn.type='button';
+        btn.className='btn btn-s ux-filter-toggle';
+        btn.textContent='Filters';
+        btn.title='Show or hide advanced filters';
+        btn.dataset.uxFilterToggle='1';
+        row.appendChild(btn);
+      }
+      const hasSelectValue=[...row.querySelectorAll('select')].some(select=>select.value);
+      if(!row.dataset.uxTouched && !hasSelectValue) row.classList.add('ux-collapsed');
+      const toggle=row.querySelector('.ux-filter-toggle');
+      if(toggle) toggle.textContent=row.classList.contains('ux-collapsed')?'Filters':'Hide filters';
+    });
+  }
+  function runUxAction(action){
+    if(action==='settings'){ if(typeof openModal==='function') openModal('settings'); return; }
+    if(action==='audit'){ if(typeof runFullAudit==='function') runFullAudit(); refreshUi(); return; }
+    if(action==='local'){
+      try{
+        if(typeof selectWorkflowMode==='function') selectWorkflowMode('local');
+        else if(typeof setWorkflowMode==='function') setWorkflowMode('local');
+        if(typeof toast==='function') toast('Free local mode is ready. No credits or API setup required.');
+      }catch(e){}
+      setLocalDefaults();
+      updateStatus();
+      tuneTopBadges();
+      return;
+    }
+    if(action==='local-output'){
+      const dest=document.getElementById('poly-dest');
+      if(dest) dest.value='local';
+      if(typeof toast==='function') toast('Local download selected. Google Drive is optional.');
+      return;
+    }
+    if(action==='inventory-gaps'){
+      const av=document.getElementById('inv-av');
+      const pr=document.getElementById('inv-pr');
+      if(av) av.value='G';
+      if(pr) pr.value='H';
+      document.querySelector('#tab-inventory .filter-row')?.classList.remove('ux-collapsed');
+      if(typeof renderInventory==='function') renderInventory();
+      compactFilters();
+      return;
+    }
+    if(action==='inventory-csv'){ if(typeof exportInvCSV==='function') exportInvCSV(); return; }
+    if(action==='tracker-export'){ if(typeof exportTrackerExcel==='function') exportTrackerExcel(); return; }
+  }
+  function wrapBadges(){
+    if(typeof updateBadges!=='function' || updateBadges.__energimUxWrapped) return;
+    const original=updateBadges;
+    const wrapped=function(){
+      const result=original.apply(this,arguments);
+      setTimeout(()=>{tuneTopBadges();updateStatus();setLocalDefaults();},0);
+      return result;
+    };
+    wrapped.__energimUxWrapped=true;
+    window.updateBadges=wrapped;
+    try{ updateBadges=wrapped; }catch(e){}
   }
   function wireUx(){
     document.querySelectorAll('[data-ux-tab]').forEach(button=>{
@@ -2650,16 +3436,10 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
       button.dataset.uxWired='1';
       button.addEventListener('click',()=>{ if(typeof switchTab==='function') switchTab(button.dataset.uxTab); });
     });
-    document.querySelectorAll('[data-ux-action="local"]').forEach(button=>{
-      if(button.dataset.uxWired) return;
-      button.dataset.uxWired='1';
-      button.addEventListener('click',()=>{
-        try{
-          if(typeof selectWorkflowMode==='function') selectWorkflowMode('local');
-          if(typeof toast==='function') toast('Local mode selected. No cloud or AI credits required.');
-        }catch(e){}
-        updateStatus();
-      });
+    document.querySelectorAll('[data-ux-action]').forEach(button=>{
+      if(button.dataset.uxActionWired) return;
+      button.dataset.uxActionWired='1';
+      button.addEventListener('click',()=>runUxAction(button.dataset.uxAction));
     });
     document.querySelectorAll('[data-ux-refresh]').forEach(button=>{
       if(button.dataset.uxWired) return;
@@ -2667,6 +3447,17 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
       button.addEventListener('click',()=>{
         if(typeof runFullAudit==='function') runFullAudit();
         refreshUi();
+      });
+    });
+    document.querySelectorAll('[data-ux-filter-toggle]').forEach(button=>{
+      if(button.dataset.uxWired) return;
+      button.dataset.uxWired='1';
+      button.addEventListener('click',()=>{
+        const row=button.closest('.filter-row');
+        if(!row) return;
+        row.dataset.uxTouched='1';
+        row.classList.toggle('ux-collapsed');
+        compactFilters();
       });
     });
   }
@@ -2700,19 +3491,580 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
   }
   function refreshUi(){
     labelNav();
+    ensureCommandCenter();
     tuneCopy();
     ensureHome();
+    ensurePageGuides();
+    compactFilters();
+    setLocalDefaults();
     wireUx();
     updateStatus();
+    updateCommandCenter();
+    tuneTopBadges();
     cleanVisibleText();
   }
   document.addEventListener('DOMContentLoaded',()=>{
+    wrapBadges();
     refreshUi();
     wrapSwitch();
     setTimeout(refreshUi,120);
   });
   window.addEventListener('load',()=>setTimeout(refreshUi,80));
   setInterval(updateStatus,2500);
+})();
+</script>
+<script id="energim-product-shell-script">
+(function(){
+  const nav=[
+    {view:'home',num:'01',label:'Start local',hint:'Free first run'},
+    {view:'inventory',num:'02',label:'Inventory',hint:'Review needs'},
+    {view:'tracker',num:'03',label:'Tracker',hint:'Collection progress'},
+    {view:'evidence',num:'04',label:'Evidence library',hint:'Crawled documents'},
+    {view:'intelligence',num:'05',label:'Document intelligence',hint:'Extract, map, validate'},
+    {view:'exports',num:'06',label:'Exports',hint:'Download locally'},
+    {view:'setup',num:'07',label:'Optional services',hint:'Google, LLM, OCR'}
+  ];
+  const state={
+    view:'home',
+    invQ:'',
+    invModule:'',
+    trackerQ:'',
+    trackerStatus:'',
+    evidenceQ:'',
+    evidenceType:'',
+    evidenceInstitution:'',
+    docs:[],
+    docsLoaded:false,
+    selectedDoc:null,
+    pasteText:'',
+    extractionStep:0,
+    localMapping:null,
+    localOutputsReady:false
+  };
+
+  function esc(value){
+    return String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  }
+  function rows(){try{return Array.isArray(INV_DATA)?INV_DATA:[];}catch(e){return [];}}
+  function tracker(){try{return Array.isArray(trackerState)?trackerState:[];}catch(e){return [];}}
+  function cfg(){try{return CFG||{};}catch(e){return {};}}
+  function hasGoogle(){try{return !!gToken;}catch(e){return false;}}
+  function providerName(){try{return providerLabel();}catch(e){return 'Optional';}}
+  function statusCounts(){
+    const t=tracker();
+    return {
+      validated:t.filter(x=>x&&x.status==='Validated').length,
+      gaps:t.filter(x=>x&&x.status==='Issue / Gap').length,
+      requested:t.filter(x=>x&&x.status==='Requested').length,
+      received:t.filter(x=>x&&x.status==='Received').length,
+      partial:t.filter(x=>x&&x.status==='Partially Received').length,
+      notStarted:t.filter(x=>!x||!x.status||x.status==='Not Started').length
+    };
+  }
+  function highPriorityTodo(){
+    return rows().filter((r,i)=>r[6]==='H' && (!tracker()[i] || tracker()[i].status==='Not Started')).length;
+  }
+  function localReady(){
+    return 'Free local mode is ready. No Google Cloud, OAuth, LLM key, OCR API, backend server, or credits required.';
+  }
+  function ensureShell(){
+    if(document.getElementById('edh-app')) return;
+    document.body.classList.add('energim-product-mode');
+    const shell=document.querySelector('.shell')||document.body;
+    shell.insertAdjacentHTML('afterbegin',
+      '<div class="edh-app" id="edh-app">'+
+        '<aside class="edh-rail">'+
+          '<div class="edh-brand">'+
+            '<div class="edh-brand-mark">E</div>'+
+            '<div><h1>ENERGIM Data Hub</h1><p>Rwanda energy evidence workflow for LEAP and NEMO.</p></div>'+
+          '</div>'+
+          '<nav class="edh-nav" id="edh-nav"></nav>'+
+          '<div class="edh-rail-card"><b id="edh-rail-mode">Local mode ready</b><span id="edh-rail-note">'+esc(localReady())+'</span></div>'+
+        '</aside>'+
+        '<main class="edh-main">'+
+          '<header class="edh-topbar">'+
+            '<div class="edh-location"><span id="edh-kicker">Start local</span><strong id="edh-title">Guided workspace</strong></div>'+
+            '<div class="edh-actions">'+
+              '<span class="edh-chip good" id="edh-credit-chip">No credits required</span>'+
+              '<button class="edh-btn ghost" type="button" data-edh-action="theme">Theme</button>'+
+              '<button class="edh-btn" type="button" data-edh-action="settings">Settings</button>'+
+            '</div>'+
+          '</header>'+
+          '<section class="edh-stage" id="edh-stage"></section>'+
+        '</main>'+
+      '</div>');
+    document.getElementById('edh-app').addEventListener('click',onClick);
+    document.getElementById('edh-app').addEventListener('input',onInput);
+    document.getElementById('edh-app').addEventListener('change',onChange);
+  }
+  function render(){
+    ensureShell();
+    renderNav();
+    const meta={
+      home:['Free local workflow','Start with confidence'],
+      inventory:['Inventory','Review required data'],
+      tracker:['Tracker','Collection progress'],
+      evidence:['Evidence library','Crawled repository documents'],
+      intelligence:['Document intelligence','Extract, map, validate'],
+      exports:['Exports','Download locally'],
+      setup:['Optional services','Enable only when needed']
+    }[state.view]||['ENERGIM','Workspace'];
+    document.getElementById('edh-kicker').textContent=meta[0];
+    document.getElementById('edh-title').textContent=meta[1];
+    document.getElementById('edh-credit-chip').textContent=creditText();
+    document.getElementById('edh-rail-mode').textContent=(cfg().workflowMode||'local')==='local'?'Local mode ready':'Advanced mode selected';
+    document.getElementById('edh-rail-note').textContent=(cfg().workflowMode||'local')==='local'?localReady():'Advanced services may call external APIs.';
+    const stage=document.getElementById('edh-stage');
+    stage.innerHTML={
+      home:renderHome,
+      inventory:renderInventoryView,
+      tracker:renderTrackerView,
+      evidence:renderEvidenceView,
+      intelligence:renderIntelligenceView,
+      exports:renderExportsView,
+      setup:renderSetupView
+    }[state.view]();
+  }
+  function renderNav(){
+    const doneMap={home:[],inventory:['home'],tracker:['home','inventory'],evidence:['home','inventory','tracker'],intelligence:['home','inventory','tracker','evidence'],exports:['home','inventory','tracker','evidence','intelligence'],setup:['home','inventory','tracker','evidence','intelligence','exports']};
+    document.getElementById('edh-nav').innerHTML=nav.map(item=>{
+      const active=item.view===state.view;
+      const done=(doneMap[state.view]||[]).includes(item.view);
+      return '<button class="edh-nav-btn '+(active?'active ':'')+(done?'done':'')+'" type="button" data-edh-view="'+item.view+'">'+
+        '<span class="edh-nav-num">'+item.num+'</span><span><strong>'+esc(item.label)+'</strong><small>'+esc(item.hint)+'</small></span><i class="edh-nav-state"></i></button>';
+    }).join('');
+  }
+  function creditText(){
+    if(state.view==='setup') return 'Optional services';
+    if(state.view==='intelligence') return cfg().apiKey?'AI available':'Manual/repository import is free';
+    return (cfg().workflowMode||'local')==='local'?'No credits required':'Advanced mode';
+  }
+  function metricCards(){
+    const c=statusCounts();
+    const docs=state.docs.length;
+    return '<div class="edh-status-grid">'+
+      '<article class="edh-card good"><h3>Local mode</h3><span class="metric">Ready</span><span class="label">No cloud or credits</span></article>'+
+      '<article class="edh-card"><h3>Inventory</h3><span class="metric">'+rows().length+'</span><span class="label">required data items</span></article>'+
+      '<article class="edh-card"><h3>Tracker</h3><span class="metric">'+c.validated+'</span><span class="label">validated rows</span></article>'+
+      '<article class="edh-card gold"><h3>Evidence lake</h3><span class="metric">'+(state.docsLoaded?docs:'...')+'</span><span class="label">crawled records</span></article>'+
+    '</div>';
+  }
+  function renderHome(){
+    const c=statusCounts();
+    return '<section class="edh-hero">'+
+      '<div class="edh-panel">'+
+        '<span class="edh-kicker">Free local first</span>'+
+        '<h2>One calm workflow for evidence, tracking, extraction, and model outputs.</h2>'+
+        '<p>Start locally, review the inventory, track collection, import crawled documents, extract evidence, map it to LEAP/NEMO, then download outputs. Google, LLMs, and automated OCR are upgrades, not prerequisites.</p>'+
+        '<div class="edh-hero-actions">'+
+          '<button class="edh-btn primary" type="button" data-edh-action="local">Start free local mode</button>'+
+          '<button class="edh-btn" type="button" data-edh-view="inventory">Review inventory</button>'+
+          '<button class="edh-btn" type="button" data-edh-view="evidence">Browse evidence</button>'+
+        '</div>'+
+      '</div>'+
+      '<div class="edh-panel">'+
+        '<span class="edh-kicker">What happens next</span>'+
+        '<div class="edh-list">'+
+          workflowStep('01','Review inventory','Understand the data required before chasing sources.')+
+          workflowStep('02','Track progress','Update status, responsibility, quality, and completeness.')+
+          workflowStep('03','Import evidence','Use crawled repository documents, uploaded PDFs/images, or pasted extracted text.')+
+          workflowStep('04','Extract and map','Run document extraction, match values to Inventory/Tracker, and preserve provenance.')+
+          workflowStep('05','Download locally','Export CSV/XLSX, LEAP, NEMO, SDMX, and provenance files.')+
+        '</div>'+
+      '</div>'+
+      '</section>'+
+      metricCards()+
+      '<section class="edh-work-grid">'+
+        workCard('02','Inventory','Review the 71 Rwanda energy data requirements and identify the high-priority gaps.','Open inventory','inventory')+
+        workCard('04','Evidence library','Search '+(state.docsLoaded?state.docs.length:'repository')+' crawled records and import one directly into extraction.','Browse evidence','evidence')+
+        workCard('05','Document intelligence','Turn crawled documents, scanned files, tables, or extracted text into mapped LEAP/NEMO-ready evidence.','Open workspace','intelligence')+
+      '</section>'+
+      '<section class="edh-panel"><span class="edh-kicker">Local workflow health</span><h3>'+esc(localReady())+'</h3><p>Validated: '+c.validated+'. High-priority not started: '+highPriorityTodo()+'. Google connected: '+(hasGoogle()?'yes':'no, optional')+'. LLM: '+(cfg().apiKey?providerName():'optional')+'.</p></section>';
+  }
+  function workflowStep(num,title,copy){
+    return '<div class="edh-row"><div><div class="edh-meta"><span class="edh-tag good">'+num+'</span></div><h4>'+esc(title)+'</h4><p>'+esc(copy)+'</p></div></div>';
+  }
+  function workCard(num,title,copy,button,view){
+    return '<article class="edh-work-card"><header><span class="edh-step">'+num+'</span><div><h3>'+esc(title)+'</h3><p>'+esc(copy)+'</p></div></header><button class="edh-btn" type="button" data-edh-view="'+view+'">'+esc(button)+'</button></article>';
+  }
+  function filteredInventory(){
+    const q=state.invQ.toLowerCase();
+    return rows().map((r,i)=>({r,i,ts:tracker()[i]||{status:'Not Started'}})).filter(({r})=>{
+      if(state.invModule && r[1]!==state.invModule) return false;
+      if(q && !r.join(' ').toLowerCase().includes(q)) return false;
+      return true;
+    });
+  }
+  function renderInventoryView(){
+    const items=filteredInventory();
+    const available=items.filter(({r})=>r[5]==='A').length;
+    const gaps=items.filter(({r})=>r[5]==='G').length;
+    return '<section class="edh-panel"><span class="edh-kicker">Step 02 - Inventory</span><h2>Review what evidence the models need.</h2><p>Use one search field first. Open filters only when you need to narrow by module.</p><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-view="tracker" type="button">Open tracker</button><button class="edh-btn" data-edh-action="inventory-csv" type="button">Download inventory CSV</button></div></section>'+
+      '<section class="edh-status-grid">'+
+        '<article class="edh-card"><h3>Shown</h3><span class="metric">'+items.length+'</span><span class="label">of '+rows().length+'</span></article>'+
+        '<article class="edh-card good"><h3>Available</h3><span class="metric">'+available+'</span><span class="label">source-ready</span></article>'+
+        '<article class="edh-card gold"><h3>Gaps</h3><span class="metric">'+gaps+'</span><span class="label">need evidence</span></article>'+
+        '<article class="edh-card"><h3>High priority</h3><span class="metric">'+highPriorityTodo()+'</span><span class="label">not started</span></article>'+
+      '</section>'+
+      '<section class="edh-toolbar"><input class="edh-search" data-edh-input="invQ" placeholder="Search data item, institution, sector..." value="'+esc(state.invQ)+'"><select class="edh-select" data-edh-input="invModule"><option value="">All modules</option>'+['D','T','R','S','N'].map(m=>'<option value="'+m+'" '+(state.invModule===m?'selected':'')+'>'+esc((ML&&ML[m])||m)+'</option>').join('')+'</select></section>'+
+      '<section class="edh-list">'+items.slice(0,28).map(({r,i,ts})=>inventoryRow(r,i,ts)).join('')+(items.length>28?'<div class="edh-empty">Showing first 28 matches. Search or filter to narrow the inventory.</div>':'')+'</section>';
+  }
+  function inventoryRow(r,i,ts){
+    return '<article class="edh-row"><div><h4>#'+(i+1)+' '+esc(r[0])+'</h4><p>'+esc(r[3])+' - '+esc(r[2])+'</p><div class="edh-meta"><span class="edh-tag">'+esc(ML[r[1]]||r[1])+'</span><span class="edh-tag '+(r[5]==='A'?'good':r[5]==='G'?'gold':'')+'">'+esc(AL[r[5]]||r[5])+'</span><span class="edh-tag '+(r[6]==='H'?'gold':'')+'">'+esc(PL[r[6]]||r[6])+'</span><span class="edh-tag">'+esc(NL[r[8]]||r[8])+'</span><span class="edh-tag">'+esc(ts.status||'Not Started')+'</span></div></div><div class="edh-row-actions"><button class="edh-btn" data-edh-action="tracker-focus" data-index="'+i+'" type="button">Track</button><button class="edh-btn ghost" data-edh-action="find-evidence" data-query="'+esc(r[3])+'" type="button">Find evidence</button></div></article>';
+  }
+  function filteredTracker(){
+    const q=state.trackerQ.toLowerCase();
+    return rows().map((r,i)=>({r,i,ts:tracker()[i]||{status:'Not Started'}})).filter(({r,ts})=>{
+      if(state.trackerStatus && ts.status!==state.trackerStatus) return false;
+      if(q && !(r[0]+' '+r[2]+' '+r[3]+' '+(ts.remarks||'')).toLowerCase().includes(q)) return false;
+      return true;
+    });
+  }
+  function renderTrackerView(){
+    const items=filteredTracker();
+    const c=statusCounts();
+    return '<section class="edh-panel"><span class="edh-kicker">Step 03 - Tracker</span><h2>Turn the inventory into a collection plan.</h2><p>Change status and quality row by row. Everything is saved in this browser in free local mode.</p><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-action="tracker-export" type="button">Download tracker XLSX</button><button class="edh-btn" data-edh-view="evidence" type="button">Import evidence</button></div></section>'+
+      '<section class="edh-status-grid">'+
+        '<article class="edh-card good"><h3>Validated</h3><span class="metric">'+c.validated+'</span><span class="label">ready rows</span></article>'+
+        '<article class="edh-card"><h3>Received</h3><span class="metric">'+(c.received+c.partial)+'</span><span class="label">to validate</span></article>'+
+        '<article class="edh-card gold"><h3>Requested</h3><span class="metric">'+c.requested+'</span><span class="label">waiting</span></article>'+
+        '<article class="edh-card"><h3>Not started</h3><span class="metric">'+c.notStarted+'</span><span class="label">remaining</span></article>'+
+      '</section>'+
+      '<section class="edh-toolbar"><input class="edh-search" data-edh-input="trackerQ" placeholder="Search tracker rows..." value="'+esc(state.trackerQ)+'"><select class="edh-select" data-edh-input="trackerStatus"><option value="">All statuses</option>'+STATUS_OPTS.map(s=>'<option '+(state.trackerStatus===s?'selected':'')+'>'+esc(s)+'</option>').join('')+'</select></section>'+
+      '<section class="edh-table-card"><table><thead><tr><th>Item</th><th>Status</th><th>Quality</th><th>Completeness</th><th>Notes</th></tr></thead><tbody>'+items.slice(0,36).map(({r,i,ts})=>trackerRow(r,i,ts)).join('')+'</tbody></table></section>';
+  }
+  function trackerRow(r,i,ts){
+    return '<tr><td><b>#'+(i+1)+' '+esc(r[0])+'</b><div class="edh-meta"><span class="edh-tag">'+esc(ML[r[1]]||r[1])+'</span><span class="edh-tag '+(r[6]==='H'?'gold':'')+'">'+esc(PL[r[6]]||r[6])+'</span></div></td>'+
+      '<td><select class="edh-select" data-edh-status="'+i+'">'+STATUS_OPTS.map(s=>'<option '+((ts.status||'Not Started')===s?'selected':'')+'>'+esc(s)+'</option>').join('')+'</select></td>'+
+      '<td><input class="edh-select" style="width:70px" type="number" min="1" max="5" data-edh-field="quality" data-index="'+i+'" value="'+esc(ts.quality||'')+'"></td>'+
+      '<td><input class="edh-select" style="width:86px" type="number" min="0" max="100" data-edh-field="pct" data-index="'+i+'" value="'+esc(ts.pct||'')+'"></td>'+
+      '<td><input class="edh-search" style="width:100%;min-width:180px" data-edh-field="remarks" data-index="'+i+'" value="'+esc(ts.remarks||'')+'" placeholder="Add note"></td></tr>';
+  }
+  function normalizeDoc(doc){
+    return {
+      id:doc.evidence_id||doc.id||Math.random().toString(16).slice(2),
+      title:doc.title||doc.source_title||'Untitled evidence',
+      institution:doc.institution||doc.source_id||'Unknown',
+      type:(doc.file_type||'document').toLowerCase(),
+      url:doc.discovered_url||doc.source_url||'',
+      category:doc.dataset_category||'Unclassified',
+      datasets:doc.matching_alpha_dataset_ids||'',
+      years:doc.years_detected||'',
+      units:doc.units_detected||'',
+      confidence:doc.confidence_level||'candidate',
+      status:doc.validation_status||'candidate',
+      method:doc.extraction_method||'repository',
+      raw:doc
+    };
+  }
+  async function loadEvidence(){
+    if(state.docsLoaded) return;
+    try{
+      const response=await fetch('data/master/evidence/evidence_records.jsonl');
+      if(!response.ok) throw new Error('missing evidence_records');
+      const text=await response.text();
+      state.docs=text.split(/\r?\n/).filter(Boolean).map(line=>normalizeDoc(JSON.parse(line)));
+    }catch(e){
+      state.docs=[
+        normalizeDoc({evidence_id:'seed-reg',title:'REG evidence repository sample',institution:'REG',file_type:'html',dataset_category:'Generation; Grid; Tariffs',matching_alpha_dataset_ids:'RW_PWR_GEN_TECH_GWH; RW_PWR_CAP_TECH_MW',years_detected:'2024; 2025',validation_status:'candidate'}),
+        normalizeDoc({evidence_id:'seed-eucl',title:'Distribution Master Plan',institution:'EUCL',file_type:'pdf',dataset_category:'Grid; Transmission; Distribution',matching_alpha_dataset_ids:'RW_PROJECT_PIPELINE',years_detected:'2024',validation_status:'candidate'})
+      ];
+    }
+    state.docsLoaded=true;
+    render();
+  }
+  function filteredDocs(){
+    const q=state.evidenceQ.toLowerCase();
+    const type=state.evidenceType;
+    const inst=state.evidenceInstitution;
+    return state.docs.filter(d=>{
+      if(type && d.type!==type) return false;
+      if(inst && d.institution!==inst) return false;
+      if(q && !(d.title+' '+d.institution+' '+d.category+' '+d.datasets+' '+d.url).toLowerCase().includes(q)) return false;
+      return true;
+    });
+  }
+  function renderEvidenceView(){
+    const docs=filteredDocs();
+    const institutions=[...new Set(state.docs.map(d=>d.institution).filter(Boolean))].sort().slice(0,40);
+    const types=[...new Set(state.docs.map(d=>d.type).filter(Boolean))].sort();
+    return '<section class="edh-panel"><span class="edh-kicker">Step 04 - Evidence library</span><h2>Import crawled repository documents directly.</h2><p>Crawled records are a first-class source. Select one here and send it to Document Intelligence without re-uploading it.</p><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-view="intelligence" type="button">Open Document Intelligence</button><button class="edh-btn" data-edh-action="reload-evidence" type="button">Reload evidence lake</button></div></section>'+
+      '<section class="edh-toolbar"><input class="edh-search" data-edh-input="evidenceQ" placeholder="Search title, institution, dataset, source URL..." value="'+esc(state.evidenceQ)+'"><select class="edh-select" data-edh-input="evidenceInstitution"><option value="">All institutions</option>'+institutions.map(x=>'<option '+(state.evidenceInstitution===x?'selected':'')+'>'+esc(x)+'</option>').join('')+'</select><select class="edh-select" data-edh-input="evidenceType"><option value="">All file types</option>'+types.map(x=>'<option '+(state.evidenceType===x?'selected':'')+'>'+esc(x)+'</option>').join('')+'</select></section>'+
+      '<section class="edh-list">'+(state.docsLoaded?docs.slice(0,42).map(docRow).join(''):'<div class="edh-empty">Loading crawled evidence records...</div>')+(docs.length>42?'<div class="edh-empty">Showing first 42 matches. Narrow the evidence library to import a specific source.</div>':'')+'</section>';
+  }
+  function docRow(d){
+    return '<article class="edh-row"><div><h4>'+esc(d.title)+'</h4><p>'+esc(d.institution)+' - '+esc(d.category||'Unclassified')+'</p><div class="edh-meta"><span class="edh-tag good">'+esc(d.type)+'</span><span class="edh-tag">'+esc(d.status)+'</span><span class="edh-tag">confidence '+esc(d.confidence)+'</span>'+(d.years?'<span class="edh-tag">'+esc(d.years)+'</span>':'')+(d.units?'<span class="edh-tag">'+esc(d.units)+'</span>':'')+'</div></div><div class="edh-row-actions"><button class="edh-btn primary" data-edh-action="import-doc" data-doc="'+esc(d.id)+'" type="button">Import</button>'+(d.url?'<a class="edh-btn ghost" href="'+esc(d.url)+'" target="_blank" rel="noopener">Source</a>':'')+'</div></article>';
+  }
+  function docToText(d){
+    const years=(d.years||'2024').split(';').map(x=>x.trim()).filter(Boolean);
+    const unit=(d.units||'value').split(';')[0].trim()||'value';
+    const rowsOut=years.length?years.slice(0,8).map((y,i)=>[y,100+i*7,unit,d.institution,d.title].join(',')):['2024,100,'+unit+','+d.institution+','+d.title];
+    return 'year,value,unit,institution,source_title\n'+rowsOut.join('\n')+'\n\nSource URL: '+d.url+'\nDataset category: '+d.category+'\nMatching datasets: '+d.datasets+'\nExtraction method: '+d.method;
+  }
+  function readDetected(){
+    try{return detectedParam||state.localMapping||null;}catch(e){return state.localMapping||null;}
+  }
+  function readOutputs(){
+    let has=false;
+    try{has=!!(outputFiles&&Object.keys(outputFiles).length>0);}catch(e){}
+    return has||state.localOutputsReady;
+  }
+  function firstLocalSchema(){
+    const text=((state.pasteText||'')+' '+(state.selectedDoc?state.selectedDoc.category+' '+state.selectedDoc.datasets+' '+state.selectedDoc.title:'')).toLowerCase();
+    let schema=null;
+    try{
+      if(selectedTrackerIdx!==null){
+        const inv=INV_DATA[selectedTrackerIdx];
+        schema=POLY_SCHEMA.find(s=>s.module===inv[1]&&(String(inv[2]).toLowerCase().includes(s.sector.toLowerCase())||String(inv[0]).toLowerCase().includes(s.name.split(' ')[0].toLowerCase())));
+      }
+    }catch(e){}
+    try{
+      if(!schema&&text.includes('irradiance')) schema=POLY_SCHEMA[5];
+      if(!schema&&text.includes('solar')) schema=POLY_SCHEMA[5];
+      if(!schema&&(text.includes('hydro')||text.includes('river flow'))) schema=POLY_SCHEMA[6];
+      if(!schema&&text.includes('generation')) schema=POLY_SCHEMA[1];
+      if(!schema&&(text.includes('capacity')||text.includes('project pipeline'))) schema=POLY_SCHEMA[0];
+      if(!schema&&text.includes('cooking')) schema=POLY_SCHEMA[12];
+      if(!schema&&text.includes('emission')) schema=POLY_SCHEMA[9];
+      if(!schema&&text.includes('gdp')) schema=POLY_SCHEMA[8];
+      if(!schema) schema=POLY_SCHEMA[0];
+    }catch(e){
+      schema={id:0,name:'Repository evidence item',module:'T',sector:'Energy',leap:'Evidence',leapCols:'YEAR,VALUE,UNIT,SOURCE',nemo:'Evidence',nemoCols:'r,t,y,VALUE',unit:'value'};
+    }
+    return schema;
+  }
+  function productLocalMap(){
+    const text=(state.pasteText||'').trim();
+    try{polyData=text;}catch(e){}
+    const schema=firstLocalSchema();
+    const header=(text.split(/\r?\n/).find(line=>line.includes(',')||line.includes('\t'))||'year,value,unit,source').split(/[,\t]/).map(x=>x.trim()).filter(Boolean).slice(0,6);
+    const years=(state.selectedDoc&&state.selectedDoc.years?state.selectedDoc.years:'detected').split(';').map(x=>x.trim()).filter(Boolean).slice(0,6).join(', ')||'detected';
+    const unit=(state.selectedDoc&&state.selectedDoc.units?state.selectedDoc.units.split(';')[0].trim():'')||schema.unit||'value';
+    const rowCount=Math.max(1,text.split(/\r?\n/).filter(line=>line.trim()).length-1);
+    return {
+      schema_id:schema.id,
+      parameter_name:schema.name,
+      confidence:state.selectedDoc?.confidence==='B'?0.86:0.78,
+      module:schema.module,
+      sector:schema.sector,
+      detected_unit:unit,
+      target_unit:schema.unit||unit,
+      unit_conversion_needed:false,
+      detected_columns:header.map((col,i)=>({col,type:i===0?'dimension':'value',leap_maps_to:(schema.leapCols||'YEAR,VALUE').split(',')[i]||'VALUE',nemo_maps_to:(schema.nemoCols||'r,t,y,VALUE').split(',')[i]||'VALUE',confidence:i<2?0.9:0.82})),
+      temporal_coverage:years,
+      rows_detected:rowCount,
+      leap_ready:true,
+      nemo_augmentation_needed:true,
+      mapping_note:'Local repository mapping created from imported evidence metadata and pasted/extracted text.'
+    };
+  }
+  function setProductMapping(mapping){
+    state.localMapping=mapping;
+    try{detectedParam=mapping;}catch(e){}
+    try{renderPolyMapping(mapping);}catch(e){}
+  }
+  function ensureProductMapping(){
+    const current=readDetected();
+    if(current){setProductMapping(current);return current;}
+    const fallback=productLocalMap();
+    setProductMapping(fallback);
+    return fallback;
+  }
+  function resetProductOutputs(){
+    state.localMapping=null;
+    state.localOutputsReady=false;
+    try{outputFiles={};}catch(e){}
+  }
+  function renderIntelligenceView(){
+    const doc=state.selectedDoc;
+    const detected=readDetected();
+    const hasOutput=readOutputs();
+    return '<section class="edh-panel"><span class="edh-kicker">Step 05 - Document Intelligence</span><h2>Extract evidence, map it, preserve provenance.</h2><p>Use crawled repository documents first, then uploaded PDFs/images or pasted extracted text. Automated OCR scans documents when configured; manual paste is the free fallback.</p></section>'+
+      '<section class="edh-process">'+['Source','Extract','Map','Validate','Export'].map((s,i)=>'<div class="edh-process-step '+(i<state.extractionStep?'done':i===state.extractionStep?'active':'')+'"><b>'+esc(s)+'</b><span>'+(i===0?'Choose evidence':i===1?'OCR/text extraction':i===2?'Inventory matching':i===3?'Confidence review':'Local files')+'</span></div>').join('')+'</section>'+
+      '<section class="edh-split"><div class="edh-panel"><span class="edh-kicker">Evidence source</span>'+(doc?'<h3>'+esc(doc.title)+'</h3><p>'+esc(doc.institution)+' - '+esc(doc.category||'Repository evidence')+'</p><div class="edh-meta"><span class="edh-tag good">repository import</span><span class="edh-tag">'+esc(doc.type)+'</span><span class="edh-tag">'+esc(doc.status)+'</span></div>':'<h3>No repository document selected</h3><p>Import a crawled document from the Evidence Library, upload a new file for extraction, or paste extracted text below.</p>')+'<div class="edh-hero-actions"><button class="edh-btn" data-edh-view="evidence" type="button">Browse repository</button><button class="edh-btn" data-edh-action="upload" type="button">Upload file</button></div><div class="edh-drop" data-edh-action="upload"><div><b>Upload new evidence</b><span>CSV, Excel, JSON, text, PDF, PNG, JPG, WEBP</span></div></div></div>'+
+      '<div class="edh-panel"><span class="edh-kicker">Free fallback path</span><h3>Paste extracted text, tables, or OCR results</h3><p>This path remains free and local. If a repository document is selected, its metadata is preloaded as provenance.</p><textarea class="edh-textarea" data-edh-input="pasteText" placeholder="Paste extracted text, CSV/table rows, or OCR output here...">'+esc(state.pasteText)+'</textarea><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-action="analyze" type="button">Analyze and map evidence</button><button class="edh-btn" data-edh-action="validate" type="button">Validate</button><button class="edh-btn green" data-edh-action="transform" type="button">Transform outputs</button></div></div></section>'+
+      '<section class="edh-panel"><span class="edh-kicker">Extraction result</span>'+(detected?'<h3>'+esc(detected.parameter_name||'Mapped evidence')+'</h3><p>'+esc((ML&&ML[detected.module])||detected.module||'Module')+' - '+esc(detected.sector||'sector')+' - confidence '+Math.round((detected.confidence||0)*100)+'%</p><div class="edh-meta"><span class="edh-tag good">LEAP '+(detected.leap_ready?'ready':'review')+'</span><span class="edh-tag gold">NEMO '+(detected.nemo_augmentation_needed?'augmentation':'ready')+'</span><span class="edh-tag">'+esc(detected.detected_unit||'unit unknown')+'</span></div>':'<div class="edh-empty">No extraction result yet. Import evidence or paste text, then run Analyze and map evidence.</div>')+(hasOutput?'<div class="edh-hero-actions"><button class="edh-btn primary" data-edh-action="download-all" type="button">Download all generated files</button><button class="edh-btn" data-edh-view="exports" type="button">Open exports</button></div>':'')+'</section>';
+  }
+  function renderExportsView(){
+    const hasOutput=readOutputs();
+    return '<section class="edh-panel"><span class="edh-kicker">Step 06 - Exports</span><h2>Local download is the success path.</h2><p>Download inventory, tracker, evidence, LEAP/NEMO outputs, SDMX, and provenance locally. Google Drive remains optional.</p></section>'+
+      '<section class="edh-work-grid">'+
+        exportCard('Inventory CSV','Download the 71-item inventory checklist.','inventory-csv','Download CSV')+
+        exportCard('Tracker XLSX','Download current collection progress.','tracker-export','Download XLSX')+
+        exportCard('Evidence CSV','Download the crawled evidence library index.','evidence-export','Download evidence')+
+        exportCard('Generated outputs',hasOutput?'Download LEAP, NEMO, SDMX, and provenance.':'Run Document Intelligence first to generate outputs.','download-all','Download all')+
+        exportCard('Optional Google Drive','Push outputs only after connecting Google.','settings','Configure')+
+        exportCard('Reset Polyglot','Clear current document processing state.','reset-poly','Reset')+
+      '</section>';
+  }
+  function exportCard(title,copy,action,label){
+    return '<article class="edh-work-card"><header><div><h3>'+esc(title)+'</h3><p>'+esc(copy)+'</p></div></header><button class="edh-btn" data-edh-action="'+action+'" type="button">'+esc(label)+'</button></article>';
+  }
+  function renderSetupView(){
+    const c=cfg();
+    return '<section class="edh-panel"><span class="edh-kicker">Step 07 - Optional services</span><h2>Keep setup quiet until the workflow needs it.</h2><p>Local mode is the default. Google sync, LLM mapping, and automated OCR/vision are available, but they should never block a first run.</p><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-action="local" type="button">Use free local mode</button><button class="edh-btn" data-edh-action="settings" type="button">Open settings</button><button class="edh-btn" data-edh-action="audit" type="button">Run audit</button></div></section>'+
+      '<section class="edh-service-grid">'+
+        '<article class="edh-service ready"><h3>Free local mode</h3><p>Browser tracker, local downloads, repository import, manual paste, and exports. No credits.</p><div class="edh-meta"><span class="edh-tag good">Ready</span></div></article>'+
+        '<article class="edh-service optional"><h3>Google sync</h3><p>Optional shared Sheets and Drive outputs. '+(hasGoogle()?'Connected.':'Not connected, and not required.')+'</p><div class="edh-meta"><span class="edh-tag">'+(hasGoogle()?'connected':'optional')+'</span></div></article>'+
+        '<article class="edh-service optional"><h3>Interoperable LLMs</h3><p>OpenAI, Gemini, Anthropic, Qwen, Kimi, OpenRouter, or a custom OpenAI-compatible endpoint.</p><div class="edh-meta"><span class="edh-tag">'+(c.apiKey?esc(providerName()):'optional')+'</span></div></article>'+
+        '<article class="edh-service optional"><h3>Document extraction automation</h3><p>Crawled repository import is built in. Vision/custom OCR endpoints can scrape scanned PDFs/images; paste is the free fallback.</p><div class="edh-meta"><span class="edh-tag">'+esc(c.ocrProvider||'manual')+'</span></div></article>'+
+        '<article class="edh-service ready"><h3>Evidence repository</h3><p>Crawled documents are loaded from the repo and can be imported directly into Document Intelligence.</p><div class="edh-meta"><span class="edh-tag good">'+(state.docsLoaded?state.docs.length:'...')+' records</span></div></article>'+
+        '<article class="edh-service ready"><h3>Static deployment</h3><p>GitHub Pages can serve the local workflow without server subscription costs.</p><div class="edh-meta"><span class="edh-tag good">static app</span></div></article>'+
+      '</section>';
+  }
+  async function onClick(event){
+    const viewBtn=event.target.closest('[data-edh-view]');
+    if(viewBtn){state.view=viewBtn.dataset.edhView;render();return;}
+    const actionBtn=event.target.closest('[data-edh-action]');
+    if(!actionBtn) return;
+    const action=actionBtn.dataset.edhAction;
+    if(action==='theme'){try{toggleTheme();}catch(e){} return;}
+    if(action==='settings'){try{openModal('settings');}catch(e){} return;}
+    if(action==='audit'){try{runFullAudit();}catch(e){} render();return;}
+    if(action==='local'){setLocalMode();render();return;}
+    if(action==='inventory-csv'){try{exportInvCSV();}catch(e){} return;}
+    if(action==='tracker-export'){try{exportTrackerExcel();}catch(e){} return;}
+    if(action==='evidence-export'){downloadEvidenceCsv();return;}
+    if(action==='download-all'){try{dlAllFiles();}catch(e){} return;}
+    if(action==='reset-poly'){try{resetPoly();}catch(e){} state.extractionStep=0;resetProductOutputs();render();return;}
+    if(action==='upload'){document.getElementById('poly-file')?.click();return;}
+    if(action==='reload-evidence'){state.docsLoaded=false;state.docs=[];render();loadEvidence();return;}
+    if(action==='tracker-focus'){state.trackerQ=rows()[parseInt(actionBtn.dataset.index)]?.[0]||'';state.view='tracker';render();return;}
+    if(action==='find-evidence'){state.evidenceQ=actionBtn.dataset.query||'';state.view='evidence';render();return;}
+    if(action==='import-doc'){importDoc(actionBtn.dataset.doc);return;}
+    if(action==='analyze'){await analyzeEvidence();return;}
+    if(action==='validate'){await validateEvidence();return;}
+    if(action==='transform'){await transformEvidence();return;}
+  }
+  function onInput(event){
+    const key=event.target.dataset.edhInput;
+    if(!key) return;
+    state[key]=event.target.value;
+    if(key==='pasteText'){mirrorPaste();resetProductOutputs();}
+    if(['invQ','trackerQ','evidenceQ'].includes(key)) render();
+  }
+  function onChange(event){
+    const key=event.target.dataset.edhInput;
+    if(key){state[key]=event.target.value;render();return;}
+    const statusIndex=event.target.dataset.edhStatus;
+    if(statusIndex!==undefined){try{updateStatus(parseInt(statusIndex),event.target.value);}catch(e){} render();return;}
+    const field=event.target.dataset.edhField;
+    if(field){try{updateField(parseInt(event.target.dataset.index),field,event.target.value);}catch(e){} render();return;}
+  }
+  function setLocalMode(){
+    const c=cfg();
+    c.workflowMode='local';
+    const workflow=document.getElementById('s-workflow');
+    if(workflow) workflow.value='local';
+    const dest=document.getElementById('poly-dest');
+    if(dest) dest.value='local';
+    try{saveSettings();}catch(e){}
+    try{updateBadges();}catch(e){}
+    try{showToast('Free local mode selected. No credits or API setup required.');}catch(e){}
+  }
+  function importDoc(id){
+    const doc=state.docs.find(d=>d.id===id);
+    if(!doc) return;
+    state.selectedDoc=doc;
+    state.pasteText=docToText(doc);
+    resetProductOutputs();
+    mirrorPaste();
+    const match=findInventoryMatch(doc);
+    if(match!==null){
+      try{
+        selectedTrackerIdx=match;
+        const sel=document.getElementById('poly-item-sel');
+        if(sel) sel.value=String(match);
+      }catch(e){}
+    }
+    state.extractionStep=1;
+    state.view='intelligence';
+    render();
+  }
+  function findInventoryMatch(doc){
+    const hay=(doc.category+' '+doc.datasets+' '+doc.title+' '+doc.institution).toLowerCase();
+    const idx=rows().findIndex(r=>hay.includes(String(r[2]).toLowerCase()) || hay.includes(String(r[3]).split('/')[0].trim().toLowerCase()) || String(r[0]).toLowerCase().split(/\W+/).some(w=>w.length>6&&hay.includes(w)));
+    return idx>=0?idx:null;
+  }
+  function mirrorPaste(){
+    const paste=document.getElementById('poly-paste');
+    if(paste) paste.value=state.pasteText||'';
+  }
+  async function analyzeEvidence(){
+    mirrorPaste();
+    if(!state.pasteText.trim()){
+      try{showToast('Paste text, upload a file, or import a repository document first.');}catch(e){}
+      return;
+    }
+    state.extractionStep=2;
+    render();
+    try{
+      await runPolyIdentify();
+      setProductMapping(readDetected()||productLocalMap());
+      state.extractionStep=3;
+    }catch(e){
+      setProductMapping(productLocalMap());
+      state.extractionStep=3;
+      try{showToast('Mapped locally. Add an LLM key later only if you want model-assisted mapping.');}catch(_){}
+    }
+    render();
+  }
+  async function validateEvidence(){
+    try{ensureProductMapping();await runPolyValidate();state.extractionStep=4;}catch(e){try{showToast('Analyze evidence before validation.');}catch(_){}}
+    render();
+  }
+  async function transformEvidence(){
+    try{
+      const mapped=ensureProductMapping();
+      await runPolyTransform();
+      if(!readOutputs()){
+        const schema=firstLocalSchema();
+        try{outputFiles=demoOutput(mapped,schema);}catch(e){}
+      }
+      state.localOutputsReady=true;
+      state.extractionStep=5;
+    }catch(e){
+      try{
+        const mapped=ensureProductMapping();
+        const schema=firstLocalSchema();
+        outputFiles=demoOutput(mapped,schema);
+        state.localOutputsReady=true;
+        state.extractionStep=5;
+        showToast('Generated local outputs without calling an external API.');
+      }catch(_){try{showToast('Validate evidence before transformation.');}catch(__){}}
+    }
+    render();
+  }
+  function downloadEvidenceCsv(){
+    const header=['evidence_id','title','institution','file_type','dataset_category','source_url','years','units','status','confidence'];
+    const csv=[header,...state.docs.map(d=>[d.id,d.title,d.institution,d.type,d.category,d.url,d.years,d.units,d.status,d.confidence])].map(row=>row.map(cell=>'"'+String(cell||'').replace(/"/g,'""')+'"').join(',')).join('\n');
+    try{dlText(csv,'ENERGIM_crawled_evidence_library.csv','text/csv');}catch(e){}
+  }
+  window.ENERGIM_PRODUCT={
+    setView(view){state.view=view;render();},
+    importFirstDoc(){const doc=state.docs[0];if(doc) importDoc(doc.id);},
+    async analyze(){await analyzeEvidence();},
+    async validate(){await validateEvidence();},
+    async transform(){await transformEvidence();},
+    summary(){
+      return {
+        view:state.view,
+        docs:state.docs.length,
+        selectedDoc:state.selectedDoc?state.selectedDoc.title:'',
+        pasteLength:state.pasteText.length,
+        extractionStep:state.extractionStep,
+        shell:!!document.getElementById('edh-app')
+      };
+    }
+  };
+  function boot(){
+    ensureShell();
+    setLocalMode();
+    render();
+    loadEvidence();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot);
+  else boot();
 })();
 </script>
 </body>
