@@ -1321,6 +1321,29 @@ tr:hover td{background:rgba(39,104,178,.05)}
 .edh-card .label{display:block;color:var(--t2);font-size:12px;margin-top:5px}
 .edh-card.good{border-color:rgba(8,127,104,.26);background:linear-gradient(180deg,var(--s2),rgba(8,127,104,.06))}
 .edh-card.gold{border-color:rgba(169,106,0,.26);background:linear-gradient(180deg,var(--s2),rgba(169,106,0,.06))}
+.edh-model-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+}
+.edh-model-card{
+  border:1px solid var(--br);
+  border-radius:8px;
+  padding:14px;
+  background:var(--s2);
+}
+.edh-model-card.leap{border-color:rgba(39,104,178,.28);background:linear-gradient(180deg,var(--s2),rgba(39,104,178,.07))}
+.edh-model-card.nemo{border-color:rgba(143,31,47,.24);background:linear-gradient(180deg,var(--s2),rgba(143,31,47,.06))}
+.edh-model-card.prov{border-color:rgba(8,127,104,.26);background:linear-gradient(180deg,var(--s2),rgba(8,127,104,.06))}
+.edh-model-card h3{font-size:15px;margin:0;color:var(--t)}
+.edh-model-card p{margin:8px 0 0;color:var(--t2);font-size:12px;line-height:1.4}
+.edh-model-card code{
+  display:block;
+  margin-top:9px;
+  color:var(--t2);
+  font:700 10px/1.25 var(--mono);
+  word-break:break-word;
+}
 .edh-work-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 .edh-work-card{padding:16px;display:grid;gap:14px}
 .edh-work-card header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
@@ -1460,7 +1483,7 @@ tr:hover td{background:rgba(39,104,178,.05)}
   .edh-nav{grid-template-columns:repeat(2,minmax(0,1fr))}
   .edh-rail-card{margin-top:0}
   .edh-hero,.edh-split{grid-template-columns:1fr}
-  .edh-status-grid,.edh-work-grid,.edh-service-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .edh-status-grid,.edh-work-grid,.edh-service-grid,.edh-model-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media(max-width:720px){
   .edh-main{padding:16px 12px 34px}
@@ -1468,7 +1491,7 @@ tr:hover td{background:rgba(39,104,178,.05)}
   .edh-actions{justify-content:flex-start}
   .edh-nav{grid-template-columns:1fr}
   .edh-panel h2{font-size:38px}
-  .edh-status-grid,.edh-work-grid,.edh-service-grid,.edh-process{grid-template-columns:1fr}
+  .edh-status-grid,.edh-work-grid,.edh-service-grid,.edh-model-grid,.edh-process{grid-template-columns:1fr}
   .edh-row{grid-template-columns:1fr}
   .edh-row-actions{justify-content:flex-start}
 }
@@ -2925,7 +2948,7 @@ async function runPolyTransform(){
   const r=detectedParam||{};
   const s=POLY_SCHEMA.find(x=>x.id===r.schema_id)||POLY_SCHEMA[0];
   
-  const prompt=`Convert this energy data to LEAP and NEMO/OSeMOSYS format for Rwanda (${CFG.project}, ${CFG.contract}).\n\nData:\n${polyData.slice(0,2000)}\n\nParameter: ${r.parameter_name}\nLEAP: ${s.leap}, cols: ${s.leapCols}\nNEMO: ${s.nemo}, cols: ${s.nemoCols}\nUnit: ${r.target_unit||s.unit}\n\nJSON only:\n{"leap_csv":"<csv>","nemo_csv":"<csv>","leap_filename":"<name>.csv","nemo_filename":"<name>.csv","sdmx_xml":"<xml>","provenance":{"parameter":"${r.parameter_name}","project":"${CFG.project}","contract":"${CFG.contract}","country":"${CFG.country}","schema_id":${r.schema_id||0},"processed":"${new Date().toISOString().slice(0,10)}","llm":"${providerLabel()}","model":"${CFG.model}"}}`;
+  const prompt=`Convert this energy data to LEAP and NEMO/OSeMOSYS format for Rwanda (${CFG.project}, ${CFG.contract}).\n\nData:\n${polyData.slice(0,2000)}\n\nParameter: ${r.parameter_name}\nLEAP: ${s.leap}, cols: ${s.leapCols}\nNEMO: ${s.nemo}, cols: ${s.nemoCols}\nUnit: ${r.target_unit||s.unit}\nScenario basis: current-evidence baseline; Rwanda NDC/NST2/IRP policy evidence is tracked as provenance when present, but this browser app does not run LEAP or solve NEMO.\n\nJSON only:\n{"leap_csv":"<csv>","nemo_csv":"<csv>","leap_filename":"<name>.csv","nemo_filename":"<name>.csv","sdmx_xml":"<xml>","provenance":{"parameter":"${r.parameter_name}","project":"${CFG.project}","contract":"${CFG.contract}","country":"${CFG.country}","schema_id":${r.schema_id||0},"scenario_basis":"current-evidence baseline with NDC/NST2/IRP policy tags where present","model_boundary":"ENERGIM prepares inputs; LEAP/NEMO runs happen outside this browser app","processed":"${new Date().toISOString().slice(0,10)}","llm":"${providerLabel()}","model":"${CFG.model}"}}`;
   
   let out;
   try{const text=await callLLM(prompt);out=JSON.parse(text.replace(/```json?|```/g,'').trim());}
@@ -2945,7 +2968,7 @@ async function runPolyTransform(){
 function demoOutput(r,s){
   const lines=polyData.trim().split('\n').filter(l=>l.trim()&&!l.startsWith('{')&&!l.startsWith('//'));
   const dl=lines.slice(1,7).map(l=>{const p=l.split(/[,\t]/);return s.leapCols.split(',').map((_,i)=>p[i]||'0').join(',');}).join('\n');
-  return{leap_filename:`LEAP_${CFG.country}_${s.leap}_${CFG.project}.csv`,nemo_filename:`NEMO_${CFG.country}_${s.nemo}_${CFG.project}.csv`,leap_csv:`# LEAP · ${CFG.country} · ${CFG.project} · ${CFG.contract}\n# Parameter: ${r.parameter_name}\n${s.leapCols}\n${dl}`,nemo_csv:`# OSeMOSYS/NEMO · ${CFG.country}\n${s.nemoCols}\n${lines.slice(1,7).map(l=>{const p=l.split(/[,\t]/);return `RW,${s.sector.toUpperCase().replace(/\//g,'_')},${p[0]||2020},${p[1]||0}`;}).join('\n')}`,sdmx_xml:`<?xml version="1.0" encoding="UTF-8"?>\n<message:GenericData xmlns:message="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/message">\n  <message:Header><message:ID>${CFG.project}-RW-${s.id}</message:ID><message:Name>${r.parameter_name}</message:Name><message:Prepared>${new Date().toISOString()}</message:Prepared></message:Header>\n</message:GenericData>`,provenance:{parameter:r.parameter_name,project:CFG.project,contract:CFG.contract,country:CFG.country,schema_id:r.schema_id||0,processed:new Date().toISOString().slice(0,10),llm:providerLabel(),model:CFG.model}};
+  return{leap_filename:`LEAP_${CFG.country}_${s.leap}_${CFG.project}.csv`,nemo_filename:`NEMO_${CFG.country}_${s.nemo}_${CFG.project}.csv`,leap_csv:`# LEAP · ${CFG.country} · ${CFG.project} · ${CFG.contract}\n# Scenario basis: current-evidence baseline; NDC/NST2/IRP policy evidence tracked in provenance\n# Parameter: ${r.parameter_name}\n${s.leapCols}\n${dl}`,nemo_csv:`# OSeMOSYS/NEMO · ${CFG.country}\n# Scenario basis: current-evidence baseline; NDC/NST2/IRP policy evidence tracked in provenance\n${s.nemoCols}\n${lines.slice(1,7).map(l=>{const p=l.split(/[,\t]/);return `RW,${s.sector.toUpperCase().replace(/\//g,'_')},${p[0]||2020},${p[1]||0}`;}).join('\n')}`,sdmx_xml:`<?xml version="1.0" encoding="UTF-8"?>\n<message:GenericData xmlns:message="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/message">\n  <message:Header><message:ID>${CFG.project}-RW-${s.id}</message:ID><message:Name>${r.parameter_name}</message:Name><message:Prepared>${new Date().toISOString()}</message:Prepared></message:Header>\n</message:GenericData>`,provenance:{parameter:r.parameter_name,project:CFG.project,contract:CFG.contract,country:CFG.country,schema_id:r.schema_id||0,scenario_basis:'current-evidence baseline with NDC/NST2/IRP policy tags where present',model_boundary:'ENERGIM prepares input files; LEAP scenario accounting and NEMO optimization runs happen outside this browser app',processed:new Date().toISOString().slice(0,10),llm:providerLabel(),model:CFG.model}};
 }
 
 async function publishOutput(){
@@ -3654,8 +3677,8 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
     return '<section class="edh-hero">'+
       '<div class="edh-panel">'+
         '<span class="edh-kicker">Free local first</span>'+
-        '<h2>One calm workflow for evidence, tracking, extraction, and model outputs.</h2>'+
-        '<p>Start locally, review the inventory, track collection, import crawled documents, extract evidence, map it to LEAP/NEMO, then download outputs. Google, LLMs, and automated OCR are upgrades, not prerequisites.</p>'+
+        '<h2>Build LEAP and NEMO inputs from Rwanda energy evidence.</h2>'+
+        '<p>Start locally, review the inventory, track collection, import crawled documents, extract evidence, then generate LEAP CSV, NEMO/OSeMOSYS CSV, SDMX, and provenance. Google, LLMs, and automated OCR are upgrades, not prerequisites.</p>'+
         '<div class="edh-hero-actions">'+
           '<button class="edh-btn primary" type="button" data-edh-action="local">Start free local mode</button>'+
           '<button class="edh-btn" type="button" data-edh-view="inventory">Review inventory</button>'+
@@ -3668,12 +3691,14 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
           workflowStep('01','Review inventory','Understand the data required before chasing sources.')+
           workflowStep('02','Track progress','Update status, responsibility, quality, and completeness.')+
           workflowStep('03','Import evidence','Use crawled repository documents, uploaded PDFs/images, or pasted extracted text.')+
-          workflowStep('04','Extract and map','Run document extraction, match values to Inventory/Tracker, and preserve provenance.')+
-          workflowStep('05','Download locally','Export CSV/XLSX, LEAP, NEMO, SDMX, and provenance files.')+
+          workflowStep('04','Extract and map','Run document extraction and map values into LEAP and NEMO/OSeMOSYS structures.')+
+          workflowStep('05','Download model inputs','Export LEAP CSV, NEMO CSV, SDMX, tracker files, and provenance locally.')+
         '</div>'+
       '</div>'+
       '</section>'+
       metricCards()+
+      modelOutputPanel(readOutputs())+
+      scenarioLensPanel()+
       '<section class="edh-work-grid">'+
         workCard('02','Inventory','Review the 71 Rwanda energy data requirements and identify the high-priority gaps.','Open inventory','inventory')+
         workCard('04','Evidence library','Search '+(state.docsLoaded?state.docs.length:'repository')+' crawled records and import one directly into extraction.','Browse evidence','evidence')+
@@ -3686,6 +3711,38 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
   }
   function workCard(num,title,copy,button,view){
     return '<article class="edh-work-card"><header><span class="edh-step">'+num+'</span><div><h3>'+esc(title)+'</h3><p>'+esc(copy)+'</p></div></header><button class="edh-btn" type="button" data-edh-view="'+view+'">'+esc(button)+'</button></article>';
+  }
+  function outputNames(){
+    try{
+      return {
+        leap:outputFiles.leap_filename||'LEAP input CSV',
+        nemo:outputFiles.nemo_filename||'NEMO/OSeMOSYS input CSV',
+        sdmx:'sdmx.xml',
+        meta:'provenance.json'
+      };
+    }catch(e){
+      return {leap:'LEAP input CSV',nemo:'NEMO/OSeMOSYS input CSV',sdmx:'sdmx.xml',meta:'provenance.json'};
+    }
+  }
+  function outputButton(type,label,hasOutput){
+    return hasOutput?'<button class="edh-btn" data-edh-action="download-'+type+'" type="button">'+esc(label)+'</button>':'<span class="edh-tag">Run Transform first</span>';
+  }
+  function modelOutputPanel(hasOutput){
+    const names=outputNames();
+    return '<section class="edh-panel"><span class="edh-kicker">Model outputs</span><h3>Yes. This workflow prepares both LEAP and NEMO inputs.</h3><p>ENERGIM does not run LEAP or solve NEMO inside the browser. It converts validated evidence into model-ready input files, plus SDMX and provenance, so the modelling tools can consume them.</p><div class="edh-model-grid">'+
+      '<article class="edh-model-card leap"><h3>LEAP input</h3><p>Accounting-style CSV columns for LEAP branches and parameters.</p><code>'+esc(names.leap)+'</code><div class="edh-hero-actions">'+outputButton('leap','Download LEAP',hasOutput)+'</div></article>'+
+      '<article class="edh-model-card nemo"><h3>NEMO/OSeMOSYS input</h3><p>Optimization-ready structure for technologies, fuels, years, values, and constraints.</p><code>'+esc(names.nemo)+'</code><div class="edh-hero-actions">'+outputButton('nemo','Download NEMO',hasOutput)+'</div></article>'+
+      '<article class="edh-model-card"><h3>SDMX exchange</h3><p>Neutral data exchange file for governed sharing and review.</p><code>'+esc(names.sdmx)+'</code><div class="edh-hero-actions">'+outputButton('sdmx','Download SDMX',hasOutput)+'</div></article>'+
+      '<article class="edh-model-card prov"><h3>Provenance</h3><p>Source, schema, scenario basis, processing date, provider, and review trail.</p><code>'+esc(names.meta)+'</code><div class="edh-hero-actions">'+outputButton('meta','Download provenance',hasOutput)+'</div></article>'+
+    '</div></section>';
+  }
+  function scenarioLensPanel(){
+    return '<section class="edh-panel"><span class="edh-kicker">Scenario basis</span><h3>Baseline first, policy lens visible.</h3><p>The tool prepares data for a current-evidence baseline and tags policy evidence such as Rwanda NDC, NST2, IRP, electrification targets, emission targets, and project pipeline records when those appear in the inventory or evidence repository. It does not decide the scenario on its own; it keeps the evidence traceable so LEAP/NEMO scenario runs can be built from reviewed inputs.</p><div class="edh-model-grid">'+
+      '<article class="edh-model-card"><h3>Baseline</h3><p>Current validated inventory, tracker status, source years, units, and institutional provenance.</p></article>'+
+      '<article class="edh-model-card leap"><h3>LEAP scenario inputs</h3><p>Demand, transformation, resources, socioeconomic drivers, and policy assumptions for scenario accounting.</p></article>'+
+      '<article class="edh-model-card nemo"><h3>NEMO constraints</h3><p>Capacity, activity, timeslice, discount-rate, residual-capacity, and policy-bound inputs for optimization.</p></article>'+
+      '<article class="edh-model-card prov"><h3>NDC/NST/IRP evidence</h3><p>Policy targets are tracked as evidence and provenance, then exported for modellers to apply in baseline or policy scenarios.</p></article>'+
+    '</div></section>';
   }
   function filteredInventory(){
     const q=state.invQ.toLowerCase();
@@ -3883,16 +3940,20 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
       '<section class="edh-process">'+['Source','Extract','Map','Validate','Export'].map((s,i)=>'<div class="edh-process-step '+(i<state.extractionStep?'done':i===state.extractionStep?'active':'')+'"><b>'+esc(s)+'</b><span>'+(i===0?'Choose evidence':i===1?'OCR/text extraction':i===2?'Inventory matching':i===3?'Confidence review':'Local files')+'</span></div>').join('')+'</section>'+
       '<section class="edh-split"><div class="edh-panel"><span class="edh-kicker">Evidence source</span>'+(doc?'<h3>'+esc(doc.title)+'</h3><p>'+esc(doc.institution)+' - '+esc(doc.category||'Repository evidence')+'</p><div class="edh-meta"><span class="edh-tag good">repository import</span><span class="edh-tag">'+esc(doc.type)+'</span><span class="edh-tag">'+esc(doc.status)+'</span></div>':'<h3>No repository document selected</h3><p>Import a crawled document from the Evidence Library, upload a new file for extraction, or paste extracted text below.</p>')+'<div class="edh-hero-actions"><button class="edh-btn" data-edh-view="evidence" type="button">Browse repository</button><button class="edh-btn" data-edh-action="upload" type="button">Upload file</button></div><div class="edh-drop" data-edh-action="upload"><div><b>Upload new evidence</b><span>CSV, Excel, JSON, text, PDF, PNG, JPG, WEBP</span></div></div></div>'+
       '<div class="edh-panel"><span class="edh-kicker">Free fallback path</span><h3>Paste extracted text, tables, or OCR results</h3><p>This path remains free and local. If a repository document is selected, its metadata is preloaded as provenance.</p><textarea class="edh-textarea" data-edh-input="pasteText" placeholder="Paste extracted text, CSV/table rows, or OCR output here...">'+esc(state.pasteText)+'</textarea><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-action="analyze" type="button">Analyze and map evidence</button><button class="edh-btn" data-edh-action="validate" type="button">Validate</button><button class="edh-btn green" data-edh-action="transform" type="button">Transform outputs</button></div></div></section>'+
-      '<section class="edh-panel"><span class="edh-kicker">Extraction result</span>'+(detected?'<h3>'+esc(detected.parameter_name||'Mapped evidence')+'</h3><p>'+esc((ML&&ML[detected.module])||detected.module||'Module')+' - '+esc(detected.sector||'sector')+' - confidence '+Math.round((detected.confidence||0)*100)+'%</p><div class="edh-meta"><span class="edh-tag good">LEAP '+(detected.leap_ready?'ready':'review')+'</span><span class="edh-tag gold">NEMO '+(detected.nemo_augmentation_needed?'augmentation':'ready')+'</span><span class="edh-tag">'+esc(detected.detected_unit||'unit unknown')+'</span></div>':'<div class="edh-empty">No extraction result yet. Import evidence or paste text, then run Analyze and map evidence.</div>')+(hasOutput?'<div class="edh-hero-actions"><button class="edh-btn primary" data-edh-action="download-all" type="button">Download all generated files</button><button class="edh-btn" data-edh-view="exports" type="button">Open exports</button></div>':'')+'</section>';
+      '<section class="edh-panel"><span class="edh-kicker">Extraction result</span>'+(detected?'<h3>'+esc(detected.parameter_name||'Mapped evidence')+'</h3><p>'+esc((ML&&ML[detected.module])||detected.module||'Module')+' - '+esc(detected.sector||'sector')+' - confidence '+Math.round((detected.confidence||0)*100)+'%</p><div class="edh-meta"><span class="edh-tag good">LEAP '+(detected.leap_ready?'ready':'review')+'</span><span class="edh-tag gold">NEMO '+(detected.nemo_augmentation_needed?'augmentation':'ready')+'</span><span class="edh-tag">'+esc(detected.detected_unit||'unit unknown')+'</span><span class="edh-tag">Scenario basis: baseline evidence + policy tags</span></div>':'<div class="edh-empty">No extraction result yet. Import evidence or paste text, then run Analyze and map evidence.</div>')+(hasOutput?'<div class="edh-hero-actions"><button class="edh-btn primary" data-edh-action="download-all" type="button">Download all generated files</button><button class="edh-btn" data-edh-view="exports" type="button">Open exports</button></div>':'')+'</section>'+
+      modelOutputPanel(hasOutput)+
+      scenarioLensPanel();
   }
   function renderExportsView(){
     const hasOutput=readOutputs();
-    return '<section class="edh-panel"><span class="edh-kicker">Step 06 - Exports</span><h2>Local download is the success path.</h2><p>Download inventory, tracker, evidence, LEAP/NEMO outputs, SDMX, and provenance locally. Google Drive remains optional.</p></section>'+
+    return '<section class="edh-panel"><span class="edh-kicker">Step 06 - Exports</span><h2>Download LEAP and NEMO inputs locally.</h2><p>Local export is the success path: LEAP CSV, NEMO/OSeMOSYS CSV, SDMX, provenance, inventory, tracker, and evidence library. Google Drive remains optional.</p></section>'+
+      modelOutputPanel(hasOutput)+
+      scenarioLensPanel()+
       '<section class="edh-work-grid">'+
         exportCard('Inventory CSV','Download the 71-item inventory checklist.','inventory-csv','Download CSV')+
         exportCard('Tracker XLSX','Download current collection progress.','tracker-export','Download XLSX')+
         exportCard('Evidence CSV','Download the crawled evidence library index.','evidence-export','Download evidence')+
-        exportCard('Generated outputs',hasOutput?'Download LEAP, NEMO, SDMX, and provenance.':'Run Document Intelligence first to generate outputs.','download-all','Download all')+
+        exportCard('All generated files',hasOutput?'Download LEAP, NEMO, SDMX, and provenance together.':'Run Document Intelligence first to generate model inputs.','download-all','Download all')+
         exportCard('Optional Google Drive','Push outputs only after connecting Google.','settings','Configure')+
         exportCard('Reset Polyglot','Clear current document processing state.','reset-poly','Reset')+
       '</section>';
@@ -3926,6 +3987,10 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
     if(action==='tracker-export'){try{exportTrackerExcel();}catch(e){} return;}
     if(action==='evidence-export'){downloadEvidenceCsv();return;}
     if(action==='download-all'){try{dlAllFiles();}catch(e){} return;}
+    if(action==='download-leap'){try{dlOut('leap');}catch(e){} return;}
+    if(action==='download-nemo'){try{dlOut('nemo');}catch(e){} return;}
+    if(action==='download-sdmx'){try{dlOut('sdmx');}catch(e){} return;}
+    if(action==='download-meta'){try{dlOut('meta');}catch(e){} return;}
     if(action==='reset-poly'){try{resetPoly();}catch(e){} state.extractionStep=0;resetProductOutputs();render();return;}
     if(action==='upload'){document.getElementById('poly-file')?.click();return;}
     if(action==='reload-evidence'){state.docsLoaded=false;state.docs=[];render();loadEvidence();return;}
