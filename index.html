@@ -1476,13 +1476,80 @@ tr:hover td{background:rgba(39,104,178,.05)}
   line-height:1.5;
   text-align:center;
 }
+.edh-manual-grid{
+  display:grid;
+  grid-template-columns:minmax(0,.8fr) minmax(360px,1.2fr);
+  gap:14px;
+  align-items:start;
+}
+.edh-manual-toc{
+  display:grid;
+  gap:8px;
+  position:sticky;
+  top:18px;
+}
+.edh-manual-toc a{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  min-height:42px;
+  padding:9px 11px;
+  border:1px solid var(--br);
+  border-radius:8px;
+  background:var(--s2);
+  color:var(--t);
+  text-decoration:none;
+  font-weight:800;
+  font-size:12px;
+}
+.edh-manual-toc a span{color:var(--t2);font:800 10px/1 var(--mono)}
+.edh-manual-flow{display:grid;gap:10px}
+.edh-manual-section{
+  border:1px solid var(--br);
+  border-radius:8px;
+  background:var(--s2);
+  padding:16px;
+}
+.edh-manual-section h3{margin:0;color:var(--t);font-size:18px;line-height:1.15}
+.edh-manual-section p{margin:8px 0 0;color:var(--t2);font-size:13px;line-height:1.5}
+.edh-manual-section ol,.edh-manual-section ul{margin:10px 0 0 18px;color:var(--t2);font-size:13px;line-height:1.55}
+.edh-manual-section li{margin:5px 0}
+.edh-callout{
+  margin-top:12px;
+  padding:12px;
+  border:1px solid rgba(8,127,104,.25);
+  border-radius:8px;
+  background:rgba(8,127,104,.07);
+  color:var(--t2);
+  font-size:13px;
+  line-height:1.45;
+}
+.edh-manual-section details{
+  margin-top:10px;
+  border:1px solid var(--br);
+  border-radius:8px;
+  background:var(--s0);
+  padding:10px 12px;
+}
+.edh-manual-section summary{
+  cursor:pointer;
+  color:var(--t);
+  font-weight:850;
+  font-size:13px;
+}
+.edh-glossary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}
+.edh-term{border:1px solid var(--br);border-radius:8px;padding:10px;background:var(--s0)}
+.edh-term b{display:block;color:var(--t);font-size:12px}
+.edh-term span{display:block;margin-top:5px;color:var(--t2);font-size:11px;line-height:1.35}
 .edh-legacy-access{display:none}
 @media(max-width:1180px){
   .edh-app{grid-template-columns:1fr}
   .edh-rail{position:relative;height:auto}
   .edh-nav{grid-template-columns:repeat(2,minmax(0,1fr))}
   .edh-rail-card{margin-top:0}
-  .edh-hero,.edh-split{grid-template-columns:1fr}
+  .edh-hero,.edh-split,.edh-manual-grid{grid-template-columns:1fr}
+  .edh-manual-toc{position:relative;top:auto}
   .edh-status-grid,.edh-work-grid,.edh-service-grid,.edh-model-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media(max-width:720px){
@@ -1492,6 +1559,7 @@ tr:hover td{background:rgba(39,104,178,.05)}
   .edh-nav{grid-template-columns:1fr}
   .edh-panel h2{font-size:38px}
   .edh-status-grid,.edh-work-grid,.edh-service-grid,.edh-model-grid,.edh-process{grid-template-columns:1fr}
+  .edh-glossary{grid-template-columns:1fr}
   .edh-row{grid-template-columns:1fr}
   .edh-row-actions{justify-content:flex-start}
 }
@@ -3540,12 +3608,13 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
 (function(){
   const nav=[
     {view:'home',num:'01',label:'Start local',hint:'Free first run'},
-    {view:'inventory',num:'02',label:'Inventory',hint:'Review needs'},
-    {view:'tracker',num:'03',label:'Tracker',hint:'Collection progress'},
-    {view:'evidence',num:'04',label:'Evidence library',hint:'Crawled documents'},
-    {view:'intelligence',num:'05',label:'Document intelligence',hint:'Extract, map, validate'},
-    {view:'exports',num:'06',label:'Exports',hint:'Download locally'},
-    {view:'setup',num:'07',label:'Optional services',hint:'Google, LLM, OCR'}
+    {view:'manual',num:'02',label:'Manual',hint:'How to use'},
+    {view:'inventory',num:'03',label:'Inventory',hint:'Review needs'},
+    {view:'tracker',num:'04',label:'Tracker',hint:'Collection progress'},
+    {view:'evidence',num:'05',label:'Evidence library',hint:'Crawled documents'},
+    {view:'intelligence',num:'06',label:'Document intelligence',hint:'Extract, map, validate'},
+    {view:'exports',num:'07',label:'Exports',hint:'Download locally'},
+    {view:'setup',num:'08',label:'Optional services',hint:'Google, LLM, OCR'}
   ];
   const state={
     view:'home',
@@ -3625,6 +3694,7 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
     renderNav();
     const meta={
       home:['Free local workflow','Start with confidence'],
+      manual:['Manual','How to use ENERGIM'],
       inventory:['Inventory','Review required data'],
       tracker:['Tracker','Collection progress'],
       evidence:['Evidence library','Crawled repository documents'],
@@ -3640,6 +3710,7 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
     const stage=document.getElementById('edh-stage');
     stage.innerHTML={
       home:renderHome,
+      manual:renderManualView,
       inventory:renderInventoryView,
       tracker:renderTrackerView,
       evidence:renderEvidenceView,
@@ -3649,10 +3720,10 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
     }[state.view]();
   }
   function renderNav(){
-    const doneMap={home:[],inventory:['home'],tracker:['home','inventory'],evidence:['home','inventory','tracker'],intelligence:['home','inventory','tracker','evidence'],exports:['home','inventory','tracker','evidence','intelligence'],setup:['home','inventory','tracker','evidence','intelligence','exports']};
+    const activeIndex=nav.findIndex(item=>item.view===state.view);
     document.getElementById('edh-nav').innerHTML=nav.map(item=>{
       const active=item.view===state.view;
-      const done=(doneMap[state.view]||[]).includes(item.view);
+      const done=activeIndex>nav.findIndex(step=>step.view===item.view);
       return '<button class="edh-nav-btn '+(active?'active ':'')+(done?'done':'')+'" type="button" data-edh-view="'+item.view+'">'+
         '<span class="edh-nav-num">'+item.num+'</span><span><strong>'+esc(item.label)+'</strong><small>'+esc(item.hint)+'</small></span><i class="edh-nav-state"></i></button>';
     }).join('');
@@ -3681,6 +3752,7 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
         '<p>Start locally, review the inventory, track collection, import crawled documents, extract evidence, then generate LEAP CSV, NEMO/OSeMOSYS CSV, SDMX, and provenance. Google, LLMs, and automated OCR are upgrades, not prerequisites.</p>'+
         '<div class="edh-hero-actions">'+
           '<button class="edh-btn primary" type="button" data-edh-action="local">Start free local mode</button>'+
+          '<button class="edh-btn" type="button" data-edh-view="manual">Read manual</button>'+
           '<button class="edh-btn" type="button" data-edh-view="inventory">Review inventory</button>'+
           '<button class="edh-btn" type="button" data-edh-view="evidence">Browse evidence</button>'+
         '</div>'+
@@ -3688,25 +3760,106 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
       '<div class="edh-panel">'+
         '<span class="edh-kicker">What happens next</span>'+
         '<div class="edh-list">'+
-          workflowStep('01','Review inventory','Understand the data required before chasing sources.')+
-          workflowStep('02','Track progress','Update status, responsibility, quality, and completeness.')+
-          workflowStep('03','Import evidence','Use crawled repository documents, uploaded PDFs/images, or pasted extracted text.')+
-          workflowStep('04','Extract and map','Run document extraction and map values into LEAP and NEMO/OSeMOSYS structures.')+
-          workflowStep('05','Download model inputs','Export LEAP CSV, NEMO CSV, SDMX, tracker files, and provenance locally.')+
+          workflowStep('01','Read the manual','Learn the workflow before changing settings or adding API keys.')+
+          workflowStep('02','Review inventory','Understand the data required before chasing sources.')+
+          workflowStep('03','Track progress','Update status, responsibility, quality, and completeness.')+
+          workflowStep('04','Import evidence','Use crawled repository documents, uploaded PDFs/images, or pasted extracted text.')+
+          workflowStep('05','Extract and map','Run document extraction and map values into LEAP and NEMO/OSeMOSYS structures.')+
+          workflowStep('06','Download model inputs','Export LEAP CSV, NEMO CSV, SDMX, tracker files, and provenance locally.')+
         '</div>'+
       '</div>'+
       '</section>'+
       metricCards()+
+      '<section class="edh-work-grid">'+
+        workCard('02','Manual','Use the guided manual when opening ENERGIM for the first time. It explains local mode, Inventory, Tracker, Evidence, OCR, LEAP, NEMO, and exports in plain language.','Open manual','manual')+
+        workCard('03','Inventory','Review the 71 Rwanda energy data requirements and identify the high-priority gaps.','Open inventory','inventory')+
+        workCard('05','Evidence library','Search '+(state.docsLoaded?state.docs.length:'repository')+' crawled records and import one directly into extraction.','Browse evidence','evidence')+
+      '</section>'+
       modelOutputPanel(readOutputs())+
       scenarioLensPanel()+
       inputCoveragePanel()+
       producerPanel()+
-      '<section class="edh-work-grid">'+
-        workCard('02','Inventory','Review the 71 Rwanda energy data requirements and identify the high-priority gaps.','Open inventory','inventory')+
-        workCard('04','Evidence library','Search '+(state.docsLoaded?state.docs.length:'repository')+' crawled records and import one directly into extraction.','Browse evidence','evidence')+
-        workCard('05','Document intelligence','Turn crawled documents, scanned files, tables, or extracted text into mapped LEAP/NEMO-ready evidence.','Open workspace','intelligence')+
-      '</section>'+
       '<section class="edh-panel"><span class="edh-kicker">Local workflow health</span><h3>'+esc(localReady())+'</h3><p>Validated: '+c.validated+'. High-priority not started: '+highPriorityTodo()+'. Google connected: '+(hasGoogle()?'yes':'no, optional')+'. LLM: '+(cfg().apiKey?providerName():'optional')+'.</p></section>';
+  }
+  function renderManualView(){
+    return '<section class="edh-panel"><span class="edh-kicker">Step 02 - Manual</span><h2>How to use ENERGIM Data Hub.</h2><p>This manual is for a first-time user. Start free, follow the steps in order, and add Google, LLMs, or automated OCR only when the work actually needs them.</p><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-action="local" type="button">Use free local mode</button><button class="edh-btn" data-edh-view="inventory" type="button">Go to Inventory</button><button class="edh-btn" data-edh-view="evidence" type="button">Browse evidence</button></div></section>'+
+      '<section class="edh-status-grid">'+
+        '<article class="edh-card good"><h3>First run</h3><span class="metric">Free</span><span class="label">No credits, keys, OAuth, or backend</span></article>'+
+        '<article class="edh-card"><h3>Main job</h3><span class="metric">Inputs</span><span class="label">LEAP CSV and NEMO/OSeMOSYS CSV</span></article>'+
+        '<article class="edh-card gold"><h3>Evidence</h3><span class="metric">'+(state.docsLoaded?state.docs.length:'...')+'</span><span class="label">crawled repository records</span></article>'+
+        '<article class="edh-card"><h3>EPD Rwanda</h3><span class="metric">'+epdInventoryItems().length+'</span><span class="label">core linked inventory rows</span></article>'+
+      '</section>'+
+      '<section class="edh-manual-grid">'+
+        '<aside class="edh-manual-toc">'+
+          manualToc('manual-what','01','What this tool is')+
+          manualToc('manual-local','02','Free local mode')+
+          manualToc('manual-inventory','03','Inventory')+
+          manualToc('manual-tracker','04','Tracker')+
+          manualToc('manual-evidence','05','Evidence Library')+
+          manualToc('manual-docs','06','Document Intelligence and OCR')+
+          manualToc('manual-epd','07','EPD Rwanda')+
+          manualToc('manual-models','08','LEAP and NEMO outputs')+
+          manualToc('manual-scenarios','09','Scenario basis')+
+          manualToc('manual-export','10','Export and download')+
+          manualToc('manual-advanced','11','Optional services')+
+          manualToc('manual-help','12','Troubleshooting and glossary')+
+        '</aside>'+
+        '<div class="edh-manual-flow">'+
+          manualSection('manual-what','01','What ENERGIM Data Hub is','ENERGIM Data Hub is a guided evidence-to-model-input workspace for Rwanda energy modelling. It helps you review what data is needed, track collection progress, import evidence, extract useful values, map those values to model structures, and download files for LEAP and NEMO/OSeMOSYS.')+
+          '<section class="edh-manual-section"><h3>What ENERGIM does and does not do</h3><ul><li>It prepares input files for modelling.</li><li>It keeps a trace from each output back to evidence and source information.</li><li>It does not run LEAP inside the browser.</li><li>It does not solve NEMO/OSeMOSYS inside the browser.</li><li>It does not require paid AI credits for the normal local workflow.</li></ul><div class="edh-callout">Think of the tool as a careful preparation desk. It gets evidence into a clean, reviewable form before the modelling tools consume it.</div></section>'+
+          manualSection('manual-local','02','Start in Free Local Mode','Free Local Mode is the safest first run. It stores settings and tracker edits in your browser and downloads files to your computer. You do not need Google Cloud, Google OAuth, Google Sheets, Google Drive, an LLM key, an OCR API, a server, or credits.')+
+          '<section class="edh-manual-section"><h3>Recommended first-time path</h3><ol><li>Open the Manual tab and read the first sections.</li><li>Click Use free local mode.</li><li>Open Inventory and understand what data is needed.</li><li>Open Tracker and mark what has been requested, received, or validated.</li><li>Open Evidence Library and import one document.</li><li>Open Document Intelligence and run Analyze, Validate, then Transform.</li><li>Open Exports and download the files locally.</li></ol></section>'+
+          manualSection('manual-inventory','03','Inventory: what data the models need','The Inventory is the current ENERGIM priority schema. It lists the data variables needed for Rwanda LEAP and NEMO input preparation. It is not a frozen universe of every possible future variable. New rows can be added as the modelling design becomes more detailed.')+
+          '<section class="edh-manual-section"><h3>How to read an inventory row</h3><ul><li><b>Variable:</b> the data item needed, such as installed generation capacity or cooking fuel share.</li><li><b>Module:</b> the modelling area, such as demand, transformation, resources, socioeconomic, or NEMO-specific.</li><li><b>Source / data producer:</b> where the data should come from.</li><li><b>Availability:</b> whether the source is available, partial, or a gap.</li><li><b>Priority:</b> how important the item is for modelling.</li><li><b>NEMO treatment:</b> whether the item is direct, needs augmentation, is not used, or is NEMO-specific.</li></ul><div class="edh-hero-actions"><button class="edh-btn" type="button" data-edh-view="inventory">Open Inventory</button><button class="edh-btn" type="button" data-edh-action="filter-epd">Show EPD rows</button></div></section>'+
+          manualSection('manual-tracker','04','Tracker: how to manage collection progress','The Tracker turns the inventory into a working collection plan. Use it to record whether each item is not started, requested, partially received, received, validated, or an issue. Add quality, completeness, and notes so the next person understands the status.')+
+          '<section class="edh-manual-section"><h3>Good tracker practice</h3><ol><li>Do not mark a row Validated just because a file exists.</li><li>Check source, year, unit, and whether the evidence really matches the variable.</li><li>Use notes for uncertainty, restrictions, missing years, or required validation.</li><li>Download the tracker XLSX when you need a shareable copy.</li></ol><div class="edh-hero-actions"><button class="edh-btn" type="button" data-edh-view="tracker">Open Tracker</button></div></section>'+
+          manualSection('manual-evidence','05','Evidence Library: where documents come from','The Evidence Library loads crawled repository records from this project. A record can be a web page, PDF reference, official source, private-sector source, or partner evidence. You can search by title, institution, dataset, or URL. Import sends a record directly into Document Intelligence.')+
+          '<section class="edh-manual-section"><h3>How to import evidence</h3><ol><li>Open Evidence Library.</li><li>Search for a producer such as EPD, REG, EUCL, NISR, RURA, or MININFRA.</li><li>Click Import on a relevant record.</li><li>The app opens Document Intelligence and preloads source metadata.</li><li>Run Analyze and map evidence.</li></ol><div class="edh-callout">Imported repository records keep provenance. That means the model input can point back to the evidence source.</div><div class="edh-hero-actions"><button class="edh-btn" type="button" data-edh-view="evidence">Open Evidence Library</button><button class="edh-btn" type="button" data-edh-action="filter-epd-evidence">EPD evidence</button></div></section>'+
+          manualSection('manual-docs','06','Document Intelligence and OCR','Document Intelligence is where evidence becomes model-ready data. You can use a crawled repository record, upload a file, or paste extracted text. OCR means text extraction from scanned documents or images. OCR is useful when a PDF or image is not already readable as text.')+
+          '<section class="edh-manual-section"><h3>Free path versus automated OCR</h3><ul><li><b>Free path:</b> import a repository record or paste extracted text. No credits are used.</li><li><b>Vision OCR:</b> uses an LLM vision model for image files. This may use provider credits.</li><li><b>Custom OCR endpoint:</b> sends a scanned file to your configured OCR service. This may use your OCR service quota.</li><li><b>Scanned PDFs:</b> use a custom OCR endpoint or extract text outside the app and paste it.</li></ul><details><summary>When should I use OCR?</summary><p>Use OCR only when the source is a scan, photo, image, or PDF where you cannot copy the text normally. If the evidence is already a web page, CSV, Excel table, or selectable text, you may not need OCR.</p></details></section>'+
+          manualSection('manual-epd','07','Why EPD Rwanda is core to ENERGIM','EPD Rwanda is a core private-sector evidence producer. It can provide or validate information that public datasets may miss, especially private projects, clean cooking, solar home systems, mini-grids, LPG, biogas, e-mobility, technology deployment, finance, and project pipeline intelligence.')+
+          '<section class="edh-manual-section"><h3>Where EPD appears in the tool</h3><ul><li>Inventory rows linked to EPD are marked EPD core.</li><li>The Evidence Library includes EPD Rwanda crawled evidence.</li><li>Scenario and project-pipeline evidence can use EPD as an augmentation source.</li><li>EPD evidence should complement official baseline sources, not silently replace them without validation.</li></ul><div class="edh-hero-actions"><button class="edh-btn primary" type="button" data-edh-action="filter-epd">Review EPD rows</button><button class="edh-btn" type="button" data-edh-action="filter-epd-evidence">Open EPD evidence</button></div></section>'+
+          manualSection('manual-models','08','LEAP and NEMO outputs','ENERGIM prepares both LEAP and NEMO/OSeMOSYS inputs. After you run Transform, the app can generate a LEAP CSV, a NEMO/OSeMOSYS CSV, an SDMX exchange file, and provenance JSON. The browser app prepares these files. LEAP and NEMO runs happen outside the app.')+
+          '<section class="edh-manual-section"><h3>What each output is for</h3><ul><li><b>LEAP CSV:</b> accounting-style model input for LEAP branches, years, values, and parameters.</li><li><b>NEMO/OSeMOSYS CSV:</b> optimization-ready input structure for technologies, fuels, years, values, and constraints.</li><li><b>SDMX XML:</b> exchange format for governed data sharing.</li><li><b>Provenance JSON:</b> source, scenario basis, processing date, schema match, provider, and review trail.</li></ul><div class="edh-callout">If no transform has been run yet, the output cards show Run Transform first. This is normal.</div></section>'+
+          manualSection('manual-scenarios','09','Scenario basis: baseline, NDC, NST2, IRP, policy evidence','The tool starts with a current-evidence baseline. It also tags policy evidence such as Rwanda NDC, NST2, IRP, electrification targets, emission targets, and project pipeline records when present. It does not choose the final scenario by itself. A modeller still reviews the evidence and decides how it belongs in baseline, policy, or sensitivity runs.')+
+          '<section class="edh-manual-section"><h3>Simple example</h3><p>If the evidence is an official current capacity table, it likely supports a baseline input. If the evidence is an IRP pipeline target or NDC emission target, it likely supports a policy or scenario assumption. The app keeps that source trail visible so the modelling team can decide how to use it.</p></section>'+
+          manualSection('manual-export','10','Export and download locally','The simplest success path is local download. Use Exports to download the inventory CSV, tracker XLSX, evidence library CSV, LEAP CSV, NEMO CSV, SDMX XML, and provenance JSON. Local downloads do not require Google Drive.')+
+          '<section class="edh-manual-section"><h3>Export checklist</h3><ol><li>Import or paste evidence.</li><li>Analyze and map evidence.</li><li>Validate the mapping.</li><li>Transform outputs.</li><li>Download LEAP, NEMO, SDMX, and provenance files.</li><li>Save the tracker XLSX if you need a progress record.</li></ol><div class="edh-hero-actions"><button class="edh-btn" type="button" data-edh-view="exports">Open Exports</button></div></section>'+
+          manualSection('manual-advanced','11','Optional services: Google, LLMs, and OCR automation','Optional services are useful after the local workflow is understood. Google sync helps when a team wants shared Sheets and Drive outputs. LLM providers can help with automated mapping. OCR automation helps with scanned PDFs or images. These services may use API quotas or credits, so they should not be required for a first run.')+
+          '<section class="edh-manual-section"><h3>Supported LLM options</h3><p>The settings support OpenAI, Gemini, Anthropic, Qwen, Kimi, OpenRouter, and custom OpenAI-compatible endpoints. Direct browser calls depend on provider CORS rules. If a provider blocks browser calls, use OpenRouter or a secure backend proxy.</p><details><summary>When should I add an LLM key?</summary><p>Add a key only when you want model-assisted extraction, mapping, or vision OCR. You can still review inventory, update tracker rows, import evidence, paste text, map locally, and download files without an LLM key.</p></details><div class="edh-hero-actions"><button class="edh-btn" type="button" data-edh-view="setup">Open Optional Services</button></div></section>'+
+          '<section class="edh-manual-section" id="manual-help"><h3>Common mistakes and troubleshooting</h3>'+
+            manualDetails('The app asks about Google or API keys. Do I need them?','No for first use. Choose Free local mode. Google, LLM, and automated OCR are optional.')+
+            manualDetails('I imported evidence but do not see LEAP or NEMO files.','Run Analyze and map evidence, then Validate, then Transform outputs. The model-file download buttons appear after Transform.')+
+            manualDetails('OCR is confusing. What should I do first?','If you can copy text from the source, paste it into the text box and skip automated OCR. Use OCR only for scanned files or images.')+
+            manualDetails('Can EPD data be used as baseline data?','EPD is core evidence, especially for private-sector and scenario intelligence. For official baseline calibration, validate EPD evidence against official sources where possible.')+
+            manualDetails('Does this replace a modeller?','No. It organizes evidence and prepares inputs. A modeller still reviews assumptions, builds scenarios, and runs LEAP or NEMO outside the browser.')+
+          '</section>'+
+          '<section class="edh-manual-section"><h3>Glossary</h3><div class="edh-glossary">'+
+            manualTerm('Inventory','The list of data variables needed for LEAP and NEMO input preparation.')+
+            manualTerm('Tracker','The progress sheet for collection, review, quality, and validation status.')+
+            manualTerm('Evidence','A source document, web page, table, dataset, or note used to support a model input.')+
+            manualTerm('OCR','Optical character recognition. It extracts text from scans, images, or non-selectable PDFs.')+
+            manualTerm('LEAP','A scenario accounting tool. ENERGIM prepares CSV inputs for LEAP but does not run LEAP.')+
+            manualTerm('NEMO/OSeMOSYS','An optimization modelling structure. ENERGIM prepares input CSVs but does not solve the model.')+
+            manualTerm('Baseline','The current-evidence starting case before policy or sensitivity assumptions are applied.')+
+            manualTerm('NDC/NST2/IRP','Policy and planning evidence that can inform scenario assumptions.')+
+            manualTerm('Provenance','The source trail explaining where a value came from and how it was processed.')+
+            manualTerm('EPD Rwanda','Core private-sector evidence producer for ENERGIM, especially project and clean-energy market intelligence.')+
+          '</div></section>'+
+        '</div>'+
+      '</section>';
+  }
+  function manualToc(id,num,label){
+    return '<a href="#'+id+'"><span>'+esc(num)+'</span>'+esc(label)+'</a>';
+  }
+  function manualSection(id,num,title,copy){
+    return '<section class="edh-manual-section" id="'+id+'"><span class="edh-tag good">'+esc(num)+'</span><h3>'+esc(title)+'</h3><p>'+esc(copy)+'</p></section>';
+  }
+  function manualDetails(summary,copy){
+    return '<details><summary>'+esc(summary)+'</summary><p>'+esc(copy)+'</p></details>';
+  }
+  function manualTerm(term,definition){
+    return '<div class="edh-term"><b>'+esc(term)+'</b><span>'+esc(definition)+'</span></div>';
   }
   function workflowStep(num,title,copy){
     return '<div class="edh-row"><div><div class="edh-meta"><span class="edh-tag good">'+num+'</span></div><h4>'+esc(title)+'</h4><p>'+esc(copy)+'</p></div></div>';
@@ -3793,7 +3946,7 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
     const items=filteredInventory();
     const available=items.filter(({r})=>r[5]==='A').length;
     const gaps=items.filter(({r})=>r[5]==='G').length;
-    return '<section class="edh-panel"><span class="edh-kicker">Step 02 - Inventory</span><h2>Review LEAP and NEMO input requirements.</h2><p>This inventory is the current ENERGIM priority schema. It shows the variable, model role, source or data producer, availability, priority, and NEMO treatment. EPD Rwanda is a core producer for private-sector and scenario evidence.</p><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-view="tracker" type="button">Open tracker</button><button class="edh-btn" data-edh-action="inventory-csv" type="button">Download inventory CSV</button><button class="edh-btn" data-edh-action="filter-epd" type="button">Show EPD core rows</button></div></section>'+
+    return '<section class="edh-panel"><span class="edh-kicker">Step 03 - Inventory</span><h2>Review LEAP and NEMO input requirements.</h2><p>This inventory is the current ENERGIM priority schema. It shows the variable, model role, source or data producer, availability, priority, and NEMO treatment. EPD Rwanda is a core producer for private-sector and scenario evidence.</p><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-view="tracker" type="button">Open tracker</button><button class="edh-btn" data-edh-action="inventory-csv" type="button">Download inventory CSV</button><button class="edh-btn" data-edh-action="filter-epd" type="button">Show EPD core rows</button></div></section>'+
       inputCoveragePanel()+
       producerPanel()+
       '<section class="edh-status-grid">'+
@@ -3820,7 +3973,7 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
   function renderTrackerView(){
     const items=filteredTracker();
     const c=statusCounts();
-    return '<section class="edh-panel"><span class="edh-kicker">Step 03 - Tracker</span><h2>Turn the inventory into a collection plan.</h2><p>Change status and quality row by row. Everything is saved in this browser in free local mode.</p><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-action="tracker-export" type="button">Download tracker XLSX</button><button class="edh-btn" data-edh-view="evidence" type="button">Import evidence</button></div></section>'+
+    return '<section class="edh-panel"><span class="edh-kicker">Step 04 - Tracker</span><h2>Turn the inventory into a collection plan.</h2><p>Change status and quality row by row. Everything is saved in this browser in free local mode.</p><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-action="tracker-export" type="button">Download tracker XLSX</button><button class="edh-btn" data-edh-view="evidence" type="button">Import evidence</button></div></section>'+
       '<section class="edh-status-grid">'+
         '<article class="edh-card good"><h3>Validated</h3><span class="metric">'+c.validated+'</span><span class="label">ready rows</span></article>'+
         '<article class="edh-card"><h3>Received</h3><span class="metric">'+(c.received+c.partial)+'</span><span class="label">to validate</span></article>'+
@@ -3885,7 +4038,7 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
     const docs=filteredDocs();
     const institutions=[...new Set(state.docs.map(d=>d.institution).filter(Boolean))].sort().slice(0,40);
     const types=[...new Set(state.docs.map(d=>d.type).filter(Boolean))].sort();
-    return '<section class="edh-panel"><span class="edh-kicker">Step 04 - Evidence library</span><h2>Import crawled repository documents directly.</h2><p>Crawled records are a first-class source. Select one here and send it to Document Intelligence without re-uploading it.</p><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-view="intelligence" type="button">Open Document Intelligence</button><button class="edh-btn" data-edh-action="reload-evidence" type="button">Reload evidence lake</button></div></section>'+
+    return '<section class="edh-panel"><span class="edh-kicker">Step 05 - Evidence library</span><h2>Import crawled repository documents directly.</h2><p>Crawled records are a first-class source. Select one here and send it to Document Intelligence without re-uploading it.</p><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-view="intelligence" type="button">Open Document Intelligence</button><button class="edh-btn" data-edh-action="reload-evidence" type="button">Reload evidence lake</button></div></section>'+
       '<section class="edh-toolbar"><input class="edh-search" data-edh-input="evidenceQ" placeholder="Search title, institution, dataset, source URL..." value="'+esc(state.evidenceQ)+'"><select class="edh-select" data-edh-input="evidenceInstitution"><option value="">All institutions</option>'+institutions.map(x=>'<option '+(state.evidenceInstitution===x?'selected':'')+'>'+esc(x)+'</option>').join('')+'</select><select class="edh-select" data-edh-input="evidenceType"><option value="">All file types</option>'+types.map(x=>'<option '+(state.evidenceType===x?'selected':'')+'>'+esc(x)+'</option>').join('')+'</select></section>'+
       '<section class="edh-list">'+(state.docsLoaded?docs.slice(0,42).map(docRow).join(''):'<div class="edh-empty">Loading crawled evidence records...</div>')+(docs.length>42?'<div class="edh-empty">Showing first 42 matches. Narrow the evidence library to import a specific source.</div>':'')+'</section>';
   }
@@ -3976,7 +4129,7 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
     const doc=state.selectedDoc;
     const detected=readDetected();
     const hasOutput=readOutputs();
-    return '<section class="edh-panel"><span class="edh-kicker">Step 05 - Document Intelligence</span><h2>Extract evidence, map it, preserve provenance.</h2><p>Use crawled repository documents first, then uploaded PDFs/images or pasted extracted text. Automated OCR scans documents when configured; manual paste is the free fallback.</p></section>'+
+    return '<section class="edh-panel"><span class="edh-kicker">Step 06 - Document Intelligence</span><h2>Extract evidence, map it, preserve provenance.</h2><p>Use crawled repository documents first, then uploaded PDFs/images or pasted extracted text. Automated OCR scans documents when configured; manual paste is the free fallback.</p></section>'+
       '<section class="edh-process">'+['Source','Extract','Map','Validate','Export'].map((s,i)=>'<div class="edh-process-step '+(i<state.extractionStep?'done':i===state.extractionStep?'active':'')+'"><b>'+esc(s)+'</b><span>'+(i===0?'Choose evidence':i===1?'OCR/text extraction':i===2?'Inventory matching':i===3?'Confidence review':'Local files')+'</span></div>').join('')+'</section>'+
       '<section class="edh-split"><div class="edh-panel"><span class="edh-kicker">Evidence source</span>'+(doc?'<h3>'+esc(doc.title)+'</h3><p>'+esc(doc.institution)+' - '+esc(doc.category||'Repository evidence')+'</p><div class="edh-meta"><span class="edh-tag good">repository import</span><span class="edh-tag">'+esc(doc.type)+'</span><span class="edh-tag">'+esc(doc.status)+'</span></div>':'<h3>No repository document selected</h3><p>Import a crawled document from the Evidence Library, upload a new file for extraction, or paste extracted text below.</p>')+'<div class="edh-hero-actions"><button class="edh-btn" data-edh-view="evidence" type="button">Browse repository</button><button class="edh-btn" data-edh-action="upload" type="button">Upload file</button></div><div class="edh-drop" data-edh-action="upload"><div><b>Upload new evidence</b><span>CSV, Excel, JSON, text, PDF, PNG, JPG, WEBP</span></div></div></div>'+
       '<div class="edh-panel"><span class="edh-kicker">Free fallback path</span><h3>Paste extracted text, tables, or OCR results</h3><p>This path remains free and local. If a repository document is selected, its metadata is preloaded as provenance.</p><textarea class="edh-textarea" data-edh-input="pasteText" placeholder="Paste extracted text, CSV/table rows, or OCR output here...">'+esc(state.pasteText)+'</textarea><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-action="analyze" type="button">Analyze and map evidence</button><button class="edh-btn" data-edh-action="validate" type="button">Validate</button><button class="edh-btn green" data-edh-action="transform" type="button">Transform outputs</button></div></div></section>'+
@@ -3986,7 +4139,7 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
   }
   function renderExportsView(){
     const hasOutput=readOutputs();
-    return '<section class="edh-panel"><span class="edh-kicker">Step 06 - Exports</span><h2>Download LEAP and NEMO inputs locally.</h2><p>Local export is the success path: LEAP CSV, NEMO/OSeMOSYS CSV, SDMX, provenance, inventory, tracker, and evidence library. Google Drive remains optional.</p></section>'+
+    return '<section class="edh-panel"><span class="edh-kicker">Step 07 - Exports</span><h2>Download LEAP and NEMO inputs locally.</h2><p>Local export is the success path: LEAP CSV, NEMO/OSeMOSYS CSV, SDMX, provenance, inventory, tracker, and evidence library. Google Drive remains optional.</p></section>'+
       modelOutputPanel(hasOutput)+
       scenarioLensPanel()+
       '<section class="edh-work-grid">'+
@@ -4003,7 +4156,7 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
   }
   function renderSetupView(){
     const c=cfg();
-    return '<section class="edh-panel"><span class="edh-kicker">Step 07 - Optional services</span><h2>Keep setup quiet until the workflow needs it.</h2><p>Local mode is the default. Google sync, LLM mapping, and automated OCR/vision are available, but they should never block a first run.</p><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-action="local" type="button">Use free local mode</button><button class="edh-btn" data-edh-action="settings" type="button">Open settings</button><button class="edh-btn" data-edh-action="audit" type="button">Run audit</button></div></section>'+
+    return '<section class="edh-panel"><span class="edh-kicker">Step 08 - Optional services</span><h2>Keep setup quiet until the workflow needs it.</h2><p>Local mode is the default. Google sync, LLM mapping, and automated OCR/vision are available, but they should never block a first run.</p><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-action="local" type="button">Use free local mode</button><button class="edh-btn" data-edh-action="settings" type="button">Open settings</button><button class="edh-btn" data-edh-action="audit" type="button">Run audit</button></div></section>'+
       '<section class="edh-service-grid">'+
         '<article class="edh-service ready"><h3>Free local mode</h3><p>Browser tracker, local downloads, repository import, manual paste, and exports. No credits.</p><div class="edh-meta"><span class="edh-tag good">Ready</span></div></article>'+
         '<article class="edh-service optional"><h3>Google sync</h3><p>Optional shared Sheets and Drive outputs. '+(hasGoogle()?'Connected.':'Not connected, and not required.')+'</p><div class="edh-meta"><span class="edh-tag">'+(hasGoogle()?'connected':'optional')+'</span></div></article>'+
