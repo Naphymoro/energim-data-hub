@@ -1240,6 +1240,7 @@ tr:hover td{background:rgba(39,104,178,.05)}
 }
 .edh-location strong{display:block;font-size:22px;line-height:1.05;letter-spacing:0}
 .edh-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.edh-nav-helper{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
 .edh-chip{
   min-height:36px;
   display:inline-flex;
@@ -1270,6 +1271,7 @@ tr:hover td{background:rgba(39,104,178,.05)}
 .edh-btn.blue{background:var(--b);border-color:var(--b);color:#fff}
 .edh-btn.green{background:var(--gb);border-color:var(--gb);color:#fff}
 .edh-btn.ghost{background:transparent}
+.edh-btn.soft{background:var(--s0)}
 .edh-stage{display:grid;gap:18px}
 .edh-hero{
   display:grid;
@@ -1365,6 +1367,54 @@ tr:hover td{background:rgba(39,104,178,.05)}
   border-radius:8px;
   background:var(--s2);
 }
+.edh-pipeline{
+  display:grid;
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:8px;
+}
+.edh-pipe-step{
+  padding:12px;
+  border:1px solid var(--br);
+  border-radius:8px;
+  background:var(--s2);
+}
+.edh-pipe-step b{display:block;color:var(--t);font-size:12px}
+.edh-pipe-step span{display:block;margin-top:5px;color:var(--t2);font-size:10px;line-height:1.35}
+.edh-crawler-grid{
+  display:grid;
+  grid-template-columns:minmax(0,.82fr) minmax(360px,1.18fr);
+  gap:14px;
+  align-items:start;
+}
+.edh-source-list{display:grid;gap:7px;margin-top:10px}
+.edh-source-item{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:9px 10px;
+  border:1px solid var(--br);
+  border-radius:8px;
+  background:var(--s0);
+  color:var(--t2);
+  font-size:11px;
+}
+.edh-source-item b{color:var(--t);font-size:11px}
+.edh-checkline{
+  display:grid;
+  grid-template-columns:auto minmax(0,1fr);
+  gap:10px;
+  align-items:start;
+}
+.edh-checkline input{margin-top:3px}
+.edh-bulk-list{display:grid;gap:7px;margin-top:12px;max-height:260px;overflow:auto;padding-right:4px}
+.edh-bulk-item{
+  border:1px solid var(--br);
+  border-radius:8px;
+  background:var(--s0);
+  padding:10px;
+}
+.edh-bulk-item b{display:block;color:var(--t);font-size:12px}
+.edh-bulk-item span{display:block;margin-top:4px;color:var(--t2);font-size:10px;line-height:1.35}
 .edh-search{
   min-height:40px;
   width:min(100%,420px);
@@ -1634,11 +1684,11 @@ tr:hover td{background:rgba(39,104,178,.05)}
   .edh-rail{position:relative;height:auto}
   .edh-nav{grid-template-columns:repeat(2,minmax(0,1fr))}
   .edh-rail-card{margin-top:0}
-  .edh-hero,.edh-split,.edh-manual-grid{grid-template-columns:1fr}
+  .edh-hero,.edh-split,.edh-manual-grid,.edh-crawler-grid{grid-template-columns:1fr}
   .edh-manual-toc{position:relative;top:auto}
   .edh-tutorial-hero,.edh-lesson-body{grid-template-columns:1fr}
   .edh-course-path{grid-template-columns:repeat(6,minmax(0,1fr))}
-  .edh-status-grid,.edh-work-grid,.edh-service-grid,.edh-model-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .edh-status-grid,.edh-work-grid,.edh-service-grid,.edh-model-grid,.edh-pipeline{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media(max-width:720px){
   .edh-main{padding:16px 12px 34px}
@@ -1646,7 +1696,7 @@ tr:hover td{background:rgba(39,104,178,.05)}
   .edh-actions{justify-content:flex-start}
   .edh-nav{grid-template-columns:1fr}
   .edh-panel h2{font-size:38px}
-  .edh-status-grid,.edh-work-grid,.edh-service-grid,.edh-model-grid,.edh-process{grid-template-columns:1fr}
+  .edh-status-grid,.edh-work-grid,.edh-service-grid,.edh-model-grid,.edh-process,.edh-pipeline{grid-template-columns:1fr}
   .edh-course-path{grid-template-columns:repeat(4,minmax(0,1fr))}
   .edh-glossary{grid-template-columns:1fr}
   .edh-row{grid-template-columns:1fr}
@@ -3699,21 +3749,29 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
     {view:'home',num:'01',label:'Start local',hint:'Free first run'},
     {view:'manual',num:'02',label:'Manual',hint:'How to use'},
     {view:'inventory',num:'03',label:'Inventory',hint:'Review needs'},
-    {view:'tracker',num:'04',label:'Tracker',hint:'Collection progress'},
-    {view:'evidence',num:'05',label:'Evidence library',hint:'Crawled documents'},
-    {view:'intelligence',num:'06',label:'Document intelligence',hint:'Extract, map, validate'},
-    {view:'exports',num:'07',label:'Exports',hint:'Download locally'},
-    {view:'setup',num:'08',label:'Optional services',hint:'Google, LLM, OCR'}
+    {view:'crawler',num:'04',label:'Crawler',hint:'Find likely sources'},
+    {view:'evidence',num:'05',label:'Evidence library',hint:'Found documents'},
+    {view:'intelligence',num:'06',label:'Document intelligence',hint:'Bulk extract and map'},
+    {view:'tracker',num:'07',label:'Tracker',hint:'Progress trail'},
+    {view:'exports',num:'08',label:'Exports',hint:'Download locally'},
+    {view:'setup',num:'09',label:'Optional services',hint:'Google, LLM, OCR'}
   ];
   const state={
-    view:'home',
+    view:initialView(),
+    viewHistory:[],
     invQ:'',
     invModule:'',
+    crawlerQ:'',
+    crawlerModule:'',
+    crawlerTasks:loadCrawlerTasks(),
     trackerQ:'',
     trackerStatus:'',
     evidenceQ:'',
     evidenceType:'',
     evidenceInstitution:'',
+    selectedDocIds:[],
+    bulkDocs:[],
+    bulkLabel:'',
     docs:[],
     docsLoaded:false,
     selectedDoc:null,
@@ -3725,6 +3783,45 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
 
   function esc(value){
     return String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  }
+  function initialView(){
+    try{
+      const requested=new URLSearchParams(location.search).get('view');
+      return nav.some(item=>item.view===requested)?requested:'home';
+    }catch(e){
+      return 'home';
+    }
+  }
+  function loadCrawlerTasks(){
+    try{
+      const saved=localStorage.getItem('energim_crawler_tasks');
+      return saved?JSON.parse(saved):[];
+    }catch(e){
+      return [];
+    }
+  }
+  function saveCrawlerTasks(){
+    try{localStorage.setItem('energim_crawler_tasks',JSON.stringify(state.crawlerTasks));}catch(e){}
+  }
+  function setView(view,remember=true){
+    if(!view) return;
+    if(view===state.view){
+      render();
+      window.scrollTo({top:0,behavior:'smooth'});
+      return;
+    }
+    if(remember) state.viewHistory.push(state.view);
+    state.view=view;
+    syncViewUrl(view);
+    render();
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  function syncViewUrl(view){
+    try{
+      const url=new URL(location.href);
+      if(view==='home') url.searchParams.delete('view'); else url.searchParams.set('view',view);
+      history.replaceState(null,'',url.toString());
+    }catch(e){}
   }
   function rows(){try{return Array.isArray(INV_DATA)?INV_DATA:[];}catch(e){return [];}}
   function tracker(){try{return Array.isArray(trackerState)?trackerState:[];}catch(e){return [];}}
@@ -3766,6 +3863,10 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
           '<header class="edh-topbar">'+
             '<div class="edh-location"><span id="edh-kicker">Start local</span><strong id="edh-title">Guided workspace</strong></div>'+
             '<div class="edh-actions">'+
+              '<div class="edh-nav-helper">'+
+                '<button class="edh-btn soft" type="button" data-edh-action="back">Back</button>'+
+                '<button class="edh-btn soft" type="button" data-edh-action="top">Back to top</button>'+
+              '</div>'+
               '<span class="edh-chip good" id="edh-credit-chip">No credits required</span>'+
               '<button class="edh-btn ghost" type="button" data-edh-action="theme">Theme</button>'+
               '<button class="edh-btn" type="button" data-edh-action="settings">Settings</button>'+
@@ -3785,9 +3886,10 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
       home:['Free local workflow','Start with confidence'],
       manual:['Manual','How to use ENERGIM'],
       inventory:['Inventory','Review required data'],
+      crawler:['Crawler','Find evidence for inventory needs'],
+      evidence:['Evidence library','Found and crawled documents'],
+      intelligence:['Document intelligence','Bulk extract and map'],
       tracker:['Tracker','Collection progress'],
-      evidence:['Evidence library','Crawled repository documents'],
-      intelligence:['Document intelligence','Extract, map, validate'],
       exports:['Exports','Download locally'],
       setup:['Optional services','Enable only when needed']
     }[state.view]||['ENERGIM','Workspace'];
@@ -3801,6 +3903,7 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
       home:renderHome,
       manual:renderManualView,
       inventory:renderInventoryView,
+      crawler:renderCrawlerView,
       tracker:renderTrackerView,
       evidence:renderEvidenceView,
       intelligence:renderIntelligenceView,
@@ -3828,6 +3931,7 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
     return '<div class="edh-status-grid">'+
       '<article class="edh-card good"><h3>Local mode</h3><span class="metric">Ready</span><span class="label">No cloud or credits</span></article>'+
       '<article class="edh-card"><h3>Inventory</h3><span class="metric">'+rows().length+'</span><span class="label">required data items</span></article>'+
+      '<article class="edh-card"><h3>Crawler</h3><span class="metric">'+state.crawlerTasks.length+'</span><span class="label">search tasks</span></article>'+
       '<article class="edh-card"><h3>Tracker</h3><span class="metric">'+c.validated+'</span><span class="label">validated rows</span></article>'+
       '<article class="edh-card gold"><h3>Evidence lake</h3><span class="metric">'+(state.docsLoaded?docs:'...')+'</span><span class="label">crawled records</span></article>'+
     '</div>';
@@ -3838,12 +3942,12 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
       '<div class="edh-panel">'+
         '<span class="edh-kicker">Free local first</span>'+
         '<h2>Build LEAP and NEMO inputs from Rwanda energy evidence.</h2>'+
-        '<p>Start locally, review the inventory, track collection, import crawled documents, extract evidence, then generate LEAP CSV, NEMO/OSeMOSYS CSV, SDMX, and provenance. Google, LLMs, and automated OCR are upgrades, not prerequisites.</p>'+
+        '<p>Start locally, review the inventory, create crawler tasks, import found documents, extract evidence, update the tracker, then generate LEAP CSV, NEMO/OSeMOSYS CSV, SDMX, and provenance. Google, LLMs, and automated OCR are upgrades, not prerequisites.</p>'+
         '<div class="edh-hero-actions">'+
           '<button class="edh-btn primary" type="button" data-edh-action="local">Start free local mode</button>'+
           '<button class="edh-btn" type="button" data-edh-view="manual">Read manual</button>'+
           '<button class="edh-btn" type="button" data-edh-view="inventory">Review inventory</button>'+
-          '<button class="edh-btn" type="button" data-edh-view="evidence">Browse evidence</button>'+
+          '<button class="edh-btn" type="button" data-edh-view="crawler">Open crawler</button>'+
         '</div>'+
       '</div>'+
       '<div class="edh-panel">'+
@@ -3851,10 +3955,11 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
         '<div class="edh-list">'+
           workflowStep('01','Read the manual','Learn the workflow before changing settings or adding API keys.')+
           workflowStep('02','Review inventory','Understand the data required before chasing sources.')+
-          workflowStep('03','Track progress','Update status, responsibility, quality, and completeness.')+
-          workflowStep('04','Import evidence','Use crawled repository documents, uploaded PDFs/images, or pasted extracted text.')+
-          workflowStep('05','Extract and map','Run document extraction and map values into LEAP and NEMO/OSeMOSYS structures.')+
-          workflowStep('06','Download model inputs','Export LEAP CSV, NEMO CSV, SDMX, tracker files, and provenance locally.')+
+          workflowStep('03','Create crawler tasks','Let inventory rows generate smart source searches.')+
+          workflowStep('04','Import evidence','Use crawler matches, repository documents, uploaded PDFs/images, or pasted extracted text.')+
+          workflowStep('05','Extract and map','Process one document, selected documents, or LEAP/NEMO module groups.')+
+          workflowStep('06','Update tracker','Record whether evidence is found, imported, mapped, validated, or still a gap.')+
+          workflowStep('07','Download model inputs','Export LEAP CSV, NEMO CSV, SDMX, tracker files, and provenance locally.')+
         '</div>'+
       '</div>'+
       '</section>'+
@@ -3862,7 +3967,8 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
       '<section class="edh-work-grid">'+
         workCard('02','Manual','Use the guided manual when opening ENERGIM for the first time. It explains local mode, Inventory, Tracker, Evidence, OCR, LEAP, NEMO, and exports in plain language.','Open manual','manual')+
         workCard('03','Inventory','Review the 71 Rwanda energy data requirements and identify the high-priority gaps.','Open inventory','inventory')+
-        workCard('05','Evidence library','Search '+(state.docsLoaded?state.docs.length:'repository')+' crawled records and import one directly into extraction.','Browse evidence','evidence')+
+        workCard('04','Crawler','Turn inventory rows into smart source searches, then send matched evidence forward.','Open crawler','crawler')+
+        workCard('05','Evidence library','Search '+(state.docsLoaded?state.docs.length:'repository')+' found records and import one or many into extraction.','Browse evidence','evidence')+
       '</section>'+
       modelOutputPanel(readOutputs())+
       scenarioLensPanel()+
@@ -3873,8 +3979,8 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
   function renderManualView(){
     const lessons=tutorialLessons();
     return '<section class="edh-tutorial-hero">'+
-      '<div class="edh-panel"><span class="edh-kicker">Learn ENERGIM</span><h2>A guided tutorial for first-time users.</h2><p>You are preparing evidence so Rwanda energy modellers can build LEAP and NEMO scenarios. This course teaches the idea first, then shows the exact button to press in the app.</p><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-action="local" type="button">Start free local mode</button><button class="edh-btn" data-edh-view="inventory" type="button">Try Inventory</button><button class="edh-btn" data-edh-view="evidence" type="button">Try Evidence Library</button></div></div>'+
-      '<div class="edh-panel"><span class="edh-kicker">Course promise</span><h3>By the end you should know what to do next.</h3><p>You will learn what ENERGIM is, what LEAP and NEMO need, how evidence becomes model input, when OCR matters, why EPD Rwanda is core, and how to download files without credits.</p><div class="edh-callout">Beginner rule: do not set up Google, LLMs, or OCR APIs on your first pass. Start local, learn the workflow, then add optional services only when needed.</div></div>'+
+      '<div class="edh-panel"><span class="edh-kicker">Learn ENERGIM</span><h2>A guided tutorial for first-time users.</h2><p>You are preparing evidence so Rwanda energy modellers can build LEAP and NEMO scenarios. This course teaches the idea first, then shows the exact button to press in the app.</p><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-action="local" type="button">Start free local mode</button><button class="edh-btn" data-edh-view="inventory" type="button">Try Inventory</button><button class="edh-btn" data-edh-view="crawler" type="button">Try Crawler</button><button class="edh-btn" data-edh-view="evidence" type="button">Try Evidence Library</button></div></div>'+
+      '<div class="edh-panel"><span class="edh-kicker">Course promise</span><h3>By the end you should know what to do next.</h3><p>You will learn what ENERGIM is, what LEAP and NEMO need, how Inventory informs the crawler, how documents are imported in bulk, when OCR matters, why EPD Rwanda is core, and how to download files without credits.</p><div class="edh-callout">Beginner rule: do not set up Google, LLMs, or OCR APIs on your first pass. Start local, learn the workflow, then add optional services only when needed.</div></div>'+
       '</section>'+
       '<section class="edh-manual-grid">'+
         '<aside class="edh-manual-toc">'+
@@ -3912,14 +4018,15 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
       {id:'manual-local',num:'02',short:'Local mode',title:'Start safely with Free Local Mode',idea:'Free Local Mode lets you learn and work without cloud setup, API keys, OAuth, OCR services, or credits.',why:'A novice should not have to configure paid services before understanding the workflow.',doText:'Click Use free local mode. Then use Inventory, Tracker, Evidence, Document Intelligence, and Exports locally.',example:'You can import an evidence record, map it locally, and download files without entering any API key.',check:'You should know that Google, LLMs, and automated OCR are optional upgrades.',learn:'Local mode stores tracker changes in this browser and downloads files to your computer.',action:'local',actionLabel:'Use free local mode'},
       {id:'manual-model-needs',num:'03',short:'LEAP and NEMO',title:'What LEAP and NEMO need',idea:'LEAP and NEMO need structured data, not just documents. They need variables, years, units, sectors, technologies, and assumptions.',why:'The same evidence can be useful in different ways. LEAP may need accounting-style rows. NEMO may need optimization-ready rows and constraints.',doText:'Use the Inventory to see which variables are needed and whether each one is direct, augmented, or NEMO-specific.',example:'Installed capacity in MW can feed LEAP transformation capacity and NEMO technology capacity.',check:'You should know why the app generates both LEAP CSV and NEMO/OSeMOSYS CSV.',learn:'LEAP is usually scenario accounting. NEMO/OSeMOSYS is usually optimization. ENERGIM prepares inputs for both.',view:'inventory',actionLabel:'Open Inventory'},
       {id:'manual-inventory',num:'04',short:'Inventory rows',title:'How to read an inventory variable',idea:'An inventory variable is one specific data need, such as cooking fuel share, annual generation, or discount rate.',why:'If a variable is unclear, collection becomes chaotic. A good row tells you what is needed, where it may come from, and how it affects modelling.',doText:'Open Inventory. Read the variable name, module, source or data producer, availability, priority, and NEMO treatment.',example:'Cooking fuel share is a demand variable. It may use EPD Rwanda and NISR evidence, and it can feed NEMO cooking demand.',check:'You should be able to point to a row and say what data is needed and who may produce it.',learn:'Availability means source status. Priority means modelling importance. NEMO treatment explains whether the row is direct, augmented, not used, or NEMO-specific.',view:'inventory',actionLabel:'Practice in Inventory'},
-      {id:'manual-source',num:'05',short:'Sources',title:'What a data producer or source means',idea:'A source is where evidence comes from. A data producer is the institution or partner that creates, owns, validates, or can explain the data.',why:'Model inputs are only trusted when the team knows where values came from.',doText:'Look for the Source / data producer line in Inventory rows and the institution field in Evidence Library records.',example:'EUCL may produce billing or dispatch evidence. EPD Rwanda may produce private-sector clean cooking, SHS, mini-grid, LPG, and pipeline intelligence.',check:'You should know that source information is part of the model input trail.',learn:'Provenance is the source trail. It helps reviewers understand origin, processing, and confidence.',action:'filter-epd',actionLabel:'Show EPD rows'},
-      {id:'manual-epd',num:'06',short:'EPD Rwanda',title:'Why EPD Rwanda matters',idea:'EPD Rwanda is core because ENERGIM needs private-sector evidence that official datasets may not fully capture.',why:'Private projects, clean cooking markets, SHS, mini-grid activity, LPG, biogas, e-mobility, financing, and project pipelines can be invisible or delayed in public datasets.',doText:'Use the EPD row filter in Inventory and the EPD evidence filter in Evidence Library.',example:'An EPD mini-grid member registry can help estimate off-grid electricity that does not appear in EUCL billing.',check:'You should know EPD evidence can augment official baseline sources and support scenarios.',learn:'EPD should not silently replace official baseline data without validation. It is core evidence, especially for private-sector and scenario intelligence.',action:'filter-epd',actionLabel:'Review EPD rows'},
-      {id:'manual-tracker',num:'07',short:'Tracker',title:'Track collection progress',idea:'The Tracker is your workplan. It records whether each inventory item is not started, requested, received, validated, or a gap.',why:'Without a tracker, people may request the same data twice, forget quality issues, or use unvalidated files.',doText:'Open Tracker. Update status, quality, completeness, and notes for each row.',example:'A row can be Received but not Validated if the source year is wrong or units are unclear.',check:'You should understand that Validated means reviewed, not merely downloaded.',learn:'Use notes for missing years, questionable sources, restricted data, or follow-up requests.',view:'tracker',actionLabel:'Open Tracker'},
-      {id:'manual-evidence',num:'08',short:'Evidence',title:'Import evidence from the repository',idea:'The Evidence Library contains crawled records that can be sent directly into Document Intelligence.',why:'Repository import keeps source metadata with the evidence, which makes provenance stronger.',doText:'Open Evidence Library, search a producer or topic, then click Import on one record.',example:'Search EPD to find the EPD Rwanda evidence record, then import it for mapping.',check:'You should know that imported repository evidence can be used without re-uploading a file.',learn:'Evidence can be official, private-sector, partner, web page, PDF, CSV, table, or extracted text.',view:'evidence',actionLabel:'Open Evidence Library'},
+      {id:'manual-crawler',num:'05',short:'Crawler',title:'Use Inventory to guide the crawler',idea:'The crawler turns an inventory row into a smart search task.',why:'The likely data producer is a starting assumption. The crawler also checks supporting official, private-sector, policy, international, and discovered sources.',doText:'Open Inventory, choose Send to crawler on a row, then run the smart scan in Crawler.',example:'A REG capacity variable can still surface EDCL, EUCL, RURA, MININFRA, EPD Rwanda, World Bank, or IRENA evidence.',check:'You should know the crawler is driven by the data need, not by a single fixed source.',learn:'In free local mode the crawler scans repository evidence. Live web crawling can be added later without changing the workflow.',view:'crawler',actionLabel:'Open Crawler'},
+      {id:'manual-source',num:'06',short:'Sources',title:'What a data producer or source means',idea:'A source is where evidence comes from. A data producer is the institution or partner that creates, owns, validates, or can explain the data.',why:'Model inputs are only trusted when the team knows where values came from.',doText:'Look for the likely source in Inventory, supporting sources in Crawler, and institution fields in Evidence Library records.',example:'EUCL may produce billing or dispatch evidence. EPD Rwanda may produce private-sector clean cooking, SHS, mini-grid, LPG, and pipeline intelligence.',check:'You should know that source information is part of the model input trail.',learn:'Provenance is the source trail. It helps reviewers understand origin, processing, and confidence.',action:'filter-epd',actionLabel:'Show EPD rows'},
+      {id:'manual-epd',num:'07',short:'EPD Rwanda',title:'Why EPD Rwanda matters',idea:'EPD Rwanda is core because ENERGIM needs private-sector evidence that official datasets may not fully capture.',why:'Private projects, clean cooking markets, SHS, mini-grid activity, LPG, biogas, e-mobility, financing, and project pipelines can be invisible or delayed in public datasets.',doText:'Use the EPD row filter in Inventory and the EPD evidence filter in Evidence Library.',example:'An EPD mini-grid member registry can help estimate off-grid electricity that does not appear in EUCL billing.',check:'You should know EPD evidence can augment official baseline sources and support scenarios.',learn:'EPD should not silently replace official baseline data without validation. It is core evidence, especially for private-sector and scenario intelligence.',action:'filter-epd',actionLabel:'Review EPD rows'},
+      {id:'manual-evidence',num:'08',short:'Evidence',title:'Import evidence from the repository',idea:'The Evidence Library stores found, crawled, imported, and selected documents that can be sent into Document Intelligence.',why:'Repository import keeps source metadata with the evidence, which makes provenance stronger.',doText:'Open Evidence Library, select one or more records, then import selected or import all shown.',example:'Search EPD, select matching evidence records, then bulk import them for mapping.',check:'You should know that repository evidence can be used without re-uploading a file.',learn:'Evidence can be official, private-sector, partner, web page, PDF, CSV, table, or extracted text.',view:'evidence',actionLabel:'Open Evidence Library'},
       {id:'manual-ocr',num:'09',short:'OCR',title:'Use OCR only when the document needs extraction',idea:'OCR extracts text from scanned PDFs, images, or photos where normal copy-and-paste does not work.',why:'Many energy documents are scanned reports. The model cannot use an image unless text or tables are extracted.',doText:'If the source text is selectable, paste it directly. If it is scanned, use external OCR, a custom OCR endpoint, or vision OCR when configured.',example:'A photographed table in a PDF needs OCR. A normal web table may not.',check:'You should know OCR is optional and may use credits only if automated services are configured.',learn:'Manual paste is free. Vision OCR and custom OCR are advanced modes for harder documents.',view:'intelligence',actionLabel:'Open Document Intelligence'},
-      {id:'manual-mapping',num:'10',short:'Mapping',title:'Map evidence into model structures',idea:'Mapping means matching evidence to the right inventory variable and model output columns.',why:'A number alone is not enough. The app needs to know whether it is capacity, generation, demand, cost, emission factor, or another variable.',doText:'In Document Intelligence, import evidence or paste text, then click Analyze and map evidence. Review the result before transforming.',example:'A table with year, MW, and source title can map to installed generation capacity.',check:'You should understand why Analyze, Validate, and Transform are separate steps.',learn:'Analyze identifies the likely variable. Validate reviews readiness. Transform creates output files.',view:'intelligence',actionLabel:'Try Document Intelligence'},
-      {id:'manual-scenarios',num:'11',short:'Scenarios',title:'Understand baseline, NDC, NST2, and IRP',idea:'A baseline is the current-evidence starting case. Policy evidence such as NDC, NST2, IRP, electrification targets, and project pipelines can inform scenarios.',why:'A modeller must know whether evidence describes today, a target, a policy promise, or a future pipeline assumption.',doText:'Check the scenario basis and provenance before using output files in a modelling run.',example:'A current plant capacity table supports baseline. An IRP capacity target supports a policy or future scenario.',check:'You should know ENERGIM tags evidence but does not decide the final scenario by itself.',learn:'The modelling team still decides how evidence belongs in baseline, policy, or sensitivity cases.',view:'exports',actionLabel:'See output context'},
-      {id:'manual-export',num:'12',short:'Outputs',title:'Download the files and know what they mean',idea:'After Transform, ENERGIM can download LEAP CSV, NEMO/OSeMOSYS CSV, SDMX XML, and provenance JSON.',why:'The outputs are the bridge from evidence review to modelling work.',doText:'Open Exports after Transform. Download all generated files, or download LEAP, NEMO, SDMX, and provenance separately.',example:'LEAP_Rwanda_TransformationCapacity_ENERGIM.csv is for LEAP input. NEMO_Rwanda_TotalAnnualMaxCapacity_ENERGIM.csv is for NEMO/OSeMOSYS input.',check:'You should know which file goes to which modelling workflow.',learn:'Google Drive sync is optional. Local download is the default success path.',view:'exports',actionLabel:'Open Exports'}
+      {id:'manual-mapping',num:'10',short:'Bulk mapping',title:'Map evidence one-by-one or in bulk',idea:'Mapping means matching evidence to the right inventory variable and model output columns.',why:'A number alone is not enough. The app needs to know whether it is capacity, generation, demand, cost, emission factor, or another variable.',doText:'In Document Intelligence, import selected documents, all shown evidence, crawler matches, or a LEAP/NEMO module group, then Analyze and map evidence.',example:'All LEAP transformation evidence can be imported together before validation and transformation.',check:'You should understand why Analyze, Validate, and Transform are separate steps.',learn:'Analyze identifies likely variables. Validate reviews readiness. Transform creates output files.',view:'intelligence',actionLabel:'Try Document Intelligence'},
+      {id:'manual-tracker',num:'11',short:'Tracker',title:'Track collection progress',idea:'The Tracker is your workplan and evidence trail. Crawler and import actions update tracker notes and status locally.',why:'Without a tracker, people may request the same data twice, forget quality issues, or use unvalidated files.',doText:'Open Tracker after crawler/import work. Review status, quality, completeness, and notes for each row.',example:'A row can move from Requested to Partially Received when evidence is found, then Received when imported.',check:'You should understand that Validated means reviewed, not merely downloaded.',learn:'Use notes for missing years, questionable sources, restricted data, or follow-up requests.',view:'tracker',actionLabel:'Open Tracker'},
+      {id:'manual-scenarios',num:'12',short:'Scenarios',title:'Understand baseline, NDC, NST2, and IRP',idea:'A baseline is the current-evidence starting case. Policy evidence such as NDC, NST2, IRP, electrification targets, and project pipelines can inform scenarios.',why:'A modeller must know whether evidence describes today, a target, a policy promise, or a future pipeline assumption.',doText:'Check the scenario basis and provenance before using output files in a modelling run.',example:'A current plant capacity table supports baseline. An IRP capacity target supports a policy or future scenario.',check:'You should know ENERGIM tags evidence but does not decide the final scenario by itself.',learn:'The modelling team still decides how evidence belongs in baseline, policy, or sensitivity cases.',view:'exports',actionLabel:'See output context'},
+      {id:'manual-export',num:'13',short:'Outputs',title:'Download the files and know what they mean',idea:'After Transform, ENERGIM can download LEAP CSV, NEMO/OSeMOSYS CSV, SDMX XML, and provenance JSON.',why:'The outputs are the bridge from evidence review to modelling work.',doText:'Open Exports after Transform. Download all generated files, or download LEAP, NEMO, SDMX, and provenance separately.',example:'LEAP_Rwanda_TransformationCapacity_ENERGIM.csv is for LEAP input. NEMO_Rwanda_TotalAnnualMaxCapacity_ENERGIM.csv is for NEMO/OSeMOSYS input.',check:'You should know which file goes to which modelling workflow.',learn:'Google Drive sync is optional. Local download is the default success path.',view:'exports',actionLabel:'Open Exports'}
     ];
   }
   function tutorialPathItem(lesson){
@@ -4043,7 +4150,7 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
     const items=filteredInventory();
     const available=items.filter(({r})=>r[5]==='A').length;
     const gaps=items.filter(({r})=>r[5]==='G').length;
-    return '<section class="edh-panel"><span class="edh-kicker">Step 03 - Inventory</span><h2>Review LEAP and NEMO input requirements.</h2><p>This inventory is the current ENERGIM priority schema. It shows the variable, model role, source or data producer, availability, priority, and NEMO treatment. EPD Rwanda is a core producer for private-sector and scenario evidence.</p><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-view="tracker" type="button">Open tracker</button><button class="edh-btn" data-edh-action="inventory-csv" type="button">Download inventory CSV</button><button class="edh-btn" data-edh-action="filter-epd" type="button">Show EPD core rows</button></div></section>'+
+    return '<section class="edh-panel"><span class="edh-kicker">Step 03 - Inventory</span><h2>Review LEAP and NEMO input requirements.</h2><p>This inventory is the current ENERGIM priority schema. The source or data producer is the likely starting point for evidence, not the final truth. Send rows to the crawler so it can search repository evidence and supporting sources.</p><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-view="crawler" type="button">Open crawler</button><button class="edh-btn" data-edh-action="crawler-high-priority" type="button">Create tasks from high-priority gaps</button><button class="edh-btn" data-edh-action="inventory-csv" type="button">Download inventory CSV</button><button class="edh-btn" data-edh-action="filter-epd" type="button">Show EPD core rows</button></div></section>'+
       inputCoveragePanel()+
       producerPanel()+
       '<section class="edh-status-grid">'+
@@ -4057,7 +4164,215 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
   }
   function inventoryRow(r,i,ts){
     const isEpd=String(r.slice(3).join(' ')).toLowerCase().includes('epd');
-    return '<article class="edh-row"><div><h4>#'+(i+1)+' '+esc(r[0])+'</h4><p><b>Source / data producer:</b> '+esc(r[3])+' | <b>Sector:</b> '+esc(r[2])+'</p><p><b>Model note:</b> '+esc(r[9]||'Review mapping note')+'</p><div class="edh-meta"><span class="edh-tag">'+esc(ML[r[1]]||r[1])+'</span><span class="edh-tag '+(r[5]==='A'?'good':r[5]==='G'?'gold':'')+'">'+esc(AL[r[5]]||r[5])+'</span><span class="edh-tag '+(r[6]==='H'?'gold':'')+'">'+esc(PL[r[6]]||r[6])+'</span><span class="edh-tag">'+esc(NL[r[8]]||r[8])+'</span><span class="edh-tag">'+esc(ts.status||'Not Started')+'</span>'+(isEpd?'<span class="edh-tag good">EPD core</span>':'')+'</div></div><div class="edh-row-actions"><button class="edh-btn" data-edh-action="tracker-focus" data-index="'+i+'" type="button">Track</button><button class="edh-btn ghost" data-edh-action="find-evidence" data-query="'+esc(r[3])+'" type="button">Find evidence</button></div></article>';
+    return '<article class="edh-row"><div><h4>#'+(i+1)+' '+esc(r[0])+'</h4><p><b>Likely starting source:</b> '+esc(r[3])+' | <b>Sector:</b> '+esc(r[2])+'</p><p><b>Model note:</b> '+esc(r[9]||'Review mapping note')+'</p><div class="edh-meta"><span class="edh-tag">'+esc(ML[r[1]]||r[1])+'</span><span class="edh-tag '+(r[5]==='A'?'good':r[5]==='G'?'gold':'')+'">'+esc(AL[r[5]]||r[5])+'</span><span class="edh-tag '+(r[6]==='H'?'gold':'')+'">'+esc(PL[r[6]]||r[6])+'</span><span class="edh-tag">'+esc(NL[r[8]]||r[8])+'</span><span class="edh-tag">'+esc(ts.status||'Not Started')+'</span>'+(isEpd?'<span class="edh-tag good">EPD core</span>':'')+'</div></div><div class="edh-row-actions"><button class="edh-btn primary" data-edh-action="create-crawler-task" data-index="'+i+'" type="button">Send to crawler</button><button class="edh-btn" data-edh-action="tracker-focus" data-index="'+i+'" type="button">Track</button><button class="edh-btn ghost" data-edh-action="find-evidence" data-query="'+esc(r[3])+'" type="button">Search evidence</button></div></article>';
+  }
+  function pipelinePanel(){
+    const steps=[
+      ['Inventory','What data do we need?'],
+      ['Crawler','Where can evidence be found?'],
+      ['Evidence','What documents did we find?'],
+      ['Intelligence','What values can we extract?'],
+      ['Tracker','What is the status?'],
+      ['Exports','What model files are ready?']
+    ];
+    return '<section class="edh-pipeline">'+steps.map(s=>'<article class="edh-pipe-step"><b>'+esc(s[0])+'</b><span>'+esc(s[1])+'</span></article>').join('')+'</section>';
+  }
+  function splitSources(value){
+    return String(value||'').split(/\/|;|,|\+|\u2014|\u2013| - /).map(x=>x.trim()).filter(Boolean);
+  }
+  function sourceRole(name,isDefault){
+    const text=String(name||'').toLowerCase();
+    if(isDefault&&text.includes('epd')) return 'likely private-sector source';
+    if(isDefault) return 'likely starting source';
+    if(/epd|private|developer|association|member/.test(text)) return 'private-sector source';
+    if(/ndc|nst|irp|policy|rema|unfccc|mininfra|minecofin/.test(text)) return 'policy/planning source';
+    if(/world bank|afdb|iea|irena|seforall|fao|nasa/.test(text)) return 'supporting source';
+    if(/reg|edcl|eucl|rura|nisr|rra|rwb|wasac/.test(text)) return 'supporting official source';
+    return 'discovered source';
+  }
+  function sourceCandidatesForRow(r){
+    const first=splitSources(r[3]);
+    const bySector={
+      Residential:['EPD Rwanda','NISR','MININFRA','RURA','SEforALL'],
+      Commercial:['RRA','NISR','REG','EUCL','EPD Rwanda'],
+      Industrial:['RRA','NISR','REG','EUCL','EPD Rwanda'],
+      Transport:['MININFRA','RRA','RURA','EPD Rwanda','World Bank'],
+      Generation:['REG','EDCL','EUCL','RURA','MININFRA','IRENA','World Bank'],
+      Grid:['EUCL','EDCL','REG','RURA','MININFRA','AfDB'],
+      Hydro:['RWB','REG','EDCL','IRENA','World Bank'],
+      Solar:['REG','EDCL','IRENA','NASA POWER','World Bank'],
+      Macro:['NISR','MINECOFIN','MININFRA','World Bank','IMF'],
+      'Biomass/Peat':['EPD Rwanda','REMA','MININFRA','FAOSTAT','World Bank'],
+      Methane:['REG','REMA','RDB','World Bank','AfDB']
+    };
+    const base=[...first,...(bySector[r[2]]||[]),'EPD Rwanda','World Bank','IEA'];
+    const seen=new Set();
+    return base.map((name,idx)=>({name:name.replace(/\s+/g,' ').trim(),role:sourceRole(name,idx<first.length)})).filter(item=>{
+      const key=item.name.toLowerCase();
+      if(!item.name||seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    }).slice(0,10);
+  }
+  function crawlerQueryForRow(r){
+    return ['Rwanda',r[0],ML[r[1]]||r[1],r[2],r[3],'LEAP','NEMO','data','report'].filter(Boolean).join(' ');
+  }
+  function keyTokens(text){
+    return String(text||'').toLowerCase().split(/[^a-z0-9]+/).filter(w=>w.length>3&&!['rwanda','data','source','report','with','from','into','input','energy'].includes(w));
+  }
+  function taskForIndex(index){
+    return state.crawlerTasks.find(t=>t.inventoryIndex===index);
+  }
+  function createCrawlerTask(index,quiet=false){
+    const r=rows()[index];
+    if(!r) return null;
+    let task=taskForIndex(index);
+    if(!task){
+      task={
+        id:'crawl-'+index+'-'+Date.now().toString(36),
+        inventoryIndex:index,
+        variable:r[0],
+        module:r[1],
+        sector:r[2],
+        defaultProducer:r[3],
+        priority:r[6],
+        nemo:r[8],
+        query:crawlerQueryForRow(r),
+        sources:sourceCandidatesForRow(r),
+        evidenceIds:[],
+        status:'Search task created',
+        createdAt:new Date().toISOString(),
+        updatedAt:new Date().toISOString()
+      };
+      state.crawlerTasks.unshift(task);
+    }
+    markTrackerFromCrawler(task,'Search task created');
+    saveCrawlerTasks();
+    if(!quiet) try{showToast('Crawler task created from inventory row #'+(index+1)+'.');}catch(e){}
+    return task;
+  }
+  function createHighPriorityCrawlerTasks(){
+    const before=state.crawlerTasks.length;
+    rows().forEach((r,i)=>{
+      const ts=tracker()[i]||{};
+      if(r[6]==='H' && (!ts.status||ts.status==='Not Started'||ts.status==='Issue / Gap')) createCrawlerTask(i,true);
+    });
+    const added=state.crawlerTasks.length-before;
+    try{showToast(added?added+' crawler tasks created.':'High-priority tasks already exist.');}catch(e){}
+    setView('crawler');
+  }
+  function docScoreForTask(doc,task){
+    const hay=(doc.title+' '+doc.institution+' '+doc.category+' '+doc.datasets+' '+doc.url).toLowerCase();
+    let score=0;
+    keyTokens(task.variable+' '+task.sector+' '+task.defaultProducer+' '+task.query).forEach(token=>{if(hay.includes(token)) score+=1;});
+    (task.sources||[]).forEach(src=>{if(src.name&&hay.includes(src.name.toLowerCase())) score+=3;});
+    if(hay.includes(String(task.sector||'').toLowerCase())) score+=2;
+    if(task.module==='N' && /nemo|osemosys|timeslice|discount|constraint/.test(hay)) score+=2;
+    if(String(task.defaultProducer||'').toLowerCase().includes('epd') && hay.includes('epd')) score+=4;
+    return score;
+  }
+  async function ensureEvidenceLoaded(){
+    if(!state.docsLoaded) await loadEvidence();
+    return state.docs;
+  }
+  async function runCrawlerTask(id){
+    const task=state.crawlerTasks.find(t=>t.id===id);
+    if(!task) return;
+    await ensureEvidenceLoaded();
+    const scored=state.docs.map(d=>({d,score:docScoreForTask(d,task)})).filter(x=>x.score>0).sort((a,b)=>b.score-a.score).slice(0,10);
+    task.evidenceIds=scored.map(x=>x.d.id);
+    task.status=scored.length?'Evidence found':'Gap remains';
+    task.updatedAt=new Date().toISOString();
+    markTrackerFromCrawler(task,task.status);
+    saveCrawlerTasks();
+    render();
+    try{showToast(scored.length?scored.length+' evidence records matched.':'No repository match yet; keep as a gap or search externally.');}catch(e){}
+  }
+  async function runAllCrawlerTasks(){
+    if(!state.crawlerTasks.length) createHighPriorityCrawlerTasks();
+    await ensureEvidenceLoaded();
+    state.crawlerTasks.forEach(task=>{
+      const scored=state.docs.map(d=>({d,score:docScoreForTask(d,task)})).filter(x=>x.score>0).sort((a,b)=>b.score-a.score).slice(0,10);
+      task.evidenceIds=scored.map(x=>x.d.id);
+      task.status=scored.length?'Evidence found':'Gap remains';
+      task.updatedAt=new Date().toISOString();
+      markTrackerFromCrawler(task,task.status);
+    });
+    saveCrawlerTasks();
+    render();
+    try{showToast('Crawler tasks scanned against the repository.');}catch(e){}
+  }
+  function crawlerDocs(task){
+    return (task.evidenceIds||[]).map(id=>state.docs.find(d=>d.id===id)).filter(Boolean);
+  }
+  function appendTrackerNote(index,note){
+    if(!trackerState[index]) trackerState[index]={idx:index,status:'Not Started',responsible:'',dateReq:'',dateRec:'',filePath:'',quality:'',pct:'',remarks:''};
+    const ts=trackerState[index];
+    const current=String(ts.remarks||'');
+    if(!current.includes(note)) ts.remarks=(current?current+' | ':'')+note;
+    return ts;
+  }
+  function markTrackerFromCrawler(task,phase){
+    const ts=appendTrackerNote(task.inventoryIndex,'Crawler: '+phase);
+    if(phase==='Search task created' && (!ts.status||ts.status==='Not Started')) ts.status='Requested';
+    if(phase==='Evidence found' && !['Validated','Received'].includes(ts.status)) ts.status='Partially Received';
+    if(phase==='Evidence imported' && ts.status!=='Validated') ts.status='Received';
+    if(phase==='Gap remains' && (!ts.status||ts.status==='Not Started')) ts.status='Issue / Gap';
+    if(phase==='Evidence found') ts.pct=Math.max(parseInt(ts.pct)||0,35);
+    if(phase==='Evidence imported') ts.pct=Math.max(parseInt(ts.pct)||0,55);
+    if(task.evidenceIds&&task.evidenceIds.length) ts.filePath='Evidence: '+task.evidenceIds.slice(0,3).join(', ');
+    try{saveTrackerLocal();populatePolySelector();}catch(e){}
+  }
+  function markSelectedTrackerProgress(phase,status,pct){
+    if(selectedTrackerIdx===null||selectedTrackerIdx===undefined) return;
+    const ts=appendTrackerNote(selectedTrackerIdx,'Document Intelligence: '+phase);
+    if(status) ts.status=status;
+    if(pct!==undefined) ts.pct=Math.max(parseInt(ts.pct)||0,pct);
+    if(state.selectedDoc) ts.filePath='Evidence: '+state.selectedDoc.id;
+    try{saveTrackerLocal();populatePolySelector();}catch(e){}
+  }
+  function filteredCrawlerTasks(){
+    const q=state.crawlerQ.toLowerCase();
+    return state.crawlerTasks.filter(task=>{
+      if(state.crawlerModule && task.module!==state.crawlerModule) return false;
+      if(q && !(task.variable+' '+task.defaultProducer+' '+task.sector+' '+task.query+' '+task.status).toLowerCase().includes(q)) return false;
+      return true;
+    });
+  }
+  function renderCrawlerView(){
+    const tasks=filteredCrawlerTasks();
+    const found=state.crawlerTasks.filter(t=>(t.evidenceIds||[]).length).length;
+    const gaps=state.crawlerTasks.filter(t=>t.status==='Gap remains').length;
+    return '<section class="edh-panel"><span class="edh-kicker">Step 04 - Crawler</span><h2>Find documents for inventory needs.</h2><p>The crawler starts from the inventory variable and likely producer, then searches repository evidence and supporting sources. The listed producer is a smart starting assumption, not the only acceptable source.</p><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-action="crawler-high-priority" type="button">Create high-priority tasks</button><button class="edh-btn" data-edh-action="run-all-crawler" type="button">Run smart scan</button><button class="edh-btn" data-edh-view="evidence" type="button">Open evidence library</button></div></section>'+
+      pipelinePanel()+
+      '<section class="edh-status-grid">'+
+        '<article class="edh-card"><h3>Tasks</h3><span class="metric">'+state.crawlerTasks.length+'</span><span class="label">from inventory rows</span></article>'+
+        '<article class="edh-card good"><h3>Evidence found</h3><span class="metric">'+found+'</span><span class="label">matched tasks</span></article>'+
+        '<article class="edh-card gold"><h3>Gaps</h3><span class="metric">'+gaps+'</span><span class="label">need follow-up</span></article>'+
+        '<article class="edh-card"><h3>Repository</h3><span class="metric">'+(state.docsLoaded?state.docs.length:'...')+'</span><span class="label">records available</span></article>'+
+      '</section>'+
+      '<section class="edh-crawler-grid">'+
+        '<div class="edh-panel"><span class="edh-kicker">Source logic</span><h3>Start likely, then broaden.</h3><p>ENERGIM treats the inventory producer as the likely official or partner source. The crawler also checks supporting official, private-sector, policy, international, and discovered sources before asking for validation.</p><div class="edh-source-list">'+sourceLegend().join('')+'</div></div>'+
+        '<div class="edh-list">'+
+          '<section class="edh-toolbar"><input class="edh-search" data-edh-input="crawlerQ" placeholder="Search crawler tasks..." value="'+esc(state.crawlerQ)+'"><select class="edh-select" data-edh-input="crawlerModule"><option value="">All modules</option>'+['D','T','R','S','N'].map(m=>'<option value="'+m+'" '+(state.crawlerModule===m?'selected':'')+'>'+esc(ML[m]||m)+'</option>').join('')+'</select></section>'+
+          (tasks.length?tasks.map(renderCrawlerTask).join(''):'<div class="edh-empty">No crawler tasks yet. Open Inventory and send a row to the crawler, or create tasks from high-priority gaps.</div>')+
+        '</div>'+
+      '</section>';
+  }
+  function sourceLegend(){
+    return [
+      ['Likely starting source','Entity named in the inventory row.'],
+      ['Supporting official source','Public agencies that may confirm or complement the row.'],
+      ['Private-sector source','EPD Rwanda, members, developers, and project actors.'],
+      ['Policy/planning source','NDC, NST2, IRP, regulatory, and planning evidence.'],
+      ['Discovered source','Repository or web evidence that still needs validation.']
+    ].map(x=>'<div class="edh-source-item"><b>'+esc(x[0])+'</b><span>'+esc(x[1])+'</span></div>');
+  }
+  function renderCrawlerTask(task){
+    const r=rows()[task.inventoryIndex]||[];
+    const docs=crawlerDocs(task);
+    const sources=(task.sources||[]).slice(0,6).map(src=>'<div class="edh-source-item"><b>'+esc(src.name)+'</b><span>'+esc(src.role)+'</span></div>').join('');
+    return '<article class="edh-row"><div><h4>#'+(task.inventoryIndex+1)+' '+esc(task.variable)+'</h4><p><b>Query:</b> '+esc(task.query)+'</p><p><b>Likely source:</b> '+esc(task.defaultProducer)+' | <b>Module:</b> '+esc(ML[task.module]||task.module)+' | <b>Sector:</b> '+esc(task.sector)+'</p><div class="edh-meta"><span class="edh-tag '+(task.status==='Evidence found'?'good':task.status==='Gap remains'?'gold':'')+'">'+esc(task.status)+'</span><span class="edh-tag">'+esc(PL[task.priority]||task.priority)+'</span><span class="edh-tag">'+docs.length+' evidence match'+(docs.length===1?'':'es')+'</span><span class="edh-tag">'+esc(NL[task.nemo]||task.nemo)+'</span></div><div class="edh-source-list">'+sources+'</div>'+(docs.length?'<div class="edh-bulk-list">'+docs.slice(0,3).map(d=>'<div class="edh-bulk-item"><b>'+esc(d.title)+'</b><span>'+esc(d.institution)+' - '+esc(d.category||'Unclassified')+'</span></div>').join('')+'</div>':'')+'</div><div class="edh-row-actions"><button class="edh-btn primary" data-edh-action="run-crawler-task" data-task="'+esc(task.id)+'" type="button">Run scan</button><button class="edh-btn" data-edh-action="import-task-docs" data-task="'+esc(task.id)+'" type="button">Import matches</button><button class="edh-btn ghost" data-edh-action="task-evidence" data-task="'+esc(task.id)+'" type="button">View evidence</button><button class="edh-btn ghost" data-edh-action="tracker-focus" data-index="'+task.inventoryIndex+'" type="button">Tracker</button></div></article>';
   }
   function filteredTracker(){
     const q=state.trackerQ.toLowerCase();
@@ -4070,7 +4385,7 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
   function renderTrackerView(){
     const items=filteredTracker();
     const c=statusCounts();
-    return '<section class="edh-panel"><span class="edh-kicker">Step 04 - Tracker</span><h2>Turn the inventory into a collection plan.</h2><p>Change status and quality row by row. Everything is saved in this browser in free local mode.</p><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-action="tracker-export" type="button">Download tracker XLSX</button><button class="edh-btn" data-edh-view="evidence" type="button">Import evidence</button></div></section>'+
+    return '<section class="edh-panel"><span class="edh-kicker">Step 07 - Tracker</span><h2>Follow evidence from search to validation.</h2><p>Crawler tasks, evidence imports, mapping, and validation leave a status trail here. Everything is saved in this browser in free local mode.</p><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-action="tracker-export" type="button">Download tracker XLSX</button><button class="edh-btn" data-edh-view="crawler" type="button">Open crawler</button><button class="edh-btn" data-edh-view="evidence" type="button">Import evidence</button></div></section>'+
       '<section class="edh-status-grid">'+
         '<article class="edh-card good"><h3>Validated</h3><span class="metric">'+c.validated+'</span><span class="label">ready rows</span></article>'+
         '<article class="edh-card"><h3>Received</h3><span class="metric">'+(c.received+c.partial)+'</span><span class="label">to validate</span></article>'+
@@ -4105,7 +4420,7 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
     };
   }
   async function loadEvidence(){
-    if(state.docsLoaded) return;
+    if(state.docsLoaded) return state.docs;
     try{
       const response=await fetch('data/master/evidence/evidence_records.jsonl');
       if(!response.ok) throw new Error('missing evidence_records');
@@ -4119,6 +4434,7 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
     }
     state.docsLoaded=true;
     render();
+    return state.docs;
   }
   function filteredDocs(){
     const q=state.evidenceQ.toLowerCase();
@@ -4135,18 +4451,111 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
     const docs=filteredDocs();
     const institutions=[...new Set(state.docs.map(d=>d.institution).filter(Boolean))].sort().slice(0,40);
     const types=[...new Set(state.docs.map(d=>d.type).filter(Boolean))].sort();
-    return '<section class="edh-panel"><span class="edh-kicker">Step 05 - Evidence library</span><h2>Import crawled repository documents directly.</h2><p>Crawled records are a first-class source. Select one here and send it to Document Intelligence without re-uploading it.</p><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-view="intelligence" type="button">Open Document Intelligence</button><button class="edh-btn" data-edh-action="reload-evidence" type="button">Reload evidence lake</button></div></section>'+
-      '<section class="edh-toolbar"><input class="edh-search" data-edh-input="evidenceQ" placeholder="Search title, institution, dataset, source URL..." value="'+esc(state.evidenceQ)+'"><select class="edh-select" data-edh-input="evidenceInstitution"><option value="">All institutions</option>'+institutions.map(x=>'<option '+(state.evidenceInstitution===x?'selected':'')+'>'+esc(x)+'</option>').join('')+'</select><select class="edh-select" data-edh-input="evidenceType"><option value="">All file types</option>'+types.map(x=>'<option '+(state.evidenceType===x?'selected':'')+'>'+esc(x)+'</option>').join('')+'</select></section>'+
+    return '<section class="edh-panel"><span class="edh-kicker">Step 05 - Evidence library</span><h2>Store found and crawled documents.</h2><p>The Evidence Library is the repository of crawler results, imported documents, source metadata, extraction status, validation status, and provenance notes.</p><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-action="bulk-import-selected" type="button">Import selected</button><button class="edh-btn" data-edh-action="bulk-import-shown" type="button">Import all shown</button><button class="edh-btn" data-edh-view="intelligence" type="button">Open Document Intelligence</button><button class="edh-btn" data-edh-action="reload-evidence" type="button">Reload evidence lake</button></div></section>'+
+      '<section class="edh-toolbar"><input class="edh-search" data-edh-input="evidenceQ" placeholder="Search title, institution, dataset, source URL..." value="'+esc(state.evidenceQ)+'"><select class="edh-select" data-edh-input="evidenceInstitution"><option value="">All institutions</option>'+institutions.map(x=>'<option '+(state.evidenceInstitution===x?'selected':'')+'>'+esc(x)+'</option>').join('')+'</select><select class="edh-select" data-edh-input="evidenceType"><option value="">All file types</option>'+types.map(x=>'<option '+(state.evidenceType===x?'selected':'')+'>'+esc(x)+'</option>').join('')+'</select><button class="edh-btn soft" data-edh-action="select-shown-docs" type="button">Select shown</button><span class="edh-tag">'+state.selectedDocIds.length+' selected</span></section>'+
       '<section class="edh-list">'+(state.docsLoaded?docs.slice(0,42).map(docRow).join(''):'<div class="edh-empty">Loading crawled evidence records...</div>')+(docs.length>42?'<div class="edh-empty">Showing first 42 matches. Narrow the evidence library to import a specific source.</div>':'')+'</section>';
   }
   function docRow(d){
-    return '<article class="edh-row"><div><h4>'+esc(d.title)+'</h4><p>'+esc(d.institution)+' - '+esc(d.category||'Unclassified')+'</p><div class="edh-meta"><span class="edh-tag good">'+esc(d.type)+'</span><span class="edh-tag">'+esc(d.status)+'</span><span class="edh-tag">confidence '+esc(d.confidence)+'</span>'+(d.years?'<span class="edh-tag">'+esc(d.years)+'</span>':'')+(d.units?'<span class="edh-tag">'+esc(d.units)+'</span>':'')+'</div></div><div class="edh-row-actions"><button class="edh-btn primary" data-edh-action="import-doc" data-doc="'+esc(d.id)+'" type="button">Import</button>'+(d.url?'<a class="edh-btn ghost" href="'+esc(d.url)+'" target="_blank" rel="noopener">Source</a>':'')+'</div></article>';
+    const match=findInventoryMatch(d);
+    const inv=match!==null?rows()[match]:null;
+    const task=state.crawlerTasks.find(t=>(t.evidenceIds||[]).includes(d.id));
+    const selected=state.selectedDocIds.includes(d.id);
+    return '<article class="edh-row"><div class="edh-checkline"><input type="checkbox" data-edh-doc-check="'+esc(d.id)+'" '+(selected?'checked':'')+' aria-label="Select evidence"><div><h4>'+esc(d.title)+'</h4><p>'+esc(d.institution)+' - '+esc(d.category||'Unclassified')+'</p><p>'+(inv?'<b>Linked variable:</b> #'+(match+1)+' '+esc(inv[0])+' | <b>Module:</b> '+esc(ML[inv[1]]||inv[1]):'<b>Linked variable:</b> not matched yet')+'</p><div class="edh-meta"><span class="edh-tag good">'+esc(d.type)+'</span><span class="edh-tag">'+esc(classifyDocSource(d))+'</span><span class="edh-tag '+(needsOcr(d)?'gold':'good')+'">'+esc(extractionStatus(d))+'</span><span class="edh-tag">'+esc(d.status)+'</span><span class="edh-tag">confidence '+esc(d.confidence)+'</span>'+(task?'<span class="edh-tag good">crawler task</span>':'')+(d.years?'<span class="edh-tag">'+esc(d.years)+'</span>':'')+(d.units?'<span class="edh-tag">'+esc(d.units)+'</span>':'')+'</div></div></div><div class="edh-row-actions"><button class="edh-btn primary" data-edh-action="import-doc" data-doc="'+esc(d.id)+'" type="button">Import one</button>'+(match!==null?'<button class="edh-btn" data-edh-action="create-crawler-task" data-index="'+match+'" type="button">Link task</button>':'')+(d.url?'<a class="edh-btn ghost" href="'+esc(d.url)+'" target="_blank" rel="noopener">Source</a>':'')+'</div></article>';
+  }
+  function classifyDocSource(d){
+    const text=(d.institution+' '+d.category+' '+d.title).toLowerCase();
+    if(/epd|private|member|developer/.test(text)) return 'private-sector source';
+    if(/ndc|nst|irp|policy|rema|unfccc|mininfra|minecofin/.test(text)) return 'policy/planning source';
+    if(/reg|edcl|eucl|rura|nisr|rra|rwb|wasac/.test(text)) return 'official/supporting source';
+    if(/world bank|afdb|iea|irena|seforall|fao|nasa/.test(text)) return 'supporting source';
+    return 'discovered source';
+  }
+  function needsOcr(d){
+    return /pdf|png|jpg|jpeg|webp|image/.test(String(d.type||'').toLowerCase()) || /scan|photo|image|ocr/.test((d.method+' '+d.title).toLowerCase());
+  }
+  function extractionStatus(d){
+    return needsOcr(d)?'OCR/extraction may be needed':'text extraction ready';
   }
   function docToText(d){
     const years=(d.years||'2024').split(';').map(x=>x.trim()).filter(Boolean);
     const unit=(d.units||'value').split(';')[0].trim()||'value';
     const rowsOut=years.length?years.slice(0,8).map((y,i)=>[y,100+i*7,unit,d.institution,d.title].join(',')):['2024,100,'+unit+','+d.institution+','+d.title];
-    return 'year,value,unit,institution,source_title\n'+rowsOut.join('\n')+'\n\nSource URL: '+d.url+'\nDataset category: '+d.category+'\nMatching datasets: '+d.datasets+'\nExtraction method: '+d.method;
+    return 'ENERGIM_EVIDENCE_ID: '+d.id+'\nTitle: '+d.title+'\nInstitution: '+d.institution+'\nSource type: '+classifyDocSource(d)+'\nExtraction status: '+extractionStatus(d)+'\nSource URL: '+d.url+'\nDataset category: '+d.category+'\nMatching datasets: '+d.datasets+'\nExtraction method: '+d.method+'\n\nyear,value,unit,institution,source_title\n'+rowsOut.join('\n');
+  }
+  function bulkText(docs){
+    return docs.map((d,i)=>'--- DOCUMENT '+(i+1)+' OF '+docs.length+' ---\n'+docToText(d)).join('\n\n');
+  }
+  function docsFromIds(ids){
+    const wanted=new Set(ids);
+    return state.docs.filter(d=>wanted.has(d.id));
+  }
+  function moduleDocs(key){
+    const docs=state.docsLoaded?state.docs:[];
+    return docs.filter(d=>{
+      const idx=findInventoryMatch(d);
+      if(idx===null) return false;
+      const r=rows()[idx];
+      if(key==='leap') return r[1]!=='N';
+      if(key==='nemo') return r[8]&&r[8]!=='NA';
+      return r[1]===key;
+    });
+  }
+  function moduleImportLabel(key){
+    if(key==='leap') return 'all LEAP-facing evidence';
+    if(key==='nemo') return 'all NEMO/OSeMOSYS-relevant evidence';
+    return ML[key]||key||'selected module';
+  }
+  function bulkImportDocs(docs,label){
+    const clean=(docs||[]).filter(Boolean);
+    if(!clean.length){
+      try{showToast('No documents matched that import choice.');}catch(e){}
+      return;
+    }
+    state.bulkDocs=clean;
+    state.bulkLabel=label||'Bulk import';
+    state.selectedDoc=clean[0];
+    state.selectedDocIds=clean.map(d=>d.id);
+    state.pasteText=bulkText(clean);
+    resetProductOutputs();
+    const firstMatch=findInventoryMatch(clean[0]);
+    if(firstMatch!==null){
+      selectedTrackerIdx=firstMatch;
+      try{const sel=document.getElementById('poly-item-sel');if(sel) sel.value=String(firstMatch);}catch(e){}
+    }
+    const touched=new Set();
+    clean.forEach(doc=>{
+      const idx=findInventoryMatch(doc);
+      if(idx!==null&&!touched.has(idx)){
+        touched.add(idx);
+        const task=taskForIndex(idx);
+        if(task){
+          if(!task.evidenceIds) task.evidenceIds=[];
+          if(!task.evidenceIds.includes(doc.id)) task.evidenceIds.push(doc.id);
+          task.status='Evidence imported';
+          task.updatedAt=new Date().toISOString();
+          markTrackerFromCrawler(task,'Evidence imported');
+        }else{
+          const ts=appendTrackerNote(idx,'Evidence imported: '+doc.title.slice(0,80));
+          if(ts.status!=='Validated') ts.status='Received';
+          ts.pct=Math.max(parseInt(ts.pct)||0,55);
+          ts.filePath='Evidence: '+doc.id;
+        }
+      }
+    });
+    try{saveCrawlerTasks();saveTrackerLocal();populatePolySelector();}catch(e){}
+    mirrorPaste();
+    state.extractionStep=1;
+    setView('intelligence');
+    try{showToast(clean.length+' document'+(clean.length===1?'':'s')+' imported into Document Intelligence.');}catch(e){}
+  }
+  function renderBulkQueue(){
+    const docs=state.bulkDocs&&state.bulkDocs.length?state.bulkDocs:(state.selectedDoc?[state.selectedDoc]:[]);
+    if(!docs.length) return '<div class="edh-empty">No bulk queue yet. Import selected, all shown, a crawler task, or a LEAP/NEMO module group.</div>';
+    return '<div class="edh-bulk-list">'+docs.slice(0,12).map(d=>{
+      const idx=findInventoryMatch(d);
+      const r=idx!==null?rows()[idx]:null;
+      return '<div class="edh-bulk-item"><b>'+esc(d.title)+'</b><span>'+esc(d.institution)+' - '+esc(extractionStatus(d))+(r?' - '+esc(ML[r[1]]||r[1])+' - #'+(idx+1):'')+'</span></div>';
+    }).join('')+(docs.length>12?'<div class="edh-empty">Plus '+(docs.length-12)+' more documents in this import queue.</div>':'')+'</div>';
   }
   function readDetected(){
     try{return detectedParam||state.localMapping||null;}catch(e){return state.localMapping||null;}
@@ -4226,8 +4635,10 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
     const doc=state.selectedDoc;
     const detected=readDetected();
     const hasOutput=readOutputs();
-    return '<section class="edh-panel"><span class="edh-kicker">Step 06 - Document Intelligence</span><h2>Extract evidence, map it, preserve provenance.</h2><p>Use crawled repository documents first, then uploaded PDFs/images or pasted extracted text. Automated OCR scans documents when configured; manual paste is the free fallback.</p></section>'+
+    const queueCount=(state.bulkDocs&&state.bulkDocs.length)||(doc?1:0);
+    return '<section class="edh-panel"><span class="edh-kicker">Step 06 - Document Intelligence</span><h2>Extract evidence, map it, preserve provenance.</h2><p>Import one document, selected evidence, all visible evidence, crawler matches, or whole LEAP/NEMO module groups. Automated OCR handles scanned documents when configured; manual paste remains the free fallback.</p></section>'+
       '<section class="edh-process">'+['Source','Extract','Map','Validate','Export'].map((s,i)=>'<div class="edh-process-step '+(i<state.extractionStep?'done':i===state.extractionStep?'active':'')+'"><b>'+esc(s)+'</b><span>'+(i===0?'Choose evidence':i===1?'OCR/text extraction':i===2?'Inventory matching':i===3?'Confidence review':'Local files')+'</span></div>').join('')+'</section>'+
+      '<section class="edh-panel"><span class="edh-kicker">Bulk import</span><h3>Process documents one-by-one or in groups.</h3><p>Choose selected repository records, all visible evidence, or evidence grouped by LEAP/NEMO module. Each document keeps its source, inventory link, extraction status, and provenance notes.</p><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-action="bulk-import-selected" type="button">Import selected</button><button class="edh-btn" data-edh-action="bulk-import-shown" type="button">Import current evidence filter</button><button class="edh-btn" data-edh-action="bulk-import-module" data-module="D" type="button">LEAP demand</button><button class="edh-btn" data-edh-action="bulk-import-module" data-module="T" type="button">LEAP transformation</button><button class="edh-btn" data-edh-action="bulk-import-module" data-module="N" type="button">NEMO-specific</button><button class="edh-btn" data-edh-action="bulk-import-module" data-module="nemo" type="button">All NEMO-relevant</button></div><div class="edh-callout"><b>'+esc(state.bulkLabel||'Current queue')+'</b><br>'+queueCount+' document'+(queueCount===1?'':'s')+' ready for extraction and mapping.</div>'+renderBulkQueue()+'</section>'+
       '<section class="edh-split"><div class="edh-panel"><span class="edh-kicker">Evidence source</span>'+(doc?'<h3>'+esc(doc.title)+'</h3><p>'+esc(doc.institution)+' - '+esc(doc.category||'Repository evidence')+'</p><div class="edh-meta"><span class="edh-tag good">repository import</span><span class="edh-tag">'+esc(doc.type)+'</span><span class="edh-tag">'+esc(doc.status)+'</span></div>':'<h3>No repository document selected</h3><p>Import a crawled document from the Evidence Library, upload a new file for extraction, or paste extracted text below.</p>')+'<div class="edh-hero-actions"><button class="edh-btn" data-edh-view="evidence" type="button">Browse repository</button><button class="edh-btn" data-edh-action="upload" type="button">Upload file</button></div><div class="edh-drop" data-edh-action="upload"><div><b>Upload new evidence</b><span>CSV, Excel, JSON, text, PDF, PNG, JPG, WEBP</span></div></div></div>'+
       '<div class="edh-panel"><span class="edh-kicker">Free fallback path</span><h3>Paste extracted text, tables, or OCR results</h3><p>This path remains free and local. If a repository document is selected, its metadata is preloaded as provenance.</p><textarea class="edh-textarea" data-edh-input="pasteText" placeholder="Paste extracted text, CSV/table rows, or OCR output here...">'+esc(state.pasteText)+'</textarea><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-action="analyze" type="button">Analyze and map evidence</button><button class="edh-btn" data-edh-action="validate" type="button">Validate</button><button class="edh-btn green" data-edh-action="transform" type="button">Transform outputs</button></div></div></section>'+
       '<section class="edh-panel"><span class="edh-kicker">Extraction result</span>'+(detected?'<h3>'+esc(detected.parameter_name||'Mapped evidence')+'</h3><p>'+esc((ML&&ML[detected.module])||detected.module||'Module')+' - '+esc(detected.sector||'sector')+' - confidence '+Math.round((detected.confidence||0)*100)+'%</p><div class="edh-meta"><span class="edh-tag good">LEAP '+(detected.leap_ready?'ready':'review')+'</span><span class="edh-tag gold">NEMO '+(detected.nemo_augmentation_needed?'augmentation':'ready')+'</span><span class="edh-tag">'+esc(detected.detected_unit||'unit unknown')+'</span><span class="edh-tag">Scenario basis: baseline evidence + policy tags</span></div>':'<div class="edh-empty">No extraction result yet. Import evidence or paste text, then run Analyze and map evidence.</div>')+(hasOutput?'<div class="edh-hero-actions"><button class="edh-btn primary" data-edh-action="download-all" type="button">Download all generated files</button><button class="edh-btn" data-edh-view="exports" type="button">Open exports</button></div>':'')+'</section>'+
@@ -4236,7 +4647,7 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
   }
   function renderExportsView(){
     const hasOutput=readOutputs();
-    return '<section class="edh-panel"><span class="edh-kicker">Step 07 - Exports</span><h2>Download LEAP and NEMO inputs locally.</h2><p>Local export is the success path: LEAP CSV, NEMO/OSeMOSYS CSV, SDMX, provenance, inventory, tracker, and evidence library. Google Drive remains optional.</p></section>'+
+    return '<section class="edh-panel"><span class="edh-kicker">Step 08 - Exports</span><h2>Download LEAP and NEMO inputs locally.</h2><p>Local export is the success path: LEAP CSV, NEMO/OSeMOSYS CSV, SDMX, provenance, inventory, tracker, and evidence library. Google Drive remains optional.</p></section>'+
       modelOutputPanel(hasOutput)+
       scenarioLensPanel()+
       '<section class="edh-work-grid">'+
@@ -4253,7 +4664,7 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
   }
   function renderSetupView(){
     const c=cfg();
-    return '<section class="edh-panel"><span class="edh-kicker">Step 08 - Optional services</span><h2>Keep setup quiet until the workflow needs it.</h2><p>Local mode is the default. Google sync, LLM mapping, and automated OCR/vision are available, but they should never block a first run.</p><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-action="local" type="button">Use free local mode</button><button class="edh-btn" data-edh-action="settings" type="button">Open settings</button><button class="edh-btn" data-edh-action="audit" type="button">Run audit</button></div></section>'+
+    return '<section class="edh-panel"><span class="edh-kicker">Step 09 - Optional services</span><h2>Keep setup quiet until the workflow needs it.</h2><p>Local mode is the default. Google sync, LLM mapping, and automated OCR/vision are available, but they should never block a first run.</p><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-action="local" type="button">Use free local mode</button><button class="edh-btn" data-edh-action="settings" type="button">Open settings</button><button class="edh-btn" data-edh-action="audit" type="button">Run audit</button></div></section>'+
       '<section class="edh-service-grid">'+
         '<article class="edh-service ready"><h3>Free local mode</h3><p>Browser tracker, local downloads, repository import, manual paste, and exports. No credits.</p><div class="edh-meta"><span class="edh-tag good">Ready</span></div></article>'+
         '<article class="edh-service optional"><h3>Google sync</h3><p>Optional shared Sheets and Drive outputs. '+(hasGoogle()?'Connected.':'Not connected, and not required.')+'</p><div class="edh-meta"><span class="edh-tag">'+(hasGoogle()?'connected':'optional')+'</span></div></article>'+
@@ -4265,10 +4676,12 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
   }
   async function onClick(event){
     const viewBtn=event.target.closest('[data-edh-view]');
-    if(viewBtn){state.view=viewBtn.dataset.edhView;render();return;}
+    if(viewBtn){setView(viewBtn.dataset.edhView);return;}
     const actionBtn=event.target.closest('[data-edh-action]');
     if(!actionBtn) return;
     const action=actionBtn.dataset.edhAction;
+    if(action==='back'){const previous=state.viewHistory.pop()||'home';setView(previous,false);return;}
+    if(action==='top'){window.scrollTo({top:0,behavior:'smooth'});return;}
     if(action==='theme'){try{toggleTheme();}catch(e){} return;}
     if(action==='settings'){try{openModal('settings');}catch(e){} return;}
     if(action==='audit'){try{runFullAudit();}catch(e){} render();return;}
@@ -4276,8 +4689,8 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
     if(action==='inventory-csv'){try{exportInvCSV();}catch(e){} return;}
     if(action==='tracker-export'){try{exportTrackerExcel();}catch(e){} return;}
     if(action==='evidence-export'){downloadEvidenceCsv();return;}
-    if(action==='filter-epd'){state.invQ='EPD';state.invModule='';state.view='inventory';render();return;}
-    if(action==='filter-epd-evidence'){state.evidenceQ='EPD';state.evidenceInstitution='EPD Rwanda';state.evidenceType='';state.view='evidence';render();return;}
+    if(action==='filter-epd'){state.invQ='EPD';state.invModule='';setView('inventory');return;}
+    if(action==='filter-epd-evidence'){state.evidenceQ='EPD';state.evidenceInstitution='EPD Rwanda';state.evidenceType='';setView('evidence');return;}
     if(action==='download-all'){try{dlAllFiles();}catch(e){} return;}
     if(action==='download-leap'){try{dlOut('leap');}catch(e){} return;}
     if(action==='download-nemo'){try{dlOut('nemo');}catch(e){} return;}
@@ -4286,8 +4699,29 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
     if(action==='reset-poly'){try{resetPoly();}catch(e){} state.extractionStep=0;resetProductOutputs();render();return;}
     if(action==='upload'){document.getElementById('poly-file')?.click();return;}
     if(action==='reload-evidence'){state.docsLoaded=false;state.docs=[];render();loadEvidence();return;}
-    if(action==='tracker-focus'){state.trackerQ=rows()[parseInt(actionBtn.dataset.index)]?.[0]||'';state.view='tracker';render();return;}
-    if(action==='find-evidence'){state.evidenceQ=actionBtn.dataset.query||'';state.view='evidence';render();return;}
+    if(action==='tracker-focus'){state.trackerQ=rows()[parseInt(actionBtn.dataset.index)]?.[0]||'';setView('tracker');return;}
+    if(action==='find-evidence'){state.evidenceQ=actionBtn.dataset.query||'';setView('evidence');return;}
+    if(action==='create-crawler-task'){const task=createCrawlerTask(parseInt(actionBtn.dataset.index));if(task) await runCrawlerTask(task.id);setView('crawler');return;}
+    if(action==='crawler-high-priority'){createHighPriorityCrawlerTasks();return;}
+    if(action==='run-crawler-task'){await runCrawlerTask(actionBtn.dataset.task);return;}
+    if(action==='run-all-crawler'){await runAllCrawlerTasks();return;}
+    if(action==='task-evidence'){
+      const task=state.crawlerTasks.find(t=>t.id===actionBtn.dataset.task);
+      if(task){state.evidenceQ=task.evidenceIds&&task.evidenceIds.length?crawlerDocs(task).map(d=>d.institution).filter(Boolean)[0]||task.variable:task.defaultProducer||task.variable;setView('evidence');}
+      return;
+    }
+    if(action==='import-task-docs'){
+      const task=state.crawlerTasks.find(t=>t.id===actionBtn.dataset.task);
+      if(task){
+        if(!(task.evidenceIds||[]).length) await runCrawlerTask(task.id);
+        bulkImportDocs(crawlerDocs(task),'Crawler task: '+task.variable);
+      }
+      return;
+    }
+    if(action==='select-shown-docs'){state.selectedDocIds=filteredDocs().slice(0,42).map(d=>d.id);render();return;}
+    if(action==='bulk-import-selected'){bulkImportDocs(docsFromIds(state.selectedDocIds),'Selected evidence documents');return;}
+    if(action==='bulk-import-shown'){bulkImportDocs(filteredDocs().slice(0,42),'Current Evidence Library filter');return;}
+    if(action==='bulk-import-module'){await ensureEvidenceLoaded();bulkImportDocs(moduleDocs(actionBtn.dataset.module),'Module import: '+moduleImportLabel(actionBtn.dataset.module));return;}
     if(action==='import-doc'){importDoc(actionBtn.dataset.doc);return;}
     if(action==='analyze'){await analyzeEvidence();return;}
     if(action==='validate'){await validateEvidence();return;}
@@ -4298,9 +4732,17 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
     if(!key) return;
     state[key]=event.target.value;
     if(key==='pasteText'){mirrorPaste();resetProductOutputs();}
-    if(['invQ','trackerQ','evidenceQ'].includes(key)) render();
+    if(['invQ','trackerQ','evidenceQ','crawlerQ'].includes(key)) render();
   }
   function onChange(event){
+    const checkedDoc=event.target.dataset.edhDocCheck;
+    if(checkedDoc){
+      const next=new Set(state.selectedDocIds);
+      if(event.target.checked) next.add(checkedDoc); else next.delete(checkedDoc);
+      state.selectedDocIds=[...next];
+      render();
+      return;
+    }
     const key=event.target.dataset.edhInput;
     if(key){state[key]=event.target.value;render();return;}
     const statusIndex=event.target.dataset.edhStatus;
@@ -4323,6 +4765,9 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
     const doc=state.docs.find(d=>d.id===id);
     if(!doc) return;
     state.selectedDoc=doc;
+    state.bulkDocs=[];
+    state.bulkLabel='';
+    state.selectedDocIds=[doc.id];
     state.pasteText=docToText(doc);
     resetProductOutputs();
     mirrorPaste();
@@ -4333,14 +4778,32 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
         const sel=document.getElementById('poly-item-sel');
         if(sel) sel.value=String(match);
       }catch(e){}
+      const task=taskForIndex(match);
+      if(task){
+        if(!task.evidenceIds) task.evidenceIds=[];
+        if(!task.evidenceIds.includes(doc.id)) task.evidenceIds.push(doc.id);
+        task.status='Evidence imported';
+        markTrackerFromCrawler(task,'Evidence imported');
+        saveCrawlerTasks();
+      }else{
+        const ts=appendTrackerNote(match,'Evidence imported: '+doc.title.slice(0,80));
+        if(ts.status!=='Validated') ts.status='Received';
+        ts.pct=Math.max(parseInt(ts.pct)||0,55);
+        ts.filePath='Evidence: '+doc.id;
+        try{saveTrackerLocal();populatePolySelector();}catch(e){}
+      }
     }
     state.extractionStep=1;
-    state.view='intelligence';
-    render();
+    setView('intelligence');
   }
   function findInventoryMatch(doc){
     const hay=(doc.category+' '+doc.datasets+' '+doc.title+' '+doc.institution).toLowerCase();
-    const idx=rows().findIndex(r=>hay.includes(String(r[2]).toLowerCase()) || hay.includes(String(r[3]).split('/')[0].trim().toLowerCase()) || String(r[0]).toLowerCase().split(/\W+/).some(w=>w.length>6&&hay.includes(w)));
+    const idx=rows().findIndex(r=>{
+      const sector=String(r[2]||'').toLowerCase();
+      const source=String(r[3]||'').split('/')[0].trim().toLowerCase();
+      const nameHit=String(r[0]).toLowerCase().split(/\W+/).some(w=>w.length>6&&hay.includes(w));
+      return (sector.length>3&&hay.includes(sector)) || (source.length>3&&hay.includes(source)) || nameHit;
+    });
     return idx>=0?idx:null;
   }
   function mirrorPaste(){
@@ -4359,15 +4822,17 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
       await runPolyIdentify();
       setProductMapping(readDetected()||productLocalMap());
       state.extractionStep=3;
+      markSelectedTrackerProgress('Mapped to inventory variable','Received',70);
     }catch(e){
       setProductMapping(productLocalMap());
       state.extractionStep=3;
+      markSelectedTrackerProgress('Mapped locally','Received',70);
       try{showToast('Mapped locally. Add an LLM key later only if you want model-assisted mapping.');}catch(_){}
     }
     render();
   }
   async function validateEvidence(){
-    try{ensureProductMapping();await runPolyValidate();state.extractionStep=4;}catch(e){try{showToast('Analyze evidence before validation.');}catch(_){}}
+    try{ensureProductMapping();await runPolyValidate();state.extractionStep=4;markSelectedTrackerProgress('Validated','Validated',90);}catch(e){try{showToast('Analyze evidence before validation.');}catch(_){}}
     render();
   }
   async function transformEvidence(){
@@ -4380,6 +4845,7 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
       }
       state.localOutputsReady=true;
       state.extractionStep=5;
+      markSelectedTrackerProgress('Transformed to LEAP/NEMO outputs','Validated',100);
     }catch(e){
       try{
         const mapped=ensureProductMapping();
@@ -4387,6 +4853,7 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
         outputFiles=demoOutput(mapped,schema);
         state.localOutputsReady=true;
         state.extractionStep=5;
+        markSelectedTrackerProgress('Transformed locally to LEAP/NEMO outputs','Validated',100);
         showToast('Generated local outputs without calling an external API.');
       }catch(_){try{showToast('Validate evidence before transformation.');}catch(__){}}
     }
@@ -4398,7 +4865,7 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
     try{dlText(csv,'ENERGIM_crawled_evidence_library.csv','text/csv');}catch(e){}
   }
   window.ENERGIM_PRODUCT={
-    setView(view){state.view=view;render();},
+    setView(view){setView(view);},
     importFirstDoc(){const doc=state.docs[0];if(doc) importDoc(doc.id);},
     async analyze(){await analyzeEvidence();},
     async validate(){await validateEvidence();},
@@ -4406,7 +4873,10 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
     summary(){
       return {
         view:state.view,
+        crawlerTasks:state.crawlerTasks.length,
         docs:state.docs.length,
+        selectedDocs:state.selectedDocIds.length,
+        bulkDocs:state.bulkDocs.length,
         selectedDoc:state.selectedDoc?state.selectedDoc.title:'',
         pasteLength:state.pasteText.length,
         extractionStep:state.extractionStep,
