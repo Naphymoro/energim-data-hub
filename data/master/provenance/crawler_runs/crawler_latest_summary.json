@@ -1,10 +1,10 @@
 {
-  "evidence_record_count": 162,
-  "finished_utc": "2026-06-01T07:08:20+00:00",
-  "new_or_updated_records_this_run": 196,
-  "run_id": "84eb5247e0f6",
+  "evidence_record_count": 170,
+  "finished_utc": "2026-06-08T06:54:23+00:00",
+  "new_or_updated_records_this_run": 181,
+  "run_id": "43d4ee214645",
   "source_count": 21,
-  "started_utc": "2026-06-01T06:54:56+00:00",
+  "started_utc": "2026-06-08T06:42:12+00:00",
   "summaries": [
     {
       "errors": [],
@@ -22,15 +22,15 @@
     },
     {
       "errors": [],
-      "fetched": 22,
-      "records": 22,
+      "fetched": 16,
+      "records": 16,
       "source_id": "EDCL",
       "url": "https://www.reg.rw/about-us/subsidiaries/edcl/"
     },
     {
       "errors": [],
-      "fetched": 22,
-      "records": 22,
+      "fetched": 16,
+      "records": 16,
       "source_id": "EUCL",
       "url": "https://www.reg.rw/about-us/subsidiaries/eucl/"
     },
@@ -52,8 +52,8 @@
       "errors": [
         "https://www.rura.rw/publications/board-decisions: HTTP Error 404: Not Found"
       ],
-      "fetched": 17,
-      "records": 17,
+      "fetched": 18,
+      "records": 18,
       "source_id": "RURA",
       "url": "https://www.rura.rw/"
     },
@@ -101,16 +101,16 @@
     },
     {
       "errors": [],
-      "fetched": 13,
-      "records": 11,
+      "fetched": 10,
+      "records": 8,
       "source_id": "WRI",
       "url": "https://www.wri.org/"
     },
     {
       "errors": [
-        "https://data.worldbank.org/indicator/SP.POP.GROW?locations=RW: HTTP Error 500: Internal Server Error",
-        "https://data.worldbank.org/indicator/EN.GHG.CO2.PC.CE.AR5?locations=RW: HTTP Error 500: Internal Server Error",
-        "https://data.worldbank.org/indicator/ER.H2O.FWTL.ZS?locations=RW: HTTP Error 504: Gateway Timeout"
+        "https://data.worldbank.org/indicator/EN.GHG.CO2.PC.CE.AR5?locations=RW: The read operation timed out",
+        "https://data.worldbank.org/indicator/ER.H2O.FWTL.ZS?locations=RW: HTTP Error 500: Internal Server Error",
+        "https://data.worldbank.org/indicator/EG.ELC.RNWX.ZS?locations=RW: The read operation timed out"
       ],
       "fetched": 12,
       "records": 12,
@@ -137,14 +137,14 @@
     },
     {
       "errors": [],
-      "fetched": 19,
-      "records": 19,
+      "fetched": 18,
+      "records": 18,
       "source_id": "SEFORALL",
       "url": "https://www.seforall.org/"
     },
     {
       "errors": [
-        "https://unfccc.int/documents?f%5B0%5D=topic%3A3984: HTTP Error 403: Forbidden"
+        "https://unfccc.int/documents?f%5B0%5D=topic%3A4194: HTTP Error 403: Forbidden"
       ],
       "fetched": 30,
       "records": 17,
