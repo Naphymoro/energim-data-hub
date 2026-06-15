@@ -1,10 +1,10 @@
 {
-  "evidence_record_count": 170,
-  "finished_utc": "2026-06-08T06:54:23+00:00",
-  "new_or_updated_records_this_run": 181,
-  "run_id": "43d4ee214645",
+  "evidence_record_count": 175,
+  "finished_utc": "2026-06-15T07:33:09+00:00",
+  "new_or_updated_records_this_run": 192,
+  "run_id": "6bf1678da8d0",
   "source_count": 21,
-  "started_utc": "2026-06-08T06:42:12+00:00",
+  "started_utc": "2026-06-15T07:19:30+00:00",
   "summaries": [
     {
       "errors": [],
@@ -22,22 +22,22 @@
     },
     {
       "errors": [],
-      "fetched": 16,
-      "records": 16,
+      "fetched": 22,
+      "records": 22,
       "source_id": "EDCL",
       "url": "https://www.reg.rw/about-us/subsidiaries/edcl/"
     },
     {
       "errors": [],
-      "fetched": 16,
-      "records": 16,
+      "fetched": 22,
+      "records": 22,
       "source_id": "EUCL",
       "url": "https://www.reg.rw/about-us/subsidiaries/eucl/"
     },
     {
       "errors": [],
-      "fetched": 17,
-      "records": 17,
+      "fetched": 16,
+      "records": 16,
       "source_id": "NISR",
       "url": "https://statistics.gov.rw/"
     },
@@ -52,8 +52,8 @@
       "errors": [
         "https://www.rura.rw/publications/board-decisions: HTTP Error 404: Not Found"
       ],
-      "fetched": 18,
-      "records": 18,
+      "fetched": 16,
+      "records": 16,
       "source_id": "RURA",
       "url": "https://www.rura.rw/"
     },
@@ -101,15 +101,17 @@
     },
     {
       "errors": [],
-      "fetched": 10,
-      "records": 8,
+      "fetched": 13,
+      "records": 11,
       "source_id": "WRI",
       "url": "https://www.wri.org/"
     },
     {
       "errors": [
-        "https://data.worldbank.org/indicator/EN.GHG.CO2.PC.CE.AR5?locations=RW: The read operation timed out",
-        "https://data.worldbank.org/indicator/ER.H2O.FWTL.ZS?locations=RW: HTTP Error 500: Internal Server Error",
+        "https://data.worldbank.org/indicator/SP.POP.GROW?locations=RW: The read operation timed out",
+        "https://data.worldbank.org/indicator/EG.ELC.ACCS.ZS?locations=RW: HTTP Error 500: Internal Server Error",
+        "https://data.worldbank.org/indicator/EN.GHG.CO2.PC.CE.AR5?locations=RW: HTTP Error 502: Bad Gateway",
+        "https://data.worldbank.org/indicator/ER.H2O.FWTL.ZS?locations=RW: HTTP Error 502: Bad Gateway",
         "https://data.worldbank.org/indicator/EG.ELC.RNWX.ZS?locations=RW: The read operation timed out"
       ],
       "fetched": 12,
@@ -143,11 +145,9 @@
       "url": "https://www.seforall.org/"
     },
     {
-      "errors": [
-        "https://unfccc.int/documents?f%5B0%5D=topic%3A4194: HTTP Error 403: Forbidden"
-      ],
+      "errors": [],
       "fetched": 30,
-      "records": 17,
+      "records": 16,
       "source_id": "UNFCCC",
       "url": "https://unfccc.int/documents"
     },

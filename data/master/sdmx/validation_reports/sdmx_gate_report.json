@@ -5,5 +5,5 @@
   "passed_count": 0,
   "report_csv": "data/master/sdmx/validation_reports/sdmx_gate_report.csv",
   "rule": "No LEAP/NEMO export until SDMX gate passes and validator quorum is complete.",
-  "run_utc": "2026-06-08T06:54:23+00:00"
+  "run_utc": "2026-06-15T07:33:10+00:00"
 }
