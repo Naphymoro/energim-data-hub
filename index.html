@@ -1415,6 +1415,57 @@ tr:hover td{background:rgba(39,104,178,.05)}
 }
 .edh-bulk-item b{display:block;color:var(--t);font-size:12px}
 .edh-bulk-item span{display:block;margin-top:4px;color:var(--t2);font-size:10px;line-height:1.35}
+.edh-value-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(320px,.48fr);
+  gap:14px;
+  align-items:start;
+}
+.edh-value-card{
+  border:1px solid var(--br);
+  border-radius:8px;
+  background:var(--s2);
+  padding:13px;
+}
+.edh-value-card h4{margin:0;color:var(--t);font-size:13px;line-height:1.25}
+.edh-value-card p{margin:6px 0 0;color:var(--t2);font-size:11px;line-height:1.35}
+.edh-value-number{
+  display:flex;
+  align-items:baseline;
+  gap:8px;
+  margin-top:10px;
+}
+.edh-value-number strong{color:var(--t);font-size:24px;line-height:1}
+.edh-value-number span{color:var(--t2);font-size:12px}
+.edh-source-preview{
+  margin-top:10px;
+  border:1px solid var(--br);
+  border-radius:8px;
+  background:var(--s0);
+  padding:10px;
+  color:var(--t2);
+  font:700 10px/1.5 var(--mono);
+  max-height:120px;
+  overflow:auto;
+  white-space:pre-wrap;
+}
+.edh-mini-form{
+  display:grid;
+  gap:9px;
+  margin-top:12px;
+}
+.edh-mini-form label{display:grid;gap:5px;color:var(--t2);font-size:11px;font-weight:800}
+.edh-mini-form input,.edh-mini-form select,.edh-mini-form textarea{
+  width:100%;
+  min-height:38px;
+  border:1px solid var(--br);
+  border-radius:8px;
+  background:var(--s0);
+  color:var(--t);
+  padding:8px 10px;
+  outline:none;
+}
+.edh-mini-form textarea{min-height:72px;resize:vertical}
 .edh-search{
   min-height:40px;
   width:min(100%,420px);
@@ -1684,7 +1735,7 @@ tr:hover td{background:rgba(39,104,178,.05)}
   .edh-rail{position:relative;height:auto}
   .edh-nav{grid-template-columns:repeat(2,minmax(0,1fr))}
   .edh-rail-card{margin-top:0}
-  .edh-hero,.edh-split,.edh-manual-grid,.edh-crawler-grid{grid-template-columns:1fr}
+  .edh-hero,.edh-split,.edh-manual-grid,.edh-crawler-grid,.edh-value-grid{grid-template-columns:1fr}
   .edh-manual-toc{position:relative;top:auto}
   .edh-tutorial-hero,.edh-lesson-body{grid-template-columns:1fr}
   .edh-course-path{grid-template-columns:repeat(6,minmax(0,1fr))}
@@ -2723,16 +2774,101 @@ function renderReadiness(){
 }
 
 function exportTrackerExcel(){
-  if(!window.XLSX){alert('XLSX library not loaded');return;}
-  const wb=XLSX.utils.book_new();
-  const rows=[['#','Data Item','Module','Sector','Priority','Status','Responsible','Date Requested','Date Received','File Location','Quality','Completeness %','Remarks','LEAP Avail','NEMO Compat']];
+  const trackerRows=[['#','Data Item','Module','Sector','Priority','Status','Responsible','Date Requested','Date Received','File Location','Quality','Completeness %','Remarks','LEAP Avail','NEMO Compat']];
   INV_DATA.forEach((r,i)=>{
     const ts=trackerState[i]||{};
-    rows.push([i+1,r[0],ML[r[1]],r[2],PL[r[6]],ts.status||'Not Started',ts.responsible||'',ts.dateReq||'',ts.dateRec||'',ts.filePath||'',ts.quality||'',ts.pct||'',ts.remarks||'',AL[r[5]],NL[r[8]]]);
+    trackerRows.push([i+1,r[0],ML[r[1]],r[2],PL[r[6]],ts.status||'Not Started',ts.responsible||'',ts.dateReq||'',ts.dateRec||'',ts.filePath||'',ts.quality||'',ts.pct||'',ts.remarks||'',AL[r[5]],NL[r[8]]]);
   });
-  const ws=XLSX.utils.aoa_to_sheet(rows);
-  XLSX.utils.book_append_sheet(wb,ws,'Tracker');
-  XLSX.writeFile(wb,`ENERGIM_Tracker_${new Date().toISOString().slice(0,10)}.xlsx`);
+  const invRows=[['#','Variable Name','Module','Sector','Likely Data Producer','Source Format','Availability','Priority','Notes','NEMO Treatment','Model Note']];
+  INV_DATA.forEach((r,i)=>invRows.push([i+1,r[0],ML[r[1]]||r[1],r[2],r[3],r[4],AL[r[5]]||r[5],PL[r[6]]||r[6],r[7],NL[r[8]]||r[8],r[9]]));
+  let collected=[];
+  try{collected=JSON.parse(localStorage.getItem('energim_collected_values')||'[]');}catch(e){collected=[];}
+  const valueRows=[['Inventory Row #','Variable Name','Module','Sector','Source Institution','Source Type','Source URL','Evidence ID','Evidence Title','Year / Period','Value','Unit','Category / Technology / Fuel','Geography','LEAP Mapping','NEMO Mapping','Scenario Basis','Extraction Method','Confidence','Validation Status','Reviewer Notes','Date Collected','Provenance Notes','Snippet']];
+  collected.forEach(v=>valueRows.push([
+    v.inventoryIndex!==null&&v.inventoryIndex!==undefined?Number(v.inventoryIndex)+1:'',
+    v.variable||'',
+    ML[v.module]||v.module||'',
+    v.sector||'',
+    v.sourceInstitution||'',
+    v.sourceType||'',
+    v.sourceUrl||'',
+    v.evidenceId||'',
+    v.evidenceTitle||'',
+    v.year||'',
+    v.value||'',
+    v.unit||'',
+    v.category||'',
+    v.geography||'Rwanda',
+    v.leapMapping||'',
+    v.nemoMapping||'',
+    v.scenarioBasis||'',
+    v.extractionMethod||'',
+    v.confidence||'',
+    v.status||'Needs review',
+    v.notes||'',
+    v.collectedAt||'',
+    v.provenance||'',
+    v.snippet||''
+  ]));
+  let evidence=[];
+  try{evidence=JSON.parse(localStorage.getItem('energim_evidence_snapshot')||'[]');}catch(e){evidence=[];}
+  const evidenceRows=[['Evidence ID','Title','Institution','Source Type','File Type','Source URL','Dataset Category','Years Detected','Units Detected','Validation Status','Confidence','Extraction Method']];
+  evidence.forEach(d=>evidenceRows.push([d.id,d.title,d.institution,d.sourceType||'',d.type,d.url,d.category,d.years,d.units,d.status,d.confidence,d.method]));
+  const provRows=[
+    ['Field','Value'],
+    ['Project',CFG.project||'ENERGIM'],
+    ['Contract',CFG.contract||'WRI #6277-SERV'],
+    ['Country',CFG.country||'Rwanda'],
+    ['Exported',new Date().toISOString()],
+    ['Workflow','Inventory -> Crawler -> Evidence Library -> Collected Values -> Document Intelligence -> Tracker -> Exports'],
+    ['Collected values count',collected.length],
+    ['Evidence sources count',evidence.length],
+    ['Mode','Free local export; Google, LLM, and OCR services optional']
+  ];
+  const sheets=[
+    {name:'Tracker',rows:trackerRows},
+    {name:'Inventory',rows:invRows},
+    {name:'Collected Values',rows:valueRows},
+    {name:'Evidence Sources',rows:evidenceRows},
+    {name:'Provenance',rows:provRows}
+  ];
+  const date=new Date().toISOString().slice(0,10);
+  if(window.XLSX){
+    const wb=XLSX.utils.book_new();
+    sheets.forEach(sheet=>XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(sheet.rows),sheet.name));
+    XLSX.writeFile(wb,`ENERGIM_Workbook_${date}.xlsx`);
+    return;
+  }
+  dlText(buildExcelXmlWorkbook(sheets),`ENERGIM_Workbook_${date}.xls`,'application/vnd.ms-excel');
+  try{showToast('Downloaded Excel-compatible workbook. Connect internet only if you need native XLSX generation.');}catch(e){}
+}
+
+function excelXmlEscape(value){
+  return String(value??'').replace(/[<>&"]/g,ch=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[ch]));
+}
+
+function excelXmlSheetName(name){
+  return excelXmlEscape(String(name||'Sheet').slice(0,31));
+}
+
+function excelXmlCell(value){
+  const raw=value??'';
+  const num=typeof raw==='number'?raw:(String(raw).trim()!==''&&isFinite(Number(raw))?Number(raw):null);
+  if(num!==null) return '<Cell><Data ss:Type="Number">'+num+'</Data></Cell>';
+  return '<Cell><Data ss:Type="String">'+excelXmlEscape(raw)+'</Data></Cell>';
+}
+
+function buildExcelXmlWorkbook(sheets){
+  const worksheets=sheets.map(sheet=>
+    '<Worksheet ss:Name="'+excelXmlSheetName(sheet.name)+'"><Table>'+
+    sheet.rows.map(row=>'<Row>'+row.map(excelXmlCell).join('')+'</Row>').join('')+
+    '</Table></Worksheet>'
+  ).join('');
+  return '<?xml version="1.0"?><?mso-application progid="Excel.Sheet"?>'+
+    '<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" '+
+    'xmlns:o="urn:schemas-microsoft-com:office:office" '+
+    'xmlns:x="urn:schemas-microsoft-com:office:excel" '+
+    'xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">'+worksheets+'</Workbook>';
 }
 
 // ═══════════════════════════════════════════════════════
@@ -3751,10 +3887,11 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
     {view:'inventory',num:'03',label:'Inventory',hint:'Review needs'},
     {view:'crawler',num:'04',label:'Crawler',hint:'Find likely sources'},
     {view:'evidence',num:'05',label:'Evidence library',hint:'Found documents'},
-    {view:'intelligence',num:'06',label:'Document intelligence',hint:'Bulk extract and map'},
-    {view:'tracker',num:'07',label:'Tracker',hint:'Progress trail'},
-    {view:'exports',num:'08',label:'Exports',hint:'Download locally'},
-    {view:'setup',num:'09',label:'Optional services',hint:'Google, LLM, OCR'}
+    {view:'values',num:'06',label:'Collected values',hint:'Review numbers'},
+    {view:'intelligence',num:'07',label:'Document intelligence',hint:'Bulk extract and map'},
+    {view:'tracker',num:'08',label:'Tracker',hint:'Progress trail'},
+    {view:'exports',num:'09',label:'Exports',hint:'Download locally'},
+    {view:'setup',num:'10',label:'Optional services',hint:'Google, LLM, OCR'}
   ];
   const state={
     view:initialView(),
@@ -3769,6 +3906,11 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
     evidenceQ:'',
     evidenceType:'',
     evidenceInstitution:'',
+    valueQ:'',
+    valueStatus:'',
+    valueModule:'',
+    collectedValues:loadCollectedValues(),
+    sourcePreviews:loadSourcePreviews(),
     selectedDocIds:[],
     bulkDocs:[],
     bulkLabel:'',
@@ -3802,6 +3944,33 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
   }
   function saveCrawlerTasks(){
     try{localStorage.setItem('energim_crawler_tasks',JSON.stringify(state.crawlerTasks));}catch(e){}
+  }
+  function loadCollectedValues(){
+    try{
+      const saved=localStorage.getItem('energim_collected_values');
+      return saved?JSON.parse(saved):[];
+    }catch(e){
+      return [];
+    }
+  }
+  function saveCollectedValues(){
+    try{localStorage.setItem('energim_collected_values',JSON.stringify(state.collectedValues));}catch(e){}
+  }
+  function loadSourcePreviews(){
+    try{
+      const saved=localStorage.getItem('energim_source_previews');
+      return saved?JSON.parse(saved):{};
+    }catch(e){
+      return {};
+    }
+  }
+  function saveSourcePreviews(){
+    try{localStorage.setItem('energim_source_previews',JSON.stringify(state.sourcePreviews));}catch(e){}
+  }
+  function saveEvidenceSnapshot(){
+    try{
+      localStorage.setItem('energim_evidence_snapshot',JSON.stringify((state.docs||[]).slice(0,500)));
+    }catch(e){}
   }
   function setView(view,remember=true){
     if(!view) return;
@@ -3888,6 +4057,7 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
       inventory:['Inventory','Review required data'],
       crawler:['Crawler','Find evidence for inventory needs'],
       evidence:['Evidence library','Found and crawled documents'],
+      values:['Collected values','Review extracted numbers'],
       intelligence:['Document intelligence','Bulk extract and map'],
       tracker:['Tracker','Collection progress'],
       exports:['Exports','Download locally'],
@@ -3906,6 +4076,7 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
       crawler:renderCrawlerView,
       tracker:renderTrackerView,
       evidence:renderEvidenceView,
+      values:renderValuesView,
       intelligence:renderIntelligenceView,
       exports:renderExportsView,
       setup:renderSetupView
@@ -3932,6 +4103,7 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
       '<article class="edh-card good"><h3>Local mode</h3><span class="metric">Ready</span><span class="label">No cloud or credits</span></article>'+
       '<article class="edh-card"><h3>Inventory</h3><span class="metric">'+rows().length+'</span><span class="label">required data items</span></article>'+
       '<article class="edh-card"><h3>Crawler</h3><span class="metric">'+state.crawlerTasks.length+'</span><span class="label">search tasks</span></article>'+
+      '<article class="edh-card good"><h3>Values</h3><span class="metric">'+state.collectedValues.length+'</span><span class="label">candidate numbers</span></article>'+
       '<article class="edh-card"><h3>Tracker</h3><span class="metric">'+c.validated+'</span><span class="label">validated rows</span></article>'+
       '<article class="edh-card gold"><h3>Evidence lake</h3><span class="metric">'+(state.docsLoaded?docs:'...')+'</span><span class="label">crawled records</span></article>'+
     '</div>';
@@ -3942,7 +4114,7 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
       '<div class="edh-panel">'+
         '<span class="edh-kicker">Free local first</span>'+
         '<h2>Build LEAP and NEMO inputs from Rwanda energy evidence.</h2>'+
-        '<p>Start locally, review the inventory, create crawler tasks, import found documents, extract evidence, update the tracker, then generate LEAP CSV, NEMO/OSeMOSYS CSV, SDMX, and provenance. Google, LLMs, and automated OCR are upgrades, not prerequisites.</p>'+
+        '<p>Start locally, review the inventory, create crawler tasks, extract source content and candidate numbers, review collected values, update the tracker, then generate LEAP CSV, NEMO/OSeMOSYS CSV, SDMX, and provenance. Google, LLMs, and automated OCR are upgrades, not prerequisites.</p>'+
         '<div class="edh-hero-actions">'+
           '<button class="edh-btn primary" type="button" data-edh-action="local">Start free local mode</button>'+
           '<button class="edh-btn" type="button" data-edh-view="manual">Read manual</button>'+
@@ -3956,10 +4128,11 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
           workflowStep('01','Read the manual','Learn the workflow before changing settings or adding API keys.')+
           workflowStep('02','Review inventory','Understand the data required before chasing sources.')+
           workflowStep('03','Create crawler tasks','Let inventory rows generate smart source searches.')+
-          workflowStep('04','Import evidence','Use crawler matches, repository documents, uploaded PDFs/images, or pasted extracted text.')+
-          workflowStep('05','Extract and map','Process one document, selected documents, or LEAP/NEMO module groups.')+
-          workflowStep('06','Update tracker','Record whether evidence is found, imported, mapped, validated, or still a gap.')+
-          workflowStep('07','Download model inputs','Export LEAP CSV, NEMO CSV, SDMX, tracker files, and provenance locally.')+
+          workflowStep('04','Extract source content','Open source records and collect visible text, candidate tables, numbers, years, and units.')+
+          workflowStep('05','Review collected values','Accept, reject, edit, or validate extracted numbers before modelling.')+
+          workflowStep('06','Extract and map','Process one document, selected documents, collected values, or LEAP/NEMO module groups.')+
+          workflowStep('07','Update tracker','Record whether evidence is found, values are extracted, mapped, validated, or still a gap.')+
+          workflowStep('08','Download model inputs','Export LEAP CSV, NEMO CSV, SDMX, tracker files, collected values, and provenance locally.')+
         '</div>'+
       '</div>'+
       '</section>'+
@@ -3968,7 +4141,8 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
         workCard('02','Manual','Use the guided manual when opening ENERGIM for the first time. It explains local mode, Inventory, Tracker, Evidence, OCR, LEAP, NEMO, and exports in plain language.','Open manual','manual')+
         workCard('03','Inventory','Review the 71 Rwanda energy data requirements and identify the high-priority gaps.','Open inventory','inventory')+
         workCard('04','Crawler','Turn inventory rows into smart source searches, then send matched evidence forward.','Open crawler','crawler')+
-        workCard('05','Evidence library','Search '+(state.docsLoaded?state.docs.length:'repository')+' found records and import one or many into extraction.','Browse evidence','evidence')+
+        workCard('05','Evidence library','Search '+(state.docsLoaded?state.docs.length:'repository')+' found records, extract source content, and collect candidate values.','Browse evidence','evidence')+
+        workCard('06','Collected values','Review extracted numbers before they move into LEAP/NEMO mapping and Excel export.','Review values','values')+
       '</section>'+
       modelOutputPanel(readOutputs())+
       scenarioLensPanel()+
@@ -3984,7 +4158,7 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
       '</section>'+
       '<section class="edh-manual-grid">'+
         '<aside class="edh-manual-toc">'+
-          '<div class="edh-callout"><b>Learning path</b><br>Follow the lessons from 01 to 12. Each card teaches one concept and gives one action to try.</div>'+
+          '<div class="edh-callout"><b>Learning path</b><br>Follow the lessons from 01 to '+lessons.length+'. Each card teaches one concept and gives one action to try.</div>'+
           '<div class="edh-course-path">'+lessons.map(tutorialPathItem).join('')+'</div>'+
           lessons.map(l=>manualToc(l.id,l.num,l.short)).join('')+
         '</aside>'+
@@ -3992,6 +4166,7 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
           lessons.map(tutorialLesson).join('')+
           '<section class="edh-manual-section" id="manual-help"><h3>Common mistakes and troubleshooting</h3>'+
             manualDetails('The app asks about Google or API keys. Do I need them?','No for first use. Choose Free local mode. Google, LLM, and automated OCR are optional.')+
+            manualDetails('Why did source extraction find links but no values?','The repository may only contain source metadata until OCR, crawler text, tables, or manual reviewer values are added. ENERGIM will not invent values from a link.')+
             manualDetails('I imported evidence but do not see LEAP or NEMO files.','Run Analyze and map evidence, then Validate, then Transform outputs. The model-file download buttons appear after Transform.')+
             manualDetails('OCR is confusing. What should I do first?','If you can copy text from the source, paste it into the text box and skip automated OCR. Use OCR only for scanned files or images.')+
             manualDetails('Can EPD data be used as baseline data?','EPD is core evidence, especially for private-sector and scenario intelligence. For official baseline calibration, validate EPD evidence against official sources where possible.')+
@@ -4001,6 +4176,7 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
             manualTerm('Inventory','The list of data variables needed for LEAP and NEMO input preparation.')+
             manualTerm('Tracker','The progress sheet for collection, review, quality, and validation status.')+
             manualTerm('Evidence','A source document, web page, table, dataset, or note used to support a model input.')+
+            manualTerm('Collected values','The reviewed numerical values extracted from evidence, with year, unit, source, confidence, status, and provenance.')+
             manualTerm('OCR','Optical character recognition. It extracts text from scans, images, or non-selectable PDFs.')+
             manualTerm('LEAP','A scenario accounting tool. ENERGIM prepares CSV inputs for LEAP but does not run LEAP.')+
             manualTerm('NEMO/OSeMOSYS','An optimization modelling structure. ENERGIM prepares input CSVs but does not solve the model.')+
@@ -4022,11 +4198,12 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
       {id:'manual-source',num:'06',short:'Sources',title:'What a data producer or source means',idea:'A source is where evidence comes from. A data producer is the institution or partner that creates, owns, validates, or can explain the data.',why:'Model inputs are only trusted when the team knows where values came from.',doText:'Look for the likely source in Inventory, supporting sources in Crawler, and institution fields in Evidence Library records.',example:'EUCL may produce billing or dispatch evidence. EPD Rwanda may produce private-sector clean cooking, SHS, mini-grid, LPG, and pipeline intelligence.',check:'You should know that source information is part of the model input trail.',learn:'Provenance is the source trail. It helps reviewers understand origin, processing, and confidence.',action:'filter-epd',actionLabel:'Show EPD rows'},
       {id:'manual-epd',num:'07',short:'EPD Rwanda',title:'Why EPD Rwanda matters',idea:'EPD Rwanda is core because ENERGIM needs private-sector evidence that official datasets may not fully capture.',why:'Private projects, clean cooking markets, SHS, mini-grid activity, LPG, biogas, e-mobility, financing, and project pipelines can be invisible or delayed in public datasets.',doText:'Use the EPD row filter in Inventory and the EPD evidence filter in Evidence Library.',example:'An EPD mini-grid member registry can help estimate off-grid electricity that does not appear in EUCL billing.',check:'You should know EPD evidence can augment official baseline sources and support scenarios.',learn:'EPD should not silently replace official baseline data without validation. It is core evidence, especially for private-sector and scenario intelligence.',action:'filter-epd',actionLabel:'Review EPD rows'},
       {id:'manual-evidence',num:'08',short:'Evidence',title:'Import evidence from the repository',idea:'The Evidence Library stores found, crawled, imported, and selected documents that can be sent into Document Intelligence.',why:'Repository import keeps source metadata with the evidence, which makes provenance stronger.',doText:'Open Evidence Library, select one or more records, then import selected or import all shown.',example:'Search EPD, select matching evidence records, then bulk import them for mapping.',check:'You should know that repository evidence can be used without re-uploading a file.',learn:'Evidence can be official, private-sector, partner, web page, PDF, CSV, table, or extracted text.',view:'evidence',actionLabel:'Open Evidence Library'},
-      {id:'manual-ocr',num:'09',short:'OCR',title:'Use OCR only when the document needs extraction',idea:'OCR extracts text from scanned PDFs, images, or photos where normal copy-and-paste does not work.',why:'Many energy documents are scanned reports. The model cannot use an image unless text or tables are extracted.',doText:'If the source text is selectable, paste it directly. If it is scanned, use external OCR, a custom OCR endpoint, or vision OCR when configured.',example:'A photographed table in a PDF needs OCR. A normal web table may not.',check:'You should know OCR is optional and may use credits only if automated services are configured.',learn:'Manual paste is free. Vision OCR and custom OCR are advanced modes for harder documents.',view:'intelligence',actionLabel:'Open Document Intelligence'},
-      {id:'manual-mapping',num:'10',short:'Bulk mapping',title:'Map evidence one-by-one or in bulk',idea:'Mapping means matching evidence to the right inventory variable and model output columns.',why:'A number alone is not enough. The app needs to know whether it is capacity, generation, demand, cost, emission factor, or another variable.',doText:'In Document Intelligence, import selected documents, all shown evidence, crawler matches, or a LEAP/NEMO module group, then Analyze and map evidence.',example:'All LEAP transformation evidence can be imported together before validation and transformation.',check:'You should understand why Analyze, Validate, and Transform are separate steps.',learn:'Analyze identifies likely variables. Validate reviews readiness. Transform creates output files.',view:'intelligence',actionLabel:'Try Document Intelligence'},
-      {id:'manual-tracker',num:'11',short:'Tracker',title:'Track collection progress',idea:'The Tracker is your workplan and evidence trail. Crawler and import actions update tracker notes and status locally.',why:'Without a tracker, people may request the same data twice, forget quality issues, or use unvalidated files.',doText:'Open Tracker after crawler/import work. Review status, quality, completeness, and notes for each row.',example:'A row can move from Requested to Partially Received when evidence is found, then Received when imported.',check:'You should understand that Validated means reviewed, not merely downloaded.',learn:'Use notes for missing years, questionable sources, restricted data, or follow-up requests.',view:'tracker',actionLabel:'Open Tracker'},
-      {id:'manual-scenarios',num:'12',short:'Scenarios',title:'Understand baseline, NDC, NST2, and IRP',idea:'A baseline is the current-evidence starting case. Policy evidence such as NDC, NST2, IRP, electrification targets, and project pipelines can inform scenarios.',why:'A modeller must know whether evidence describes today, a target, a policy promise, or a future pipeline assumption.',doText:'Check the scenario basis and provenance before using output files in a modelling run.',example:'A current plant capacity table supports baseline. An IRP capacity target supports a policy or future scenario.',check:'You should know ENERGIM tags evidence but does not decide the final scenario by itself.',learn:'The modelling team still decides how evidence belongs in baseline, policy, or sensitivity cases.',view:'exports',actionLabel:'See output context'},
-      {id:'manual-export',num:'13',short:'Outputs',title:'Download the files and know what they mean',idea:'After Transform, ENERGIM can download LEAP CSV, NEMO/OSeMOSYS CSV, SDMX XML, and provenance JSON.',why:'The outputs are the bridge from evidence review to modelling work.',doText:'Open Exports after Transform. Download all generated files, or download LEAP, NEMO, SDMX, and provenance separately.',example:'LEAP_Rwanda_TransformationCapacity_ENERGIM.csv is for LEAP input. NEMO_Rwanda_TotalAnnualMaxCapacity_ENERGIM.csv is for NEMO/OSeMOSYS input.',check:'You should know which file goes to which modelling workflow.',learn:'Google Drive sync is optional. Local download is the default success path.',view:'exports',actionLabel:'Open Exports'}
+      {id:'manual-values',num:'09',short:'Values',title:'Review collected numerical values',idea:'Collected Values is where ENERGIM shows actual candidate numbers before they become model inputs.',why:'A source link only tells you where to look. A model input needs the value, year, unit, source, confidence, status, and provenance.',doText:'Open Evidence Library, extract values from shown records, then review the Collected Values page. If a website blocks extraction, add the value manually after reading the source.',example:'A table row with 2024, 286 MW, solar becomes a candidate value that can be accepted, validated, or sent to Document Intelligence.',check:'You should know ENERGIM separates source discovery from value validation.',learn:'ENERGIM will not invent missing numbers from metadata-only links. OCR, crawler text, table extraction, or manual reviewer entry must provide the value.',view:'values',actionLabel:'Review values'},
+      {id:'manual-ocr',num:'10',short:'OCR',title:'Use OCR only when the document needs extraction',idea:'OCR extracts text from scanned PDFs, images, or photos where normal copy-and-paste does not work.',why:'Many energy documents are scanned reports. The model cannot use an image unless text or tables are extracted.',doText:'If the source text is selectable, paste it directly. If it is scanned, use external OCR, a custom OCR endpoint, or vision OCR when configured.',example:'A photographed table in a PDF needs OCR. A normal web table may not.',check:'You should know OCR is optional and may use credits only if automated services are configured.',learn:'Manual paste is free. Vision OCR and custom OCR are advanced modes for harder documents.',view:'intelligence',actionLabel:'Open Document Intelligence'},
+      {id:'manual-mapping',num:'11',short:'Bulk mapping',title:'Map evidence one-by-one or in bulk',idea:'Mapping means matching evidence to the right inventory variable and model output columns.',why:'A number alone is not enough. The app needs to know whether it is capacity, generation, demand, cost, emission factor, or another variable.',doText:'In Document Intelligence, import selected documents, all shown evidence, crawler matches, or a LEAP/NEMO module group, then Analyze and map evidence.',example:'All LEAP transformation evidence can be imported together before validation and transformation.',check:'You should understand why Analyze, Validate, and Transform are separate steps.',learn:'Analyze identifies likely variables. Validate reviews readiness. Transform creates output files.',view:'intelligence',actionLabel:'Try Document Intelligence'},
+      {id:'manual-tracker',num:'12',short:'Tracker',title:'Track collection progress',idea:'The Tracker is your workplan and evidence trail. Crawler and import actions update tracker notes and status locally.',why:'Without a tracker, people may request the same data twice, forget quality issues, or use unvalidated files.',doText:'Open Tracker after crawler/import work. Review status, quality, completeness, and notes for each row.',example:'A row can move from Requested to Partially Received when evidence is found, then Received when imported.',check:'You should understand that Validated means reviewed, not merely downloaded.',learn:'Use notes for missing years, questionable sources, restricted data, or follow-up requests.',view:'tracker',actionLabel:'Open Tracker'},
+      {id:'manual-scenarios',num:'13',short:'Scenarios',title:'Understand baseline, NDC, NST2, and IRP',idea:'A baseline is the current-evidence starting case. Policy evidence such as NDC, NST2, IRP, electrification targets, and project pipelines can inform scenarios.',why:'A modeller must know whether evidence describes today, a target, a policy promise, or a future pipeline assumption.',doText:'Check the scenario basis and provenance before using output files in a modelling run.',example:'A current plant capacity table supports baseline. An IRP capacity target supports a policy or future scenario.',check:'You should know ENERGIM tags evidence but does not decide the final scenario by itself.',learn:'The modelling team still decides how evidence belongs in baseline, policy, or sensitivity cases.',view:'exports',actionLabel:'See output context'},
+      {id:'manual-export',num:'14',short:'Outputs',title:'Download the files and know what they mean',idea:'After Transform, ENERGIM can download LEAP CSV, NEMO/OSeMOSYS CSV, SDMX XML, provenance JSON, and the tracker workbook with Collected Values.',why:'The outputs are the bridge from evidence review to modelling work.',doText:'Open Exports after Transform. Download all generated files, or download LEAP, NEMO, SDMX, provenance, and the workbook separately.',example:'LEAP_Rwanda_TransformationCapacity_ENERGIM.csv is for LEAP input. The Collected Values worksheet shows reviewed numerical evidence.',check:'You should know which file goes to which modelling workflow.',learn:'Google Drive sync is optional. Local download is the default success path.',view:'exports',actionLabel:'Open Exports'}
     ];
   }
   function tutorialPathItem(lesson){
@@ -4385,7 +4562,7 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
   function renderTrackerView(){
     const items=filteredTracker();
     const c=statusCounts();
-    return '<section class="edh-panel"><span class="edh-kicker">Step 07 - Tracker</span><h2>Follow evidence from search to validation.</h2><p>Crawler tasks, evidence imports, mapping, and validation leave a status trail here. Everything is saved in this browser in free local mode.</p><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-action="tracker-export" type="button">Download tracker XLSX</button><button class="edh-btn" data-edh-view="crawler" type="button">Open crawler</button><button class="edh-btn" data-edh-view="evidence" type="button">Import evidence</button></div></section>'+
+    return '<section class="edh-panel"><span class="edh-kicker">Step 08 - Tracker</span><h2>Follow evidence from search to validation.</h2><p>Crawler tasks, evidence imports, collected values, mapping, and validation leave a status trail here. Everything is saved in this browser in free local mode.</p><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-action="tracker-export" type="button">Download tracker XLSX</button><button class="edh-btn" data-edh-view="crawler" type="button">Open crawler</button><button class="edh-btn" data-edh-view="values" type="button">Review values</button><button class="edh-btn" data-edh-view="evidence" type="button">Import evidence</button></div></section>'+
       '<section class="edh-status-grid">'+
         '<article class="edh-card good"><h3>Validated</h3><span class="metric">'+c.validated+'</span><span class="label">ready rows</span></article>'+
         '<article class="edh-card"><h3>Received</h3><span class="metric">'+(c.received+c.partial)+'</span><span class="label">to validate</span></article>'+
@@ -4433,6 +4610,7 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
       ];
     }
     state.docsLoaded=true;
+    saveEvidenceSnapshot();
     render();
     return state.docs;
   }
@@ -4451,7 +4629,7 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
     const docs=filteredDocs();
     const institutions=[...new Set(state.docs.map(d=>d.institution).filter(Boolean))].sort().slice(0,40);
     const types=[...new Set(state.docs.map(d=>d.type).filter(Boolean))].sort();
-    return '<section class="edh-panel"><span class="edh-kicker">Step 05 - Evidence library</span><h2>Store found and crawled documents.</h2><p>The Evidence Library is the repository of crawler results, imported documents, source metadata, extraction status, validation status, and provenance notes.</p><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-action="bulk-import-selected" type="button">Import selected</button><button class="edh-btn" data-edh-action="bulk-import-shown" type="button">Import all shown</button><button class="edh-btn" data-edh-view="intelligence" type="button">Open Document Intelligence</button><button class="edh-btn" data-edh-action="reload-evidence" type="button">Reload evidence lake</button></div></section>'+
+    return '<section class="edh-panel"><span class="edh-kicker">Step 05 - Evidence library</span><h2>Store found and crawled documents.</h2><p>The Evidence Library is the repository of crawler results, imported documents, source metadata, extracted source previews, candidate values, validation status, and provenance notes.</p><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-action="extract-shown-values" type="button">Extract values from shown</button><button class="edh-btn" data-edh-action="bulk-import-selected" type="button">Import selected</button><button class="edh-btn" data-edh-action="bulk-import-shown" type="button">Import all shown</button><button class="edh-btn" data-edh-view="values" type="button">Review collected values</button><button class="edh-btn" data-edh-view="intelligence" type="button">Open Document Intelligence</button><button class="edh-btn" data-edh-action="reload-evidence" type="button">Reload evidence lake</button></div></section>'+
       '<section class="edh-toolbar"><input class="edh-search" data-edh-input="evidenceQ" placeholder="Search title, institution, dataset, source URL..." value="'+esc(state.evidenceQ)+'"><select class="edh-select" data-edh-input="evidenceInstitution"><option value="">All institutions</option>'+institutions.map(x=>'<option '+(state.evidenceInstitution===x?'selected':'')+'>'+esc(x)+'</option>').join('')+'</select><select class="edh-select" data-edh-input="evidenceType"><option value="">All file types</option>'+types.map(x=>'<option '+(state.evidenceType===x?'selected':'')+'>'+esc(x)+'</option>').join('')+'</select><button class="edh-btn soft" data-edh-action="select-shown-docs" type="button">Select shown</button><span class="edh-tag">'+state.selectedDocIds.length+' selected</span></section>'+
       '<section class="edh-list">'+(state.docsLoaded?docs.slice(0,42).map(docRow).join(''):'<div class="edh-empty">Loading crawled evidence records...</div>')+(docs.length>42?'<div class="edh-empty">Showing first 42 matches. Narrow the evidence library to import a specific source.</div>':'')+'</section>';
   }
@@ -4460,7 +4638,10 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
     const inv=match!==null?rows()[match]:null;
     const task=state.crawlerTasks.find(t=>(t.evidenceIds||[]).includes(d.id));
     const selected=state.selectedDocIds.includes(d.id);
-    return '<article class="edh-row"><div class="edh-checkline"><input type="checkbox" data-edh-doc-check="'+esc(d.id)+'" '+(selected?'checked':'')+' aria-label="Select evidence"><div><h4>'+esc(d.title)+'</h4><p>'+esc(d.institution)+' - '+esc(d.category||'Unclassified')+'</p><p>'+(inv?'<b>Linked variable:</b> #'+(match+1)+' '+esc(inv[0])+' | <b>Module:</b> '+esc(ML[inv[1]]||inv[1]):'<b>Linked variable:</b> not matched yet')+'</p><div class="edh-meta"><span class="edh-tag good">'+esc(d.type)+'</span><span class="edh-tag">'+esc(classifyDocSource(d))+'</span><span class="edh-tag '+(needsOcr(d)?'gold':'good')+'">'+esc(extractionStatus(d))+'</span><span class="edh-tag">'+esc(d.status)+'</span><span class="edh-tag">confidence '+esc(d.confidence)+'</span>'+(task?'<span class="edh-tag good">crawler task</span>':'')+(d.years?'<span class="edh-tag">'+esc(d.years)+'</span>':'')+(d.units?'<span class="edh-tag">'+esc(d.units)+'</span>':'')+'</div></div></div><div class="edh-row-actions"><button class="edh-btn primary" data-edh-action="import-doc" data-doc="'+esc(d.id)+'" type="button">Import one</button>'+(match!==null?'<button class="edh-btn" data-edh-action="create-crawler-task" data-index="'+match+'" type="button">Link task</button>':'')+(d.url?'<a class="edh-btn ghost" href="'+esc(d.url)+'" target="_blank" rel="noopener">Source</a>':'')+'</div></article>';
+    const preview=state.sourcePreviews[d.id];
+    const previewLabel=preview?(preview.hasStoredContent?'content preview ready':'metadata preview ready'):'source link only';
+    const valueCount=state.collectedValues.filter(v=>v.evidenceId===d.id).length;
+    return '<article class="edh-row"><div class="edh-checkline"><input type="checkbox" data-edh-doc-check="'+esc(d.id)+'" '+(selected?'checked':'')+' aria-label="Select evidence"><div><h4>'+esc(d.title)+'</h4><p>'+esc(d.institution)+' - '+esc(d.category||'Unclassified')+'</p><p>'+(inv?'<b>Linked variable:</b> #'+(match+1)+' '+esc(inv[0])+' | <b>Module:</b> '+esc(ML[inv[1]]||inv[1]):'<b>Linked variable:</b> not matched yet')+'</p><div class="edh-meta"><span class="edh-tag good">'+esc(d.type)+'</span><span class="edh-tag">'+esc(classifyDocSource(d))+'</span><span class="edh-tag '+(needsOcr(d)?'gold':'good')+'">'+esc(extractionStatus(d))+'</span><span class="edh-tag '+(preview?'good':'gold')+'">'+esc(previewLabel)+'</span><span class="edh-tag '+(valueCount?'good':'gold')+'">'+valueCount+' collected value'+(valueCount===1?'':'s')+'</span><span class="edh-tag">'+esc(d.status)+'</span><span class="edh-tag">confidence '+esc(d.confidence)+'</span>'+(task?'<span class="edh-tag good">crawler task</span>':'')+(d.years?'<span class="edh-tag">'+esc(d.years)+'</span>':'')+(d.units?'<span class="edh-tag">'+esc(d.units)+'</span>':'')+'</div>'+(preview?'<div class="edh-source-preview">'+esc((preview.snippets||[]).join('\n'))+'</div>':'')+'</div></div><div class="edh-row-actions"><button class="edh-btn primary" data-edh-action="extract-doc-values" data-doc="'+esc(d.id)+'" type="button">Extract values</button><button class="edh-btn" data-edh-action="import-doc" data-doc="'+esc(d.id)+'" type="button">Import one</button>'+(match!==null?'<button class="edh-btn" data-edh-action="create-crawler-task" data-index="'+match+'" type="button">Link task</button>':'')+(d.url?'<a class="edh-btn ghost" href="'+esc(d.url)+'" target="_blank" rel="noopener">Source</a>':'')+'</div></article>';
   }
   function classifyDocSource(d){
     const text=(d.institution+' '+d.category+' '+d.title).toLowerCase();
@@ -4471,16 +4652,168 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
     return 'discovered source';
   }
   function needsOcr(d){
-    return /pdf|png|jpg|jpeg|webp|image/.test(String(d.type||'').toLowerCase()) || /scan|photo|image|ocr/.test((d.method+' '+d.title).toLowerCase());
+    return /pdf|png|jpg|jpeg|webp|image/.test(String(d.type||'').toLowerCase()) || /scanned|photo|image|ocr/.test((d.method+' '+d.title).toLowerCase());
   }
   function extractionStatus(d){
     return needsOcr(d)?'OCR/extraction may be needed':'text extraction ready';
   }
+  function rawDocContent(d){
+    const raw=d.raw||{};
+    const keys=['extracted_text','ocr_text','text','content','body_text','html_text','markdown','table_text','csv_text','tables','api_response'];
+    const parts=[];
+    keys.forEach(key=>{
+      const value=raw[key];
+      if(value===undefined||value===null||value==='') return;
+      if(typeof value==='string') parts.push(value);
+      else {
+        try{parts.push(JSON.stringify(value));}catch(e){}
+      }
+    });
+    return parts.join('\n\n').trim();
+  }
   function docToText(d){
-    const years=(d.years||'2024').split(';').map(x=>x.trim()).filter(Boolean);
-    const unit=(d.units||'value').split(';')[0].trim()||'value';
-    const rowsOut=years.length?years.slice(0,8).map((y,i)=>[y,100+i*7,unit,d.institution,d.title].join(',')):['2024,100,'+unit+','+d.institution+','+d.title];
-    return 'ENERGIM_EVIDENCE_ID: '+d.id+'\nTitle: '+d.title+'\nInstitution: '+d.institution+'\nSource type: '+classifyDocSource(d)+'\nExtraction status: '+extractionStatus(d)+'\nSource URL: '+d.url+'\nDataset category: '+d.category+'\nMatching datasets: '+d.datasets+'\nExtraction method: '+d.method+'\n\nyear,value,unit,institution,source_title\n'+rowsOut.join('\n');
+    const raw=d.raw||{};
+    const stored=rawDocContent(d);
+    const metadata=[
+      'ENERGIM_EVIDENCE_ID: '+d.id,
+      'Title: '+d.title,
+      'Source title: '+(raw.source_title||d.title),
+      'Institution: '+d.institution,
+      'Source type: '+classifyDocSource(d),
+      'Extraction status: '+extractionStatus(d),
+      'Source URL: '+d.url,
+      'Dataset category: '+d.category,
+      'Matching datasets: '+d.datasets,
+      'LEAP relevance: '+(raw.leap_relevance||''),
+      'NEMO relevance: '+(raw.nemo_relevance||''),
+      'Legacy inventory match: '+(raw.matching_legacy_inventory_item||''),
+      'Detected years: '+(d.years||''),
+      'Detected units: '+(d.units||''),
+      'Reviewer notes: '+(raw.reviewer_notes||''),
+      'Extraction method: '+d.method
+    ].filter(line=>!line.endsWith(': ')&&!line.endsWith(':')).join('\n');
+    return metadata+'\n\n'+(stored?'Stored extracted content:\n'+stored:'No extracted body text or table content is stored for this source yet. Use OCR, crawler text/table extraction, or manual reviewer entry before accepting values.');
+  }
+  function sourcePreviewForDoc(d){
+    if(state.sourcePreviews[d.id]) return state.sourcePreviews[d.id];
+    const stored=rawDocContent(d);
+    const content=docToText(d);
+    const lines=content.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
+    const snippets=lines.filter(line=>/\d/.test(line)).slice(0,8);
+    const numberCount=(content.match(/-?\d+(?:,\d{3})*(?:\.\d+)?/g)||[]).length;
+    const tableCount=lines.filter(line=>line.includes(',')||line.includes('\t')).length;
+    const preview={
+      evidenceId:d.id,
+      title:d.title,
+      institution:d.institution,
+      sourceUrl:d.url,
+      method:stored?'stored text/table extraction':needsOcr(d)?'metadata + OCR/manual review needed':'metadata only; value extraction needs source content',
+      hasStoredContent:!!stored,
+      content,
+      snippets,
+      numberCount,
+      tableCount,
+      extractedAt:new Date().toISOString()
+    };
+    state.sourcePreviews[d.id]=preview;
+    saveSourcePreviews();
+    return preview;
+  }
+  function detectUnit(line,d,inv){
+    const hit=String(line||'').match(/(GWh|MWh|kWh\/HH\/yr|kWh\/m2\/day|MW|kW|USD\/kW|USD\/GJ|tCO2\/GWh|m3\/s|tonnes\/yr|kg\/yr|tonnes|kg|RWF|USD|%|fraction|units)/i);
+    if(hit) return hit[1];
+    if(d&&d.units) return String(d.units).split(';')[0].trim();
+    const note=inv?String(inv[9]||''):'';
+    const noteHit=note.match(/(GWh|MWh|MW|USD\/kW|USD\/GJ|kg\/yr|tonnes\/yr|%|units)/i);
+    return noteHit?noteHit[1]:'value';
+  }
+  function valueKey(v){
+    return [v.inventoryIndex,v.evidenceId,v.year,v.value,v.unit,v.category].map(x=>String(x||'').toLowerCase()).join('|');
+  }
+  function extractValuesFromDoc(d){
+    const idx=findInventoryMatch(d);
+    const inv=idx!==null?rows()[idx]:null;
+    const preview=sourcePreviewForDoc(d);
+    const docYears=(d.years||'').split(';').map(x=>x.trim()).filter(Boolean);
+    const candidates=[];
+    if(!preview.hasStoredContent) return candidates;
+    preview.content.split(/\r?\n/).forEach(line=>{
+      const clean=line.trim();
+      if(!clean||!/\d/.test(clean)) return;
+      const years=(clean.match(/\b(?:19|20)\d{2}\b/g)||docYears).filter(Boolean);
+      const nums=(clean.match(/-?\d+(?:,\d{3})*(?:\.\d+)?/g)||[]).map(n=>n.replace(/,/g,''));
+      const usable=nums.filter(n=>!years.includes(n));
+      const rawValue=usable[0]||'';
+      if(rawValue==='') return;
+      const num=Number(rawValue);
+      if(!Number.isFinite(num)) return;
+      candidates.push({
+        id:'cv-'+Date.now().toString(36)+'-'+Math.random().toString(16).slice(2,8),
+        inventoryIndex:idx,
+        variable:inv?inv[0]:'Unmatched source value',
+        module:inv?inv[1]:'',
+        sector:inv?inv[2]:'',
+        sourceInstitution:d.institution,
+        sourceType:classifyDocSource(d),
+        sourceUrl:d.url,
+        evidenceId:d.id,
+        evidenceTitle:d.title,
+        year:years[0]||docYears[0]||'review',
+        value:String(num),
+        unit:detectUnit(clean,d,inv),
+        category:inv?inv[2]:(d.category||'review'),
+        geography:'Rwanda',
+        leapMapping:inv&&inv[1]!=='N'?(ML[inv[1]]||inv[1]):'unmapped',
+        nemoMapping:inv?(NL[inv[8]]||inv[8]||'review'):'unmapped',
+        scenarioBasis:'current-evidence baseline; policy tag if source indicates NDC/NST2/IRP',
+        extractionMethod:preview.method,
+        confidence:clean.includes(',')||clean.includes('\t')?0.76:0.62,
+        status:'Needs review',
+        notes:'',
+        snippet:clean.slice(0,220),
+        provenance:'Extracted from '+d.title+' ('+d.institution+')',
+        collectedAt:new Date().toISOString().slice(0,10)
+      });
+    });
+    return candidates.slice(0,30);
+  }
+  function addCollectedValues(values,originLabel){
+    const existing=new Set(state.collectedValues.map(valueKey));
+    let added=0;
+    values.forEach(v=>{
+      const key=valueKey(v);
+      if(existing.has(key)) return;
+      existing.add(key);
+      state.collectedValues.unshift(v);
+      added++;
+      if(v.inventoryIndex!==null&&v.inventoryIndex!==undefined&&v.inventoryIndex>=0){
+        const ts=appendTrackerNote(v.inventoryIndex,'Values extracted: '+(originLabel||v.evidenceTitle||'source'));
+        if(!['Validated','Received'].includes(ts.status)) ts.status='Partially Received';
+        ts.pct=Math.max(parseInt(ts.pct)||0,65);
+        ts.filePath=v.evidenceId?'Evidence: '+v.evidenceId:ts.filePath;
+      }
+    });
+    if(added){
+      saveCollectedValues();
+      try{saveTrackerLocal();populatePolySelector();}catch(e){}
+    }
+    return added;
+  }
+  function extractValuesFromDocs(docs,label){
+    const all=[];
+    (docs||[]).forEach(doc=>all.push(...extractValuesFromDoc(doc)));
+    const added=addCollectedValues(all,label||'source extraction');
+    try{showToast(added?added+' candidate value'+(added===1?'':'s')+' added for review.':'No new candidate values found.');}catch(e){}
+    return added;
+  }
+  function filteredValues(){
+    const q=state.valueQ.toLowerCase();
+    return state.collectedValues.filter(v=>{
+      if(state.valueStatus&&v.status!==state.valueStatus) return false;
+      if(state.valueModule&&v.module!==state.valueModule) return false;
+      if(q && !(v.variable+' '+v.sourceInstitution+' '+v.evidenceTitle+' '+v.year+' '+v.unit+' '+v.value+' '+v.notes).toLowerCase().includes(q)) return false;
+      return true;
+    });
   }
   function bulkText(docs){
     return docs.map((d,i)=>'--- DOCUMENT '+(i+1)+' OF '+docs.length+' ---\n'+docToText(d)).join('\n\n');
@@ -4542,6 +4875,7 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
         }
       }
     });
+    extractValuesFromDocs(clean,label||'bulk import');
     try{saveCrawlerTasks();saveTrackerLocal();populatePolySelector();}catch(e){}
     mirrorPaste();
     state.extractionStep=1;
@@ -4556,6 +4890,122 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
       const r=idx!==null?rows()[idx]:null;
       return '<div class="edh-bulk-item"><b>'+esc(d.title)+'</b><span>'+esc(d.institution)+' - '+esc(extractionStatus(d))+(r?' - '+esc(ML[r[1]]||r[1])+' - #'+(idx+1):'')+'</span></div>';
     }).join('')+(docs.length>12?'<div class="edh-empty">Plus '+(docs.length-12)+' more documents in this import queue.</div>':'')+'</div>';
+  }
+  function valueStatusCounts(){
+    return {
+      total:state.collectedValues.length,
+      review:state.collectedValues.filter(v=>v.status==='Needs review').length,
+      accepted:state.collectedValues.filter(v=>v.status==='Accepted').length,
+      validated:state.collectedValues.filter(v=>v.status==='Validated').length
+    };
+  }
+  function renderValuesView(){
+    const values=filteredValues();
+    const c=valueStatusCounts();
+    return '<section class="edh-panel"><span class="edh-kicker">Step 06 - Collected values</span><h2>Review the actual numbers found in sources.</h2><p>Source links are only the start. This view stores extracted quantitative values, units, years, source snippets, provenance, confidence, and validation status before values are used for LEAP or NEMO.</p><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-action="extract-shown-values" type="button">Extract from current evidence filter</button><button class="edh-btn" data-edh-view="evidence" type="button">Open evidence library</button><button class="edh-btn" data-edh-action="tracker-export" type="button">Export workbook</button></div></section>'+
+      '<section class="edh-status-grid">'+
+        '<article class="edh-card"><h3>Total</h3><span class="metric">'+c.total+'</span><span class="label">collected values</span></article>'+
+        '<article class="edh-card gold"><h3>Needs review</h3><span class="metric">'+c.review+'</span><span class="label">candidate values</span></article>'+
+        '<article class="edh-card good"><h3>Accepted</h3><span class="metric">'+c.accepted+'</span><span class="label">ready to map</span></article>'+
+        '<article class="edh-card good"><h3>Validated</h3><span class="metric">'+c.validated+'</span><span class="label">reviewed values</span></article>'+
+      '</section>'+
+      '<section class="edh-toolbar"><input class="edh-search" data-edh-input="valueQ" placeholder="Search values, variables, sources, years..." value="'+esc(state.valueQ)+'"><select class="edh-select" data-edh-input="valueModule"><option value="">All modules</option>'+['D','T','R','S','N'].map(m=>'<option value="'+m+'" '+(state.valueModule===m?'selected':'')+'>'+esc(ML[m]||m)+'</option>').join('')+'</select><select class="edh-select" data-edh-input="valueStatus"><option value="">All statuses</option>'+['Needs review','Accepted','Validated','Rejected'].map(s=>'<option '+(state.valueStatus===s?'selected':'')+'>'+esc(s)+'</option>').join('')+'</select></section>'+
+      '<section class="edh-value-grid">'+
+        '<div class="edh-list">'+(values.length?values.slice(0,80).map(renderCollectedValue).join(''):'<div class="edh-empty">No collected values yet. Extract from Evidence Library, import documents into Document Intelligence, or add a manual value.</div>')+(values.length>80?'<div class="edh-empty">Showing first 80 values. Use filters to narrow the review list.</div>':'')+'</div>'+
+        '<aside class="edh-panel"><span class="edh-kicker">Manual value entry</span><h3>Add a value from a source you reviewed manually.</h3><p>Use this when a website blocks extraction or when a reviewer reads a number directly from a document.</p>'+manualValueForm()+'</aside>'+
+      '</section>';
+  }
+  function manualValueForm(){
+    const options=rows().map((r,i)=>'<option value="'+i+'">#'+(i+1)+' '+esc(r[0])+'</option>').join('');
+    return '<div class="edh-mini-form">'+
+      '<label>Inventory row<select data-edh-manual="inventoryIndex"><option value="">Choose row</option>'+options+'</select></label>'+
+      '<label>Year or period<input data-edh-manual="year" placeholder="2024"></label>'+
+      '<label>Value<input data-edh-manual="value" type="number" step="any" placeholder="123.45"></label>'+
+      '<label>Unit<input data-edh-manual="unit" placeholder="MW, GWh, %, kg/yr..."></label>'+
+      '<label>Source institution<input data-edh-manual="sourceInstitution" placeholder="REG, EPD Rwanda, NISR..."></label>'+
+      '<label>Source URL<input data-edh-manual="sourceUrl" placeholder="https://..."></label>'+
+      '<label>Category / technology / fuel<input data-edh-manual="category" placeholder="solar, LPG, residential..."></label>'+
+      '<label>Reviewer notes<textarea data-edh-manual="notes" placeholder="Context, table name, page, caveat..."></textarea></label>'+
+      '<button class="edh-btn primary" type="button" data-edh-action="manual-value-add">Add collected value</button>'+
+    '</div>';
+  }
+  function renderCollectedValue(v){
+    const statusClass=v.status==='Validated'||v.status==='Accepted'?'good':v.status==='Rejected'?'':'gold';
+    return '<article class="edh-value-card"><h4>'+esc(v.variable||'Unmatched source value')+'</h4><p>'+esc(v.sourceInstitution||'Unknown source')+' - '+esc(v.evidenceTitle||v.sourceUrl||'manual entry')+'</p><div class="edh-value-number"><strong>'+esc(v.value)+'</strong><span>'+esc(v.unit||'unit')+' / '+esc(v.year||'period')+'</span></div><div class="edh-meta"><span class="edh-tag '+statusClass+'">'+esc(v.status||'Needs review')+'</span><span class="edh-tag">'+esc(v.module?ML[v.module]||v.module:'unmapped')+'</span><span class="edh-tag">confidence '+Math.round((Number(v.confidence)||0)*100)+'%</span><span class="edh-tag">'+esc(v.extractionMethod||'manual/local')+'</span></div><p><b>LEAP:</b> '+esc(v.leapMapping||'unmapped')+' | <b>NEMO:</b> '+esc(v.nemoMapping||'unmapped')+'</p>'+(v.snippet?'<div class="edh-source-preview">'+esc(v.snippet)+'</div>':'')+'<div class="edh-hero-actions"><button class="edh-btn" data-edh-action="value-accept" data-value="'+esc(v.id)+'" type="button">Accept</button><button class="edh-btn green" data-edh-action="value-validate" data-value="'+esc(v.id)+'" type="button">Validate</button><button class="edh-btn" data-edh-action="value-map" data-value="'+esc(v.id)+'" type="button">Send to intelligence</button><button class="edh-btn ghost" data-edh-action="value-reject" data-value="'+esc(v.id)+'" type="button">Reject</button><button class="edh-btn ghost" data-edh-action="value-delete" data-value="'+esc(v.id)+'" type="button">Remove</button></div></article>';
+  }
+  function setValueStatus(id,status){
+    const v=state.collectedValues.find(item=>item.id===id);
+    if(!v) return;
+    v.status=status;
+    if(v.inventoryIndex!==null&&v.inventoryIndex!==undefined&&v.inventoryIndex>=0){
+      const ts=appendTrackerNote(v.inventoryIndex,'Collected value '+status.toLowerCase()+': '+v.value+' '+v.unit+' '+v.year);
+      if(status==='Validated') ts.status='Validated';
+      else if(status==='Accepted'&&ts.status!=='Validated') ts.status='Received';
+      else if(status==='Rejected'&&ts.status==='Not Started') ts.status='Issue / Gap';
+      if(status==='Validated') ts.pct=100;
+      else if(status==='Accepted') ts.pct=Math.max(parseInt(ts.pct)||0,80);
+    }
+    saveCollectedValues();
+    try{saveTrackerLocal();populatePolySelector();}catch(e){}
+    render();
+  }
+  function manualAddValue(){
+    const read=name=>document.querySelector('[data-edh-manual="'+name+'"]')?.value?.trim()||'';
+    const idxText=read('inventoryIndex');
+    const idx=idxText===''?null:parseInt(idxText);
+    const inv=idx!==null?rows()[idx]:null;
+    const value=read('value');
+    if(!value){try{showToast('Enter a numerical value before saving.');}catch(e){} return;}
+    const v={
+      id:'cv-manual-'+Date.now().toString(36),
+      inventoryIndex:idx,
+      variable:inv?inv[0]:'Manual collected value',
+      module:inv?inv[1]:'',
+      sector:inv?inv[2]:'',
+      sourceInstitution:read('sourceInstitution')||'Manual source',
+      sourceType:'manual reviewer entry',
+      sourceUrl:read('sourceUrl'),
+      evidenceId:'manual',
+      evidenceTitle:'Manual reviewer entry',
+      year:read('year')||'review',
+      value,
+      unit:read('unit')||'value',
+      category:read('category')||(inv?inv[2]:'review'),
+      geography:'Rwanda',
+      leapMapping:inv&&inv[1]!=='N'?(ML[inv[1]]||inv[1]):'unmapped',
+      nemoMapping:inv?(NL[inv[8]]||inv[8]||'review'):'unmapped',
+      scenarioBasis:'current-evidence baseline; reviewer supplied',
+      extractionMethod:'manual entry',
+      confidence:0.7,
+      status:'Needs review',
+      notes:read('notes'),
+      snippet:read('notes'),
+      provenance:'Manual value entered by reviewer',
+      collectedAt:new Date().toISOString().slice(0,10)
+    };
+    addCollectedValues([v],'manual entry');
+    render();
+  }
+  function deleteCollectedValue(id){
+    const before=state.collectedValues.length;
+    state.collectedValues=state.collectedValues.filter(item=>item.id!==id);
+    if(state.collectedValues.length!==before){
+      saveCollectedValues();
+      try{showToast('Collected value removed.');}catch(e){}
+      render();
+    }
+  }
+  function sendValueToIntelligence(id){
+    const v=state.collectedValues.find(item=>item.id===id);
+    if(!v) return;
+    state.bulkDocs=[];
+    state.bulkLabel='Collected value: '+v.variable;
+    state.selectedDoc=null;
+    state.pasteText='year,value,unit,source,variable,category\n'+[v.year,v.value,v.unit,v.sourceInstitution,v.variable,v.category].map(x=>String(x||'').replace(/,/g,' ')).join(',')+'\n\nSnippet: '+(v.snippet||'')+'\nSource URL: '+(v.sourceUrl||'')+'\nProvenance: '+(v.provenance||'');
+    selectedTrackerIdx=v.inventoryIndex!==null&&v.inventoryIndex!==undefined?v.inventoryIndex:null;
+    resetProductOutputs();
+    mirrorPaste();
+    setView('intelligence');
   }
   function readDetected(){
     try{return detectedParam||state.localMapping||null;}catch(e){return state.localMapping||null;}
@@ -4636,7 +5086,7 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
     const detected=readDetected();
     const hasOutput=readOutputs();
     const queueCount=(state.bulkDocs&&state.bulkDocs.length)||(doc?1:0);
-    return '<section class="edh-panel"><span class="edh-kicker">Step 06 - Document Intelligence</span><h2>Extract evidence, map it, preserve provenance.</h2><p>Import one document, selected evidence, all visible evidence, crawler matches, or whole LEAP/NEMO module groups. Automated OCR handles scanned documents when configured; manual paste remains the free fallback.</p></section>'+
+    return '<section class="edh-panel"><span class="edh-kicker">Step 07 - Document Intelligence</span><h2>Extract evidence, map it, preserve provenance.</h2><p>Import one document, selected evidence, collected values, crawler matches, or whole LEAP/NEMO module groups. Automated OCR handles scanned documents when configured; manual paste remains the free fallback.</p><div class="edh-hero-actions"><button class="edh-btn" data-edh-view="values" type="button">Review collected values</button></div></section>'+
       '<section class="edh-process">'+['Source','Extract','Map','Validate','Export'].map((s,i)=>'<div class="edh-process-step '+(i<state.extractionStep?'done':i===state.extractionStep?'active':'')+'"><b>'+esc(s)+'</b><span>'+(i===0?'Choose evidence':i===1?'OCR/text extraction':i===2?'Inventory matching':i===3?'Confidence review':'Local files')+'</span></div>').join('')+'</section>'+
       '<section class="edh-panel"><span class="edh-kicker">Bulk import</span><h3>Process documents one-by-one or in groups.</h3><p>Choose selected repository records, all visible evidence, or evidence grouped by LEAP/NEMO module. Each document keeps its source, inventory link, extraction status, and provenance notes.</p><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-action="bulk-import-selected" type="button">Import selected</button><button class="edh-btn" data-edh-action="bulk-import-shown" type="button">Import current evidence filter</button><button class="edh-btn" data-edh-action="bulk-import-module" data-module="D" type="button">LEAP demand</button><button class="edh-btn" data-edh-action="bulk-import-module" data-module="T" type="button">LEAP transformation</button><button class="edh-btn" data-edh-action="bulk-import-module" data-module="N" type="button">NEMO-specific</button><button class="edh-btn" data-edh-action="bulk-import-module" data-module="nemo" type="button">All NEMO-relevant</button></div><div class="edh-callout"><b>'+esc(state.bulkLabel||'Current queue')+'</b><br>'+queueCount+' document'+(queueCount===1?'':'s')+' ready for extraction and mapping.</div>'+renderBulkQueue()+'</section>'+
       '<section class="edh-split"><div class="edh-panel"><span class="edh-kicker">Evidence source</span>'+(doc?'<h3>'+esc(doc.title)+'</h3><p>'+esc(doc.institution)+' - '+esc(doc.category||'Repository evidence')+'</p><div class="edh-meta"><span class="edh-tag good">repository import</span><span class="edh-tag">'+esc(doc.type)+'</span><span class="edh-tag">'+esc(doc.status)+'</span></div>':'<h3>No repository document selected</h3><p>Import a crawled document from the Evidence Library, upload a new file for extraction, or paste extracted text below.</p>')+'<div class="edh-hero-actions"><button class="edh-btn" data-edh-view="evidence" type="button">Browse repository</button><button class="edh-btn" data-edh-action="upload" type="button">Upload file</button></div><div class="edh-drop" data-edh-action="upload"><div><b>Upload new evidence</b><span>CSV, Excel, JSON, text, PDF, PNG, JPG, WEBP</span></div></div></div>'+
@@ -4647,12 +5097,12 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
   }
   function renderExportsView(){
     const hasOutput=readOutputs();
-    return '<section class="edh-panel"><span class="edh-kicker">Step 08 - Exports</span><h2>Download LEAP and NEMO inputs locally.</h2><p>Local export is the success path: LEAP CSV, NEMO/OSeMOSYS CSV, SDMX, provenance, inventory, tracker, and evidence library. Google Drive remains optional.</p></section>'+
+    return '<section class="edh-panel"><span class="edh-kicker">Step 09 - Exports</span><h2>Download LEAP and NEMO inputs locally.</h2><p>Local export is the success path: LEAP CSV, NEMO/OSeMOSYS CSV, SDMX, provenance, inventory, tracker, collected values, and evidence library. Google Drive remains optional.</p></section>'+
       modelOutputPanel(hasOutput)+
       scenarioLensPanel()+
       '<section class="edh-work-grid">'+
         exportCard('Inventory CSV','Download the 71-item inventory checklist.','inventory-csv','Download CSV')+
-        exportCard('Tracker XLSX','Download current collection progress.','tracker-export','Download XLSX')+
+        exportCard('Tracker workbook','Download tracker, inventory, collected values, evidence sources, and provenance worksheets.','tracker-export','Download XLSX')+
         exportCard('Evidence CSV','Download the crawled evidence library index.','evidence-export','Download evidence')+
         exportCard('All generated files',hasOutput?'Download LEAP, NEMO, SDMX, and provenance together.':'Run Document Intelligence first to generate model inputs.','download-all','Download all')+
         exportCard('Optional Google Drive','Push outputs only after connecting Google.','settings','Configure')+
@@ -4664,7 +5114,7 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
   }
   function renderSetupView(){
     const c=cfg();
-    return '<section class="edh-panel"><span class="edh-kicker">Step 09 - Optional services</span><h2>Keep setup quiet until the workflow needs it.</h2><p>Local mode is the default. Google sync, LLM mapping, and automated OCR/vision are available, but they should never block a first run.</p><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-action="local" type="button">Use free local mode</button><button class="edh-btn" data-edh-action="settings" type="button">Open settings</button><button class="edh-btn" data-edh-action="audit" type="button">Run audit</button></div></section>'+
+    return '<section class="edh-panel"><span class="edh-kicker">Step 10 - Optional services</span><h2>Keep setup quiet until the workflow needs it.</h2><p>Local mode is the default. Google sync, LLM mapping, and automated OCR/vision are available, but they should never block a first run.</p><div class="edh-hero-actions"><button class="edh-btn primary" data-edh-action="local" type="button">Use free local mode</button><button class="edh-btn" data-edh-action="settings" type="button">Open settings</button><button class="edh-btn" data-edh-action="audit" type="button">Run audit</button></div></section>'+
       '<section class="edh-service-grid">'+
         '<article class="edh-service ready"><h3>Free local mode</h3><p>Browser tracker, local downloads, repository import, manual paste, and exports. No credits.</p><div class="edh-meta"><span class="edh-tag good">Ready</span></div></article>'+
         '<article class="edh-service optional"><h3>Google sync</h3><p>Optional shared Sheets and Drive outputs. '+(hasGoogle()?'Connected.':'Not connected, and not required.')+'</p><div class="edh-meta"><span class="edh-tag">'+(hasGoogle()?'connected':'optional')+'</span></div></article>'+
@@ -4719,9 +5169,21 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
       return;
     }
     if(action==='select-shown-docs'){state.selectedDocIds=filteredDocs().slice(0,42).map(d=>d.id);render();return;}
+    if(action==='extract-doc-values'){
+      const doc=state.docs.find(d=>d.id===actionBtn.dataset.doc);
+      if(doc){extractValuesFromDocs([doc],'single source extraction');setView('values');}
+      return;
+    }
+    if(action==='extract-shown-values'){await ensureEvidenceLoaded();extractValuesFromDocs(filteredDocs().slice(0,42),'current evidence filter');setView('values');return;}
     if(action==='bulk-import-selected'){bulkImportDocs(docsFromIds(state.selectedDocIds),'Selected evidence documents');return;}
     if(action==='bulk-import-shown'){bulkImportDocs(filteredDocs().slice(0,42),'Current Evidence Library filter');return;}
     if(action==='bulk-import-module'){await ensureEvidenceLoaded();bulkImportDocs(moduleDocs(actionBtn.dataset.module),'Module import: '+moduleImportLabel(actionBtn.dataset.module));return;}
+    if(action==='manual-value-add'){manualAddValue();return;}
+    if(action==='value-accept'){setValueStatus(actionBtn.dataset.value,'Accepted');return;}
+    if(action==='value-validate'){setValueStatus(actionBtn.dataset.value,'Validated');return;}
+    if(action==='value-reject'){setValueStatus(actionBtn.dataset.value,'Rejected');return;}
+    if(action==='value-delete'){deleteCollectedValue(actionBtn.dataset.value);return;}
+    if(action==='value-map'){sendValueToIntelligence(actionBtn.dataset.value);return;}
     if(action==='import-doc'){importDoc(actionBtn.dataset.doc);return;}
     if(action==='analyze'){await analyzeEvidence();return;}
     if(action==='validate'){await validateEvidence();return;}
@@ -4732,7 +5194,7 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
     if(!key) return;
     state[key]=event.target.value;
     if(key==='pasteText'){mirrorPaste();resetProductOutputs();}
-    if(['invQ','trackerQ','evidenceQ','crawlerQ'].includes(key)) render();
+    if(['invQ','trackerQ','evidenceQ','crawlerQ','valueQ'].includes(key)) render();
   }
   function onChange(event){
     const checkedDoc=event.target.dataset.edhDocCheck;
@@ -4793,6 +5255,7 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
         try{saveTrackerLocal();populatePolySelector();}catch(e){}
       }
     }
+    extractValuesFromDocs([doc],'single evidence import');
     state.extractionStep=1;
     setView('intelligence');
   }
@@ -4875,6 +5338,7 @@ window.gPS=n=>{_gPS(n);if(n===4)setTimeout(renderPublishForm,80);};
         view:state.view,
         crawlerTasks:state.crawlerTasks.length,
         docs:state.docs.length,
+        collectedValues:state.collectedValues.length,
         selectedDocs:state.selectedDocIds.length,
         bulkDocs:state.bulkDocs.length,
         selectedDoc:state.selectedDoc?state.selectedDoc.title:'',
