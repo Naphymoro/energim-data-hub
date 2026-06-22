@@ -1,10 +1,10 @@
 {
-  "evidence_record_count": 175,
-  "finished_utc": "2026-06-15T07:33:09+00:00",
-  "new_or_updated_records_this_run": 192,
-  "run_id": "6bf1678da8d0",
+  "evidence_record_count": 195,
+  "finished_utc": "2026-06-22T07:33:21+00:00",
+  "new_or_updated_records_this_run": 188,
+  "run_id": "a915d6fcd6b1",
   "source_count": 21,
-  "started_utc": "2026-06-15T07:19:30+00:00",
+  "started_utc": "2026-06-22T07:23:02+00:00",
   "summaries": [
     {
       "errors": [],
@@ -36,8 +36,8 @@
     },
     {
       "errors": [],
-      "fetched": 16,
-      "records": 16,
+      "fetched": 14,
+      "records": 14,
       "source_id": "NISR",
       "url": "https://statistics.gov.rw/"
     },
@@ -79,8 +79,10 @@
       "url": "https://www.rtda.gov.rw/"
     },
     {
-      "errors": [],
-      "fetched": 2,
+      "errors": [
+        "https://www.rwb.rw/: <urlopen error [Errno -2] Name or service not known>"
+      ],
+      "fetched": 1,
       "records": 1,
       "source_id": "RWB",
       "url": "https://www.rwb.rw/"
@@ -107,13 +109,7 @@
       "url": "https://www.wri.org/"
     },
     {
-      "errors": [
-        "https://data.worldbank.org/indicator/SP.POP.GROW?locations=RW: The read operation timed out",
-        "https://data.worldbank.org/indicator/EG.ELC.ACCS.ZS?locations=RW: HTTP Error 500: Internal Server Error",
-        "https://data.worldbank.org/indicator/EN.GHG.CO2.PC.CE.AR5?locations=RW: HTTP Error 502: Bad Gateway",
-        "https://data.worldbank.org/indicator/ER.H2O.FWTL.ZS?locations=RW: HTTP Error 502: Bad Gateway",
-        "https://data.worldbank.org/indicator/EG.ELC.RNWX.ZS?locations=RW: The read operation timed out"
-      ],
+      "errors": [],
       "fetched": 12,
       "records": 12,
       "source_id": "WORLD_BANK",
@@ -139,8 +135,8 @@
     },
     {
       "errors": [],
-      "fetched": 18,
-      "records": 18,
+      "fetched": 16,
+      "records": 16,
       "source_id": "SEFORALL",
       "url": "https://www.seforall.org/"
     },
