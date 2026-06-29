@@ -1,11 +1,11 @@
 dataset_id,dataset_area,preferred_source,alternative_source,years_required,unit,leap_use,nemo_use,status,candidate_evidence_count,validation_status
 RW_ENBAL_TOTAL_2015_2024,National energy balance,MININFRA / REG,IEA / World Bank,2015-2024,TJ; ktoe,LEAP baseline,NEMO fuel balance,Gap,3,candidate
-RW_PWR_GEN_TECH_GWH,Electricity generation,REG / EUCL,IRENA / World Bank,2015-2024,GWh,Transformation,Technology activity,Requested,20,candidate
-RW_PWR_CAP_TECH_MW,Installed capacity,REG / EDCL,IRENA,2015-2024,MW,Capacity,Existing capacity,Requested,51,candidate
-RW_RES_COOK_FUEL_SHARE,Residential cooking,NISR / MININFRA,DHS / SEforALL / EPD,2015-2024,%; TJ,Residential demand,Fuel shares,Gap,32,candidate
-RW_BIOMASS_CHARCOAL_TJ,Biomass and charcoal,MININFRA / REMA / NISR,FAO / literature,2015-2024,TJ; tonnes,Biomass demand,Fuel constraint,Gap,14,candidate
-RW_TRANSPORT_FUEL_TJ,Transport fuels,MININFRA / RURA / RRA,World Bank,2015-2024,TJ; litres,Transport demand,Demand proxy,Gap,44,candidate
+RW_PWR_GEN_TECH_GWH,Electricity generation,REG / EUCL,IRENA / World Bank,2015-2024,GWh,Transformation,Technology activity,Requested,22,candidate
+RW_PWR_CAP_TECH_MW,Installed capacity,REG / EDCL,IRENA,2015-2024,MW,Capacity,Existing capacity,Requested,54,candidate
+RW_RES_COOK_FUEL_SHARE,Residential cooking,NISR / MININFRA,DHS / SEforALL / EPD,2015-2024,%; TJ,Residential demand,Fuel shares,Gap,34,candidate
+RW_BIOMASS_CHARCOAL_TJ,Biomass and charcoal,MININFRA / REMA / NISR,FAO / literature,2015-2024,TJ; tonnes,Biomass demand,Fuel constraint,Gap,16,candidate
+RW_TRANSPORT_FUEL_TJ,Transport fuels,MININFRA / RURA / RRA,World Bank,2015-2024,TJ; litres,Transport demand,Demand proxy,Gap,43,candidate
 RW_SOCIO_GDP_POP,Socioeconomic drivers,NISR / MINECOFIN,World Bank,2015-2050,people; RWF; USD,Key assumptions,Demand driver,Partial,50,candidate
-RW_EF_FUEL_IPCC,Emission factors,REMA / NDC inventory,IPCC defaults,2015-2050,tCO2e/TJ,Environmental loadings,Emission factor,Requested,92,candidate
-RW_TECH_COSTS,Technology costs,MININFRA / REG / EPD,IRENA / World Bank,2025-2050,USD/kW; USD/MWh,Scenario assumptions,CAPEX/OPEX,Candidate,44,candidate
-RW_PROJECT_PIPELINE,Project pipeline,MININFRA / REG / EPD,Developer disclosures,2025-2035,MW; USD; status,Scenario additions,Candidate technologies,Candidate,95,candidate
+RW_EF_FUEL_IPCC,Emission factors,REMA / NDC inventory,IPCC defaults,2015-2050,tCO2e/TJ,Environmental loadings,Emission factor,Requested,83,candidate
+RW_TECH_COSTS,Technology costs,MININFRA / REG / EPD,IRENA / World Bank,2025-2050,USD/kW; USD/MWh,Scenario assumptions,CAPEX/OPEX,Candidate,45,candidate
+RW_PROJECT_PIPELINE,Project pipeline,MININFRA / REG / EPD,Developer disclosures,2025-2035,MW; USD; status,Scenario additions,Candidate technologies,Candidate,100,candidate

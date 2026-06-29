@@ -1,10 +1,10 @@
 {
-  "evidence_record_count": 195,
-  "finished_utc": "2026-06-22T07:33:21+00:00",
-  "new_or_updated_records_this_run": 188,
-  "run_id": "a915d6fcd6b1",
+  "evidence_record_count": 203,
+  "finished_utc": "2026-06-29T06:58:39+00:00",
+  "new_or_updated_records_this_run": 187,
+  "run_id": "3e5b66a5a49e",
   "source_count": 21,
-  "started_utc": "2026-06-22T07:23:02+00:00",
+  "started_utc": "2026-06-29T06:45:33+00:00",
   "summaries": [
     {
       "errors": [],
@@ -14,9 +14,11 @@
       "url": "https://www.mininfra.gov.rw/"
     },
     {
-      "errors": [],
-      "fetched": 25,
-      "records": 25,
+      "errors": [
+        "https://www.reg.rw/fileadmin/user_upload/REG-Strategic-Plan-2024-2034.pdf: <urlopen error [Errno 111] Connection refused>"
+      ],
+      "fetched": 27,
+      "records": 27,
       "source_id": "REG",
       "url": "https://www.reg.rw/"
     },
@@ -35,7 +37,9 @@
       "url": "https://www.reg.rw/about-us/subsidiaries/eucl/"
     },
     {
-      "errors": [],
+      "errors": [
+        "https://statistics.gov.rw/data-sources/surveys/Demographic-and-Health-Survey/demographic-and-health-survey-2025: <urlopen error [Errno 111] Connection refused>"
+      ],
       "fetched": 14,
       "records": 14,
       "source_id": "NISR",
@@ -43,8 +47,8 @@
     },
     {
       "errors": [],
-      "fetched": 9,
-      "records": 9,
+      "fetched": 8,
+      "records": 8,
       "source_id": "REMA",
       "url": "https://www.rema.gov.rw/"
     },
@@ -79,18 +83,16 @@
       "url": "https://www.rtda.gov.rw/"
     },
     {
-      "errors": [
-        "https://www.rwb.rw/: <urlopen error [Errno -2] Name or service not known>"
-      ],
-      "fetched": 1,
+      "errors": [],
+      "fetched": 2,
       "records": 1,
       "source_id": "RWB",
       "url": "https://www.rwb.rw/"
     },
     {
       "errors": [],
-      "fetched": 4,
-      "records": 4,
+      "fetched": 3,
+      "records": 3,
       "source_id": "WASAC",
       "url": "https://www.wasac.rw/"
     },
@@ -103,8 +105,8 @@
     },
     {
       "errors": [],
-      "fetched": 13,
-      "records": 11,
+      "fetched": 12,
+      "records": 10,
       "source_id": "WRI",
       "url": "https://www.wri.org/"
     },
