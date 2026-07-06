@@ -1,10 +1,10 @@
 {
-  "evidence_record_count": 203,
-  "finished_utc": "2026-06-29T06:58:39+00:00",
-  "new_or_updated_records_this_run": 187,
-  "run_id": "3e5b66a5a49e",
+  "evidence_record_count": 212,
+  "finished_utc": "2026-07-06T06:37:53+00:00",
+  "new_or_updated_records_this_run": 180,
+  "run_id": "734962870fba",
   "source_count": 21,
-  "started_utc": "2026-06-29T06:45:33+00:00",
+  "started_utc": "2026-07-06T06:27:03+00:00",
   "summaries": [
     {
       "errors": [],
@@ -14,11 +14,9 @@
       "url": "https://www.mininfra.gov.rw/"
     },
     {
-      "errors": [
-        "https://www.reg.rw/fileadmin/user_upload/REG-Strategic-Plan-2024-2034.pdf: <urlopen error [Errno 111] Connection refused>"
-      ],
-      "fetched": 27,
-      "records": 27,
+      "errors": [],
+      "fetched": 26,
+      "records": 26,
       "source_id": "REG",
       "url": "https://www.reg.rw/"
     },
@@ -31,17 +29,15 @@
     },
     {
       "errors": [],
-      "fetched": 22,
-      "records": 22,
+      "fetched": 16,
+      "records": 16,
       "source_id": "EUCL",
       "url": "https://www.reg.rw/about-us/subsidiaries/eucl/"
     },
     {
-      "errors": [
-        "https://statistics.gov.rw/data-sources/surveys/Demographic-and-Health-Survey/demographic-and-health-survey-2025: <urlopen error [Errno 111] Connection refused>"
-      ],
-      "fetched": 14,
-      "records": 14,
+      "errors": [],
+      "fetched": 15,
+      "records": 15,
       "source_id": "NISR",
       "url": "https://statistics.gov.rw/"
     },
@@ -56,15 +52,17 @@
       "errors": [
         "https://www.rura.rw/publications/board-decisions: HTTP Error 404: Not Found"
       ],
-      "fetched": 16,
-      "records": 16,
+      "fetched": 17,
+      "records": 17,
       "source_id": "RURA",
       "url": "https://www.rura.rw/"
     },
     {
-      "errors": [],
-      "fetched": 2,
-      "records": 2,
+      "errors": [
+        "https://www.minecofin.gov.rw/: <urlopen error [SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] sslv3 alert handshake failure (_ssl.c:1016)>"
+      ],
+      "fetched": 1,
+      "records": 1,
       "source_id": "MINECOFIN",
       "url": "https://www.minecofin.gov.rw/"
     },
@@ -105,8 +103,8 @@
     },
     {
       "errors": [],
-      "fetched": 12,
-      "records": 10,
+      "fetched": 10,
+      "records": 8,
       "source_id": "WRI",
       "url": "https://www.wri.org/"
     },
@@ -137,8 +135,8 @@
     },
     {
       "errors": [],
-      "fetched": 16,
-      "records": 16,
+      "fetched": 17,
+      "records": 17,
       "source_id": "SEFORALL",
       "url": "https://www.seforall.org/"
     },
