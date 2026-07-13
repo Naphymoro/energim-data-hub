@@ -1,10 +1,10 @@
 {
-  "evidence_record_count": 212,
-  "finished_utc": "2026-07-06T06:37:53+00:00",
-  "new_or_updated_records_this_run": 180,
-  "run_id": "734962870fba",
+  "evidence_record_count": 216,
+  "finished_utc": "2026-07-13T05:47:45+00:00",
+  "new_or_updated_records_this_run": 186,
+  "run_id": "feb5bce3159a",
   "source_count": 21,
-  "started_utc": "2026-07-06T06:27:03+00:00",
+  "started_utc": "2026-07-13T05:35:52+00:00",
   "summaries": [
     {
       "errors": [],
@@ -14,23 +14,29 @@
       "url": "https://www.mininfra.gov.rw/"
     },
     {
-      "errors": [],
+      "errors": [
+        "https://www.reg.rw/what-we-do/generation/: HTTP Error 500: Internal Server Error"
+      ],
       "fetched": 26,
       "records": 26,
       "source_id": "REG",
       "url": "https://www.reg.rw/"
     },
     {
-      "errors": [],
+      "errors": [
+        "https://www.reg.rw/what-we-do/generation/: HTTP Error 500: Internal Server Error"
+      ],
       "fetched": 22,
       "records": 22,
       "source_id": "EDCL",
       "url": "https://www.reg.rw/about-us/subsidiaries/edcl/"
     },
     {
-      "errors": [],
-      "fetched": 16,
-      "records": 16,
+      "errors": [
+        "https://www.reg.rw/what-we-do/generation/: HTTP Error 500: Internal Server Error"
+      ],
+      "fetched": 22,
+      "records": 22,
       "source_id": "EUCL",
       "url": "https://www.reg.rw/about-us/subsidiaries/eucl/"
     },
@@ -43,8 +49,8 @@
     },
     {
       "errors": [],
-      "fetched": 8,
-      "records": 8,
+      "fetched": 7,
+      "records": 7,
       "source_id": "REMA",
       "url": "https://www.rema.gov.rw/"
     },
@@ -58,11 +64,9 @@
       "url": "https://www.rura.rw/"
     },
     {
-      "errors": [
-        "https://www.minecofin.gov.rw/: <urlopen error [SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] sslv3 alert handshake failure (_ssl.c:1016)>"
-      ],
-      "fetched": 1,
-      "records": 1,
+      "errors": [],
+      "fetched": 3,
+      "records": 3,
       "source_id": "MINECOFIN",
       "url": "https://www.minecofin.gov.rw/"
     },
@@ -103,8 +107,8 @@
     },
     {
       "errors": [],
-      "fetched": 10,
-      "records": 8,
+      "fetched": 9,
+      "records": 7,
       "source_id": "WRI",
       "url": "https://www.wri.org/"
     },
@@ -135,15 +139,17 @@
     },
     {
       "errors": [],
-      "fetched": 17,
-      "records": 17,
+      "fetched": 16,
+      "records": 16,
       "source_id": "SEFORALL",
       "url": "https://www.seforall.org/"
     },
     {
-      "errors": [],
+      "errors": [
+        "https://unfccc.int/documents?f%5B0%5D=topic%3A4194: HTTP Error 403: Forbidden"
+      ],
       "fetched": 30,
-      "records": 16,
+      "records": 17,
       "source_id": "UNFCCC",
       "url": "https://unfccc.int/documents"
     },
