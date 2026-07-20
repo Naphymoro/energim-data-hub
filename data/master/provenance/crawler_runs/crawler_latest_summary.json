@@ -1,10 +1,10 @@
 {
-  "evidence_record_count": 216,
-  "finished_utc": "2026-07-13T05:47:45+00:00",
-  "new_or_updated_records_this_run": 186,
-  "run_id": "feb5bce3159a",
+  "evidence_record_count": 223,
+  "finished_utc": "2026-07-20T05:49:35+00:00",
+  "new_or_updated_records_this_run": 187,
+  "run_id": "e12f6b6149d4",
   "source_count": 21,
-  "started_utc": "2026-07-13T05:35:52+00:00",
+  "started_utc": "2026-07-20T05:38:16+00:00",
   "summaries": [
     {
       "errors": [],
@@ -14,27 +14,21 @@
       "url": "https://www.mininfra.gov.rw/"
     },
     {
-      "errors": [
-        "https://www.reg.rw/what-we-do/generation/: HTTP Error 500: Internal Server Error"
-      ],
+      "errors": [],
       "fetched": 26,
       "records": 26,
       "source_id": "REG",
       "url": "https://www.reg.rw/"
     },
     {
-      "errors": [
-        "https://www.reg.rw/what-we-do/generation/: HTTP Error 500: Internal Server Error"
-      ],
+      "errors": [],
       "fetched": 22,
       "records": 22,
       "source_id": "EDCL",
       "url": "https://www.reg.rw/about-us/subsidiaries/edcl/"
     },
     {
-      "errors": [
-        "https://www.reg.rw/what-we-do/generation/: HTTP Error 500: Internal Server Error"
-      ],
+      "errors": [],
       "fetched": 22,
       "records": 22,
       "source_id": "EUCL",
@@ -65,8 +59,8 @@
     },
     {
       "errors": [],
-      "fetched": 3,
-      "records": 3,
+      "fetched": 4,
+      "records": 4,
       "source_id": "MINECOFIN",
       "url": "https://www.minecofin.gov.rw/"
     },
@@ -107,8 +101,8 @@
     },
     {
       "errors": [],
-      "fetched": 9,
-      "records": 7,
+      "fetched": 10,
+      "records": 8,
       "source_id": "WRI",
       "url": "https://www.wri.org/"
     },
@@ -145,11 +139,9 @@
       "url": "https://www.seforall.org/"
     },
     {
-      "errors": [
-        "https://unfccc.int/documents?f%5B0%5D=topic%3A4194: HTTP Error 403: Forbidden"
-      ],
+      "errors": [],
       "fetched": 30,
-      "records": 17,
+      "records": 16,
       "source_id": "UNFCCC",
       "url": "https://unfccc.int/documents"
     },
