@@ -1,10 +1,10 @@
 {
-  "evidence_record_count": 223,
-  "finished_utc": "2026-07-20T05:49:35+00:00",
-  "new_or_updated_records_this_run": 187,
-  "run_id": "e12f6b6149d4",
+  "evidence_record_count": 228,
+  "finished_utc": "2026-07-27T05:59:28+00:00",
+  "new_or_updated_records_this_run": 181,
+  "run_id": "7f36bad776e0",
   "source_count": 21,
-  "started_utc": "2026-07-20T05:38:16+00:00",
+  "started_utc": "2026-07-27T05:48:31+00:00",
   "summaries": [
     {
       "errors": [],
@@ -29,8 +29,8 @@
     },
     {
       "errors": [],
-      "fetched": 22,
-      "records": 22,
+      "fetched": 16,
+      "records": 16,
       "source_id": "EUCL",
       "url": "https://www.reg.rw/about-us/subsidiaries/eucl/"
     },
@@ -43,8 +43,8 @@
     },
     {
       "errors": [],
-      "fetched": 7,
-      "records": 7,
+      "fetched": 6,
+      "records": 6,
       "source_id": "REMA",
       "url": "https://www.rema.gov.rw/"
     },
@@ -133,8 +133,8 @@
     },
     {
       "errors": [],
-      "fetched": 16,
-      "records": 16,
+      "fetched": 17,
+      "records": 17,
       "source_id": "SEFORALL",
       "url": "https://www.seforall.org/"
     },
