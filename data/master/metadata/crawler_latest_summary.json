@@ -1,22 +1,22 @@
 {
-  "evidence_record_count": 236,
-  "finished_utc": "2026-08-03T05:52:02+00:00",
-  "new_or_updated_records_this_run": 182,
-  "run_id": "dd7ddaaf0345",
+  "evidence_record_count": 247,
+  "finished_utc": "2026-08-10T04:03:46+00:00",
+  "new_or_updated_records_this_run": 187,
+  "run_id": "7bbcb4233d0f",
   "source_count": 21,
-  "started_utc": "2026-08-03T05:40:21+00:00",
+  "started_utc": "2026-08-10T03:51:52+00:00",
   "summaries": [
     {
       "errors": [],
-      "fetched": 4,
-      "records": 4,
+      "fetched": 3,
+      "records": 3,
       "source_id": "MININFRA",
       "url": "https://www.mininfra.gov.rw/"
     },
     {
       "errors": [],
-      "fetched": 19,
-      "records": 19,
+      "fetched": 28,
+      "records": 28,
       "source_id": "REG",
       "url": "https://www.reg.rw/"
     },
@@ -60,7 +60,7 @@
     {
       "errors": [],
       "fetched": 5,
-      "records": 4,
+      "records": 5,
       "source_id": "MINECOFIN",
       "url": "https://www.minecofin.gov.rw/"
     },
@@ -101,8 +101,8 @@
     },
     {
       "errors": [],
-      "fetched": 12,
-      "records": 10,
+      "fetched": 13,
+      "records": 11,
       "source_id": "WRI",
       "url": "https://www.wri.org/"
     },
@@ -146,9 +146,11 @@
       "url": "https://unfccc.int/documents"
     },
     {
-      "errors": [],
-      "fetched": 6,
-      "records": 6,
+      "errors": [
+        "https://power.larc.nasa.gov/: <urlopen error [Errno 104] Connection reset by peer>"
+      ],
+      "fetched": 1,
+      "records": 1,
       "source_id": "NASA_POWER",
       "url": "https://power.larc.nasa.gov/"
     },
