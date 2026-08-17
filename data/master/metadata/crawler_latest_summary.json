@@ -1,10 +1,10 @@
 {
-  "evidence_record_count": 247,
-  "finished_utc": "2026-08-10T04:03:46+00:00",
-  "new_or_updated_records_this_run": 187,
-  "run_id": "7bbcb4233d0f",
+  "evidence_record_count": 259,
+  "finished_utc": "2026-08-17T03:11:06+00:00",
+  "new_or_updated_records_this_run": 190,
+  "run_id": "beb6cb290657",
   "source_count": 21,
-  "started_utc": "2026-08-10T03:51:52+00:00",
+  "started_utc": "2026-08-17T02:57:07+00:00",
   "summaries": [
     {
       "errors": [],
@@ -101,13 +101,17 @@
     },
     {
       "errors": [],
-      "fetched": 13,
-      "records": 11,
+      "fetched": 12,
+      "records": 10,
       "source_id": "WRI",
       "url": "https://www.wri.org/"
     },
     {
-      "errors": [],
+      "errors": [
+        "https://data.worldbank.org/indicator/EN.GHG.CO2.PC.CE.AR5?locations=RW: HTTP Error 522: <none>",
+        "https://data.worldbank.org/indicator/ER.H2O.FWTL.ZS?locations=RW: HTTP Error 502: Bad Gateway",
+        "https://data.worldbank.org/indicator/EG.ELC.RNWX.ZS?locations=RW: HTTP Error 522: <none>"
+      ],
       "fetched": 12,
       "records": 12,
       "source_id": "WORLD_BANK",
@@ -133,8 +137,8 @@
     },
     {
       "errors": [],
-      "fetched": 18,
-      "records": 18,
+      "fetched": 17,
+      "records": 17,
       "source_id": "SEFORALL",
       "url": "https://www.seforall.org/"
     },
@@ -146,11 +150,9 @@
       "url": "https://unfccc.int/documents"
     },
     {
-      "errors": [
-        "https://power.larc.nasa.gov/: <urlopen error [Errno 104] Connection reset by peer>"
-      ],
-      "fetched": 1,
-      "records": 1,
+      "errors": [],
+      "fetched": 6,
+      "records": 6,
       "source_id": "NASA_POWER",
       "url": "https://power.larc.nasa.gov/"
     },
