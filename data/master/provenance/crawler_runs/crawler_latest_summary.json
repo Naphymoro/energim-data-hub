@@ -1,10 +1,10 @@
 {
-  "evidence_record_count": 275,
-  "finished_utc": "2026-09-07T07:10:29+00:00",
-  "new_or_updated_records_this_run": 168,
-  "run_id": "f23734b0fe26",
+  "evidence_record_count": 285,
+  "finished_utc": "2026-09-14T07:46:52+00:00",
+  "new_or_updated_records_this_run": 189,
+  "run_id": "fa0de1dde6b3",
   "source_count": 21,
-  "started_utc": "2026-09-07T07:00:01+00:00",
+  "started_utc": "2026-09-14T07:33:41+00:00",
   "summaries": [
     {
       "errors": [],
@@ -15,8 +15,8 @@
     },
     {
       "errors": [],
-      "fetched": 21,
-      "records": 21,
+      "fetched": 28,
+      "records": 28,
       "source_id": "REG",
       "url": "https://www.reg.rw/"
     },
@@ -35,11 +35,9 @@
       "url": "https://www.reg.rw/about-us/subsidiaries/eucl/"
     },
     {
-      "errors": [
-        "https://statistics.gov.rw/: HTTP Error 500: 500 Service unavailable (with message)"
-      ],
-      "fetched": 1,
-      "records": 1,
+      "errors": [],
+      "fetched": 15,
+      "records": 15,
       "source_id": "NISR",
       "url": "https://statistics.gov.rw/"
     },
@@ -61,8 +59,8 @@
     },
     {
       "errors": [],
-      "fetched": 4,
-      "records": 4,
+      "fetched": 5,
+      "records": 5,
       "source_id": "MINECOFIN",
       "url": "https://www.minecofin.gov.rw/"
     },
@@ -103,13 +101,16 @@
     },
     {
       "errors": [],
-      "fetched": 13,
-      "records": 11,
+      "fetched": 12,
+      "records": 10,
       "source_id": "WRI",
       "url": "https://www.wri.org/"
     },
     {
-      "errors": [],
+      "errors": [
+        "https://data.worldbank.org/indicator/EN.GHG.CO2.PC.CE.AR5?locations=RW: HTTP Error 504: Gateway Timeout",
+        "https://data.worldbank.org/indicator/ER.H2O.FWTL.ZS?locations=RW: The read operation timed out"
+      ],
       "fetched": 12,
       "records": 12,
       "source_id": "WORLD_BANK",
@@ -142,7 +143,7 @@
     },
     {
       "errors": [
-        "https://unfccc.int/UN-Climate-Change-partnerships: Remote end closed connection without response"
+        "https://unfccc.int/ndcreg: Remote end closed connection without response"
       ],
       "fetched": 30,
       "records": 16,
