@@ -1,10 +1,10 @@
 {
-  "evidence_record_count": 291,
-  "finished_utc": "2026-09-21T07:48:22+00:00",
-  "new_or_updated_records_this_run": 187,
-  "run_id": "fc8c3cd76838",
+  "evidence_record_count": 298,
+  "finished_utc": "2026-09-28T08:27:09+00:00",
+  "new_or_updated_records_this_run": 185,
+  "run_id": "1f330722ca40",
   "source_count": 21,
-  "started_utc": "2026-09-21T07:37:22+00:00",
+  "started_utc": "2026-09-28T08:12:53+00:00",
   "summaries": [
     {
       "errors": [],
@@ -36,8 +36,8 @@
     },
     {
       "errors": [],
-      "fetched": 16,
-      "records": 16,
+      "fetched": 15,
+      "records": 15,
       "source_id": "NISR",
       "url": "https://statistics.gov.rw/"
     },
@@ -101,14 +101,18 @@
     },
     {
       "errors": [],
-      "fetched": 12,
-      "records": 10,
+      "fetched": 10,
+      "records": 8,
       "source_id": "WRI",
       "url": "https://www.wri.org/"
     },
     {
       "errors": [
-        "https://data.worldbank.org/indicator/ER.H2O.FWTL.ZS?locations=RW: The read operation timed out"
+        "https://data.worldbank.org/indicator/SP.POP.GROW?locations=RW: HTTP Error 504: Gateway Timeout",
+        "https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?locations=RW: HTTP Error 504: Gateway Timeout",
+        "https://data.worldbank.org/indicator/EG.ELC.ACCS.ZS?locations=RW: HTTP Error 504: Gateway Timeout",
+        "https://data.worldbank.org/indicator/EN.GHG.CO2.PC.CE.AR5?locations=RW: HTTP Error 504: Gateway Timeout",
+        "https://data.worldbank.org/indicator/ER.H2O.FWTL.ZS?locations=RW: HTTP Error 504: Gateway Timeout"
       ],
       "fetched": 12,
       "records": 12,
@@ -135,15 +139,19 @@
     },
     {
       "errors": [],
-      "fetched": 16,
-      "records": 16,
+      "fetched": 17,
+      "records": 17,
       "source_id": "SEFORALL",
       "url": "https://www.seforall.org/"
     },
     {
       "errors": [
-        "https://unfccc.int/ndcreg: HTTP Error 302: The HTTP server returned a redirect error that would lead to an infinite loop.\nThe last 30x error message was:\nFound",
-        "https://unfccc.int/about-us/2025-highlights: Remote end closed connection without response"
+        "https://unfccc.int/topics/climate-weeks: HTTP Error 503: Service Unavailable",
+        "https://unfccc.int/topics/un-climate-change-global-innovation-hub: HTTP Error 503: Service Unavailable",
+        "https://unfccc.int/reports: HTTP Error 503: Service Unavailable",
+        "https://unfccc.int/ndcreg: HTTP Error 503: Service Unavailable",
+        "https://unfccc.int/about-us/2025-highlights: HTTP Error 503: Service Unavailable",
+        "https://unfccc.int/about-us/reports-highlights/un-climate-change-quarterly-updates: HTTP Error 503: Service Unavailable"
       ],
       "fetched": 30,
       "records": 16,
