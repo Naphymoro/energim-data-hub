@@ -1,22 +1,22 @@
 {
-  "evidence_record_count": 322,
-  "finished_utc": "2026-10-05T08:31:08+00:00",
-  "new_or_updated_records_this_run": 207,
-  "run_id": "733967891065",
+  "evidence_record_count": 330,
+  "finished_utc": "2026-10-12T08:49:08+00:00",
+  "new_or_updated_records_this_run": 187,
+  "run_id": "35ea93830d7c",
   "source_count": 21,
-  "started_utc": "2026-10-05T08:20:38+00:00",
+  "started_utc": "2026-10-12T08:36:49+00:00",
   "summaries": [
     {
       "errors": [],
-      "fetched": 3,
-      "records": 3,
+      "fetched": 2,
+      "records": 2,
       "source_id": "MININFRA",
       "url": "https://www.mininfra.gov.rw/"
     },
     {
       "errors": [],
-      "fetched": 28,
-      "records": 28,
+      "fetched": 26,
+      "records": 26,
       "source_id": "REG",
       "url": "https://www.reg.rw/"
     },
@@ -28,7 +28,9 @@
       "url": "https://www.reg.rw/about-us/subsidiaries/edcl/"
     },
     {
-      "errors": [],
+      "errors": [
+        "https://www.reg.rw/fileadmin/user_upload/Customer_Contract_-_EUCL-REG.pdf: The read operation timed out"
+      ],
       "fetched": 22,
       "records": 22,
       "source_id": "EUCL",
@@ -36,8 +38,8 @@
     },
     {
       "errors": [],
-      "fetched": 18,
-      "records": 18,
+      "fetched": 16,
+      "records": 16,
       "source_id": "NISR",
       "url": "https://statistics.gov.rw/"
     },
@@ -59,8 +61,8 @@
     },
     {
       "errors": [],
-      "fetched": 5,
-      "records": 5,
+      "fetched": 4,
+      "records": 4,
       "source_id": "MINECOFIN",
       "url": "https://www.minecofin.gov.rw/"
     },
@@ -101,13 +103,19 @@
     },
     {
       "errors": [],
-      "fetched": 11,
-      "records": 9,
+      "fetched": 13,
+      "records": 11,
       "source_id": "WRI",
       "url": "https://www.wri.org/"
     },
     {
-      "errors": [],
+      "errors": [
+        "https://data.worldbank.org/indicator/SP.POP.GROW?locations=RW: HTTP Error 502: Bad Gateway",
+        "https://data.worldbank.org/indicator/EG.ELC.ACCS.ZS?locations=RW: HTTP Error 500: Internal Server Error",
+        "https://data.worldbank.org/indicator/EN.GHG.CO2.PC.CE.AR5?locations=RW: The read operation timed out",
+        "https://data.worldbank.org/indicator/ER.H2O.FWTL.ZS?locations=RW: HTTP Error 500: Internal Server Error",
+        "https://data.worldbank.org/indicator/EG.ELC.RNWX.ZS?locations=RW: The read operation timed out"
+      ],
       "fetched": 12,
       "records": 12,
       "source_id": "WORLD_BANK",
@@ -115,19 +123,10 @@
     },
     {
       "errors": [
-        "https://www.irena.org/Energy-Transition/Outlook: HTTP Error 403: Forbidden",
-        "https://www.irena.org/Energy-Transition/Partnerships: HTTP Error 403: Forbidden",
-        "https://www.irena.org/Energy-Transition/Policy: HTTP Error 403: Forbidden",
-        "https://www.irena.org/Energy-Transition/Technology: HTTP Error 403: Forbidden",
-        "https://www.irena.org/Energy-Transition/Socio-economic-impact: HTTP Error 403: Forbidden",
-        "https://www.irena.org/Energy-Transition/Country-engagement: HTTP Error 403: Forbidden",
-        "https://www.irena.org/Energy-Transition/Project-Facilitation: HTTP Error 403: Forbidden",
-        "https://www.irena.org/Energy-Transition/Planning: HTTP Error 403: Forbidden",
-        "https://www.irena.org/Energy-Transition/Innovation: HTTP Error 403: Forbidden",
-        "https://www.irena.org/Energy-Transition/Finance-and-investment: HTTP Error 403: Forbidden"
+        "https://www.irena.org/: HTTP Error 403: Forbidden"
       ],
-      "fetched": 19,
-      "records": 19,
+      "fetched": 1,
+      "records": 1,
       "source_id": "IRENA",
       "url": "https://www.irena.org/"
     },
@@ -142,15 +141,17 @@
     },
     {
       "errors": [],
-      "fetched": 16,
-      "records": 16,
+      "fetched": 17,
+      "records": 17,
       "source_id": "SEFORALL",
       "url": "https://www.seforall.org/"
     },
     {
-      "errors": [],
+      "errors": [
+        "https://unfccc.int/documents?f%5B0%5D=topic%3A3984: HTTP Error 403: Forbidden"
+      ],
       "fetched": 30,
-      "records": 16,
+      "records": 17,
       "source_id": "UNFCCC",
       "url": "https://unfccc.int/documents"
     },
