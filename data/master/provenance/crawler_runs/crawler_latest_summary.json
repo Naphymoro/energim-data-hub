@@ -1,10 +1,10 @@
 {
-  "evidence_record_count": 330,
-  "finished_utc": "2026-10-12T08:49:08+00:00",
-  "new_or_updated_records_this_run": 187,
-  "run_id": "35ea93830d7c",
+  "evidence_record_count": 340,
+  "finished_utc": "2026-10-19T07:30:01+00:00",
+  "new_or_updated_records_this_run": 190,
+  "run_id": "6f9476b00fbc",
   "source_count": 21,
-  "started_utc": "2026-10-12T08:36:49+00:00",
+  "started_utc": "2026-10-19T07:18:44+00:00",
   "summaries": [
     {
       "errors": [],
@@ -14,14 +14,18 @@
       "url": "https://www.mininfra.gov.rw/"
     },
     {
-      "errors": [],
+      "errors": [
+        "https://www.reg.rw/what-we-do/generation/: HTTP Error 500: Internal Server Error"
+      ],
       "fetched": 26,
       "records": 26,
       "source_id": "REG",
       "url": "https://www.reg.rw/"
     },
     {
-      "errors": [],
+      "errors": [
+        "https://www.reg.rw/what-we-do/generation/: HTTP Error 500: Internal Server Error"
+      ],
       "fetched": 22,
       "records": 22,
       "source_id": "EDCL",
@@ -29,7 +33,7 @@
     },
     {
       "errors": [
-        "https://www.reg.rw/fileadmin/user_upload/Customer_Contract_-_EUCL-REG.pdf: The read operation timed out"
+        "https://www.reg.rw/what-we-do/generation/: HTTP Error 500: Internal Server Error"
       ],
       "fetched": 22,
       "records": 22,
@@ -45,8 +49,8 @@
     },
     {
       "errors": [],
-      "fetched": 5,
-      "records": 5,
+      "fetched": 7,
+      "records": 7,
       "source_id": "REMA",
       "url": "https://www.rema.gov.rw/"
     },
@@ -54,8 +58,8 @@
       "errors": [
         "https://www.rura.rw/publications/board-decisions: HTTP Error 404: Not Found"
       ],
-      "fetched": 16,
-      "records": 16,
+      "fetched": 17,
+      "records": 17,
       "source_id": "RURA",
       "url": "https://www.rura.rw/"
     },
@@ -103,19 +107,13 @@
     },
     {
       "errors": [],
-      "fetched": 13,
-      "records": 11,
+      "fetched": 14,
+      "records": 12,
       "source_id": "WRI",
       "url": "https://www.wri.org/"
     },
     {
-      "errors": [
-        "https://data.worldbank.org/indicator/SP.POP.GROW?locations=RW: HTTP Error 502: Bad Gateway",
-        "https://data.worldbank.org/indicator/EG.ELC.ACCS.ZS?locations=RW: HTTP Error 500: Internal Server Error",
-        "https://data.worldbank.org/indicator/EN.GHG.CO2.PC.CE.AR5?locations=RW: The read operation timed out",
-        "https://data.worldbank.org/indicator/ER.H2O.FWTL.ZS?locations=RW: HTTP Error 500: Internal Server Error",
-        "https://data.worldbank.org/indicator/EG.ELC.RNWX.ZS?locations=RW: The read operation timed out"
-      ],
+      "errors": [],
       "fetched": 12,
       "records": 12,
       "source_id": "WORLD_BANK",
@@ -147,11 +145,9 @@
       "url": "https://www.seforall.org/"
     },
     {
-      "errors": [
-        "https://unfccc.int/documents?f%5B0%5D=topic%3A3984: HTTP Error 403: Forbidden"
-      ],
+      "errors": [],
       "fetched": 30,
-      "records": 17,
+      "records": 16,
       "source_id": "UNFCCC",
       "url": "https://unfccc.int/documents"
     },
