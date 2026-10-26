@@ -1,49 +1,49 @@
 {
-  "evidence_record_count": 340,
-  "finished_utc": "2026-10-19T07:30:01+00:00",
-  "new_or_updated_records_this_run": 190,
-  "run_id": "6f9476b00fbc",
+  "evidence_record_count": 347,
+  "finished_utc": "2026-10-26T07:31:47+00:00",
+  "new_or_updated_records_this_run": 120,
+  "run_id": "281d42dc6618",
   "source_count": 21,
-  "started_utc": "2026-10-19T07:18:44+00:00",
+  "started_utc": "2026-10-26T07:24:35+00:00",
   "summaries": [
     {
       "errors": [],
-      "fetched": 2,
-      "records": 2,
+      "fetched": 3,
+      "records": 3,
       "source_id": "MININFRA",
       "url": "https://www.mininfra.gov.rw/"
     },
     {
       "errors": [
-        "https://www.reg.rw/what-we-do/generation/: HTTP Error 500: Internal Server Error"
+        "https://www.reg.rw/: The read operation timed out"
       ],
-      "fetched": 26,
-      "records": 26,
+      "fetched": 1,
+      "records": 1,
       "source_id": "REG",
       "url": "https://www.reg.rw/"
     },
     {
       "errors": [
-        "https://www.reg.rw/what-we-do/generation/: HTTP Error 500: Internal Server Error"
+        "https://www.reg.rw/about-us/subsidiaries/edcl/: The read operation timed out"
       ],
-      "fetched": 22,
-      "records": 22,
+      "fetched": 1,
+      "records": 1,
       "source_id": "EDCL",
       "url": "https://www.reg.rw/about-us/subsidiaries/edcl/"
     },
     {
       "errors": [
-        "https://www.reg.rw/what-we-do/generation/: HTTP Error 500: Internal Server Error"
+        "https://www.reg.rw/about-us/subsidiaries/eucl/: The read operation timed out"
       ],
-      "fetched": 22,
-      "records": 22,
+      "fetched": 1,
+      "records": 1,
       "source_id": "EUCL",
       "url": "https://www.reg.rw/about-us/subsidiaries/eucl/"
     },
     {
       "errors": [],
-      "fetched": 16,
-      "records": 16,
+      "fetched": 14,
+      "records": 14,
       "source_id": "NISR",
       "url": "https://statistics.gov.rw/"
     },
@@ -92,9 +92,11 @@
       "url": "https://www.rwb.rw/"
     },
     {
-      "errors": [],
-      "fetched": 3,
-      "records": 3,
+      "errors": [
+        "https://www.wasac.rw/: <urlopen error _ssl.c:999: The handshake operation timed out>"
+      ],
+      "fetched": 1,
+      "records": 1,
       "source_id": "WASAC",
       "url": "https://www.wasac.rw/"
     },
@@ -113,7 +115,11 @@
       "url": "https://www.wri.org/"
     },
     {
-      "errors": [],
+      "errors": [
+        "https://data.worldbank.org/indicator/EN.GHG.CO2.PC.CE.AR5?locations=RW: The read operation timed out",
+        "https://data.worldbank.org/indicator/ER.H2O.FWTL.ZS?locations=RW: The read operation timed out",
+        "https://data.worldbank.org/indicator/EG.ELC.RNWX.ZS?locations=RW: HTTP Error 500: Internal Server Error"
+      ],
       "fetched": 12,
       "records": 12,
       "source_id": "WORLD_BANK",
