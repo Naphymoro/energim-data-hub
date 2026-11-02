@@ -1,10 +1,10 @@
 {
-  "evidence_record_count": 347,
-  "finished_utc": "2026-10-26T07:31:47+00:00",
-  "new_or_updated_records_this_run": 120,
-  "run_id": "281d42dc6618",
+  "evidence_record_count": 353,
+  "finished_utc": "2026-11-02T09:00:22+00:00",
+  "new_or_updated_records_this_run": 124,
+  "run_id": "5bb2c23f9a5d",
   "source_count": 21,
-  "started_utc": "2026-10-26T07:24:35+00:00",
+  "started_utc": "2026-11-02T08:53:29+00:00",
   "summaries": [
     {
       "errors": [],
@@ -42,8 +42,8 @@
     },
     {
       "errors": [],
-      "fetched": 14,
-      "records": 14,
+      "fetched": 16,
+      "records": 16,
       "source_id": "NISR",
       "url": "https://statistics.gov.rw/"
     },
@@ -92,11 +92,9 @@
       "url": "https://www.rwb.rw/"
     },
     {
-      "errors": [
-        "https://www.wasac.rw/: <urlopen error _ssl.c:999: The handshake operation timed out>"
-      ],
-      "fetched": 1,
-      "records": 1,
+      "errors": [],
+      "fetched": 3,
+      "records": 3,
       "source_id": "WASAC",
       "url": "https://www.wasac.rw/"
     },
@@ -115,11 +113,7 @@
       "url": "https://www.wri.org/"
     },
     {
-      "errors": [
-        "https://data.worldbank.org/indicator/EN.GHG.CO2.PC.CE.AR5?locations=RW: The read operation timed out",
-        "https://data.worldbank.org/indicator/ER.H2O.FWTL.ZS?locations=RW: The read operation timed out",
-        "https://data.worldbank.org/indicator/EG.ELC.RNWX.ZS?locations=RW: HTTP Error 500: Internal Server Error"
-      ],
+      "errors": [],
       "fetched": 12,
       "records": 12,
       "source_id": "WORLD_BANK",
