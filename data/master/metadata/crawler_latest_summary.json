@@ -1,10 +1,10 @@
 {
-  "evidence_record_count": 353,
-  "finished_utc": "2026-11-02T09:00:22+00:00",
-  "new_or_updated_records_this_run": 124,
-  "run_id": "5bb2c23f9a5d",
+  "evidence_record_count": 388,
+  "finished_utc": "2026-11-09T09:15:16+00:00",
+  "new_or_updated_records_this_run": 181,
+  "run_id": "29e203337310",
   "source_count": 21,
-  "started_utc": "2026-11-02T08:53:29+00:00",
+  "started_utc": "2026-11-09T09:05:59+00:00",
   "summaries": [
     {
       "errors": [],
@@ -14,29 +14,23 @@
       "url": "https://www.mininfra.gov.rw/"
     },
     {
-      "errors": [
-        "https://www.reg.rw/: The read operation timed out"
-      ],
-      "fetched": 1,
-      "records": 1,
+      "errors": [],
+      "fetched": 23,
+      "records": 23,
       "source_id": "REG",
       "url": "https://www.reg.rw/"
     },
     {
-      "errors": [
-        "https://www.reg.rw/about-us/subsidiaries/edcl/: The read operation timed out"
-      ],
-      "fetched": 1,
-      "records": 1,
+      "errors": [],
+      "fetched": 18,
+      "records": 18,
       "source_id": "EDCL",
       "url": "https://www.reg.rw/about-us/subsidiaries/edcl/"
     },
     {
-      "errors": [
-        "https://www.reg.rw/about-us/subsidiaries/eucl/: The read operation timed out"
-      ],
-      "fetched": 1,
-      "records": 1,
+      "errors": [],
+      "fetched": 18,
+      "records": 18,
       "source_id": "EUCL",
       "url": "https://www.reg.rw/about-us/subsidiaries/eucl/"
     },
@@ -58,8 +52,8 @@
       "errors": [
         "https://www.rura.rw/publications/board-decisions: HTTP Error 404: Not Found"
       ],
-      "fetched": 17,
-      "records": 17,
+      "fetched": 18,
+      "records": 18,
       "source_id": "RURA",
       "url": "https://www.rura.rw/"
     },
@@ -86,8 +80,8 @@
     },
     {
       "errors": [],
-      "fetched": 2,
-      "records": 1,
+      "fetched": 3,
+      "records": 2,
       "source_id": "RWB",
       "url": "https://www.rwb.rw/"
     },
@@ -107,13 +101,17 @@
     },
     {
       "errors": [],
-      "fetched": 14,
-      "records": 12,
+      "fetched": 13,
+      "records": 11,
       "source_id": "WRI",
       "url": "https://www.wri.org/"
     },
     {
-      "errors": [],
+      "errors": [
+        "https://data.worldbank.org/indicator/EN.GHG.CO2.PC.CE.AR5?locations=RW: The read operation timed out",
+        "https://data.worldbank.org/indicator/ER.H2O.FWTL.ZS?locations=RW: The read operation timed out",
+        "https://data.worldbank.org/indicator/EG.ELC.RNWX.ZS?locations=RW: The read operation timed out"
+      ],
       "fetched": 12,
       "records": 12,
       "source_id": "WORLD_BANK",
