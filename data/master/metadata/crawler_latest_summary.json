@@ -1,10 +1,10 @@
 {
-  "evidence_record_count": 403,
-  "finished_utc": "2026-11-16T09:14:29+00:00",
-  "new_or_updated_records_this_run": 198,
-  "run_id": "74e3bd5c5dd5",
+  "evidence_record_count": 410,
+  "finished_utc": "2026-11-23T10:23:32+00:00",
+  "new_or_updated_records_this_run": 151,
+  "run_id": "064cc077544c",
   "source_count": 21,
-  "started_utc": "2026-11-16T08:59:40+00:00",
+  "started_utc": "2026-11-23T10:17:36+00:00",
   "summaries": [
     {
       "errors": [],
@@ -15,8 +15,8 @@
     },
     {
       "errors": [],
-      "fetched": 21,
-      "records": 21,
+      "fetched": 19,
+      "records": 19,
       "source_id": "REG",
       "url": "https://www.reg.rw/"
     },
@@ -36,8 +36,8 @@
     },
     {
       "errors": [],
-      "fetched": 17,
-      "records": 17,
+      "fetched": 18,
+      "records": 18,
       "source_id": "NISR",
       "url": "https://statistics.gov.rw/"
     },
@@ -59,8 +59,8 @@
     },
     {
       "errors": [],
-      "fetched": 4,
-      "records": 4,
+      "fetched": 2,
+      "records": 2,
       "source_id": "MINECOFIN",
       "url": "https://www.minecofin.gov.rw/"
     },
@@ -93,9 +93,7 @@
       "url": "https://www.wasac.rw/"
     },
     {
-      "errors": [
-        "https://www.epdrwanda.com/: <urlopen error [Errno 111] Connection refused>"
-      ],
+      "errors": [],
       "fetched": 1,
       "records": 1,
       "source_id": "EPD",
@@ -103,39 +101,26 @@
     },
     {
       "errors": [],
-      "fetched": 12,
-      "records": 10,
+      "fetched": 11,
+      "records": 9,
       "source_id": "WRI",
       "url": "https://www.wri.org/"
     },
     {
       "errors": [
-        "https://data.worldbank.org/indicator/SP.POP.GROW?locations=RW: HTTP Error 500: Internal Server Error",
-        "https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?locations=RW: The read operation timed out",
-        "https://data.worldbank.org/indicator/EG.ELC.ACCS.ZS?locations=RW: The read operation timed out",
-        "https://data.worldbank.org/indicator/ER.H2O.FWTL.ZS?locations=RW: The read operation timed out",
-        "https://data.worldbank.org/indicator/EG.ELC.RNWX.ZS?locations=RW: The read operation timed out"
+        "https://data.worldbank.org/country/rwanda: HTTP Error 403: Forbidden"
       ],
-      "fetched": 12,
-      "records": 12,
+      "fetched": 1,
+      "records": 1,
       "source_id": "WORLD_BANK",
       "url": "https://data.worldbank.org/country/rwanda"
     },
     {
       "errors": [
-        "https://www.irena.org/Energy-Transition/Outlook: HTTP Error 403: Forbidden",
-        "https://www.irena.org/Energy-Transition/Partnerships: HTTP Error 403: Forbidden",
-        "https://www.irena.org/Energy-Transition/Policy: HTTP Error 403: Forbidden",
-        "https://www.irena.org/Energy-Transition/Technology: HTTP Error 403: Forbidden",
-        "https://www.irena.org/Energy-Transition/Socio-economic-impact: HTTP Error 403: Forbidden",
-        "https://www.irena.org/Energy-Transition/Country-engagement: HTTP Error 403: Forbidden",
-        "https://www.irena.org/Energy-Transition/Project-Facilitation: HTTP Error 403: Forbidden",
-        "https://www.irena.org/Energy-Transition/Planning: HTTP Error 403: Forbidden",
-        "https://www.irena.org/Energy-Transition/Innovation: HTTP Error 403: Forbidden",
-        "https://www.irena.org/Energy-Transition/Finance-and-investment: HTTP Error 403: Forbidden"
+        "https://www.irena.org/: HTTP Error 403: Forbidden"
       ],
-      "fetched": 18,
-      "records": 18,
+      "fetched": 1,
+      "records": 1,
       "source_id": "IRENA",
       "url": "https://www.irena.org/"
     },
@@ -157,8 +142,8 @@
     },
     {
       "errors": [],
-      "fetched": 30,
-      "records": 16,
+      "fetched": 1,
+      "records": 1,
       "source_id": "UNFCCC",
       "url": "https://unfccc.int/documents"
     },
